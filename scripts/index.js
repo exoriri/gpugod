@@ -4,20 +4,42 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import Swiper from 'swiper';
 
-const headerHeight = document.querySelector('.header').offsetHeight;
-const pageWrapper = document.querySelector('.page-wrapper');
-const hamburgerMenu = document.getElementById('hamburger-image');
-
-if (hamburgerMenu) {
-  hamburgerMenu.addEventListener('click', function() {
-    
-  })
-}
-
-pageWrapper.style.paddingTop = headerHeight+30+'px';
-
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
+
+const headerHeight = document.querySelector('.header').offsetHeight;
+const pageWrapper = document.querySelector('.page-wrapper');
+
+if (window.screen.width < 1024) {
+  const headerHeight = document.querySelector('.header-mobile').offsetHeight;
+
+  const hamburgerMenu = document.getElementById('hamburger-image');
+  const navMain = document.getElementById("nav-main");
+  const sectionContent = document.querySelector('.section-content');
+  let toggle = false;
+  let menuAnimation = gsap.timeline({ paused: true });
+  let menuAnimationBack = gsap.timeline({paused:true, reversed: true});
+
+  hamburgerMenu.addEventListener('click', () => {
+    if (hamburgerMenu.classList.contains('hamburger--active')) {
+      hamburgerMenu.classList.remove('hamburger--active');
+      sectionContent.style.display = 'none';
+      menuAnimationBack
+      .to(navMain, 0.55, { width: 0, className: "+=skewback", ease: "power4.easeIn", transform: "translate3d(0,0,0)" }, 0);
+      menuAnimationBack.play(0);
+    } else {
+      hamburgerMenu.classList.add('hamburger--active');
+      sectionContent.style.display = 'block';
+      menuAnimation
+      .to(navMain, 0.4, { width: '100%', className: "+=vertical", ease: "power2.easeInOut", transform: "translate3d(0,0,0)" }, 0);
+      menuAnimation.play(0)
+    }
+  });
+  pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
+} else {
+  pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
+}
+
 
 const smoothScrollTrigger = (containerId, videoClass) => {
   const video = document.querySelector(videoClass);
@@ -90,13 +112,14 @@ detailsButtons.forEach(btn => {
   //only second element always has a accordion text
   const detailsContent = btn.getElementsByClassName('details__content')[1];
   const detailsIcon = btn.getElementsByClassName('details__toggle-icon--plus')[0];
+
   btn.addEventListener('click', (e) => {
     detailsContent.classList.toggle('details__content--active');
     detailsIcon.classList.toggle('details__toggle-icon--minus');
     if (detailsContent.style.maxHeight) {
       detailsContent.style.maxHeight = null;
     } else {
-      detailsContent.style.maxHeight = btn.scrollHeight + "px";
+      detailsContent.style.maxHeight = btn.scrollHeight + 50 + "px";
     }
   })
 });
@@ -107,7 +130,7 @@ const pin = (container) => {
       trigger: container,
       scrub: 1,
       start: "center center",
-      pin:true,
+      pin: true,
       toggleActions: "play reverse play reverse",
     }
   });
@@ -152,7 +175,7 @@ const tl = gsap.timeline({
 
 greetingAnimatedItems.forEach(item => {
   if (item.className.includes('header')) {
-    tl.to('._header-white', {background: '#fff'});
+    tl.to('._header-white', { background: '#fff' });
   }
   tl
     .to(item, item.tagName === 'BODY'
@@ -160,11 +183,11 @@ greetingAnimatedItems.forEach(item => {
       : { color: '#000' })
 });
 
-  var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-  });
+var swiper = new Swiper(".mySwiper", {
+  slidesPerView: 3,
+  spaceBetween: 30,
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
+});

@@ -16426,17 +16426,51 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   Swiper.use([Resize, Observer2]);
   var core_default = Swiper; // scripts/index.js
 
-  var headerHeight = document.querySelector(".header").offsetHeight;
-  var pageWrapper = document.querySelector(".page-wrapper");
-  var hamburgerMenu = document.getElementById("hamburger-image");
-
-  if (hamburgerMenu) {
-    hamburgerMenu.addEventListener("click", function () {});
-  }
-
-  pageWrapper.style.paddingTop = headerHeight + 30 + "px";
   gsapWithCSS.registerPlugin(ScrollToPlugin, ScrollTrigger2);
   gsapWithCSS.registerPlugin(Draggable);
+  var headerHeight = document.querySelector(".header").offsetHeight;
+  var pageWrapper = document.querySelector(".page-wrapper");
+
+  if (window.screen.width < 1024) {
+    var headerHeight2 = document.querySelector(".header-mobile").offsetHeight;
+    var hamburgerMenu = document.getElementById("hamburger-image");
+    var navMain = document.getElementById("nav-main");
+    var sectionContent = document.querySelector(".section-content");
+    var toggle = false;
+    var menuAnimation = gsapWithCSS.timeline({
+      paused: true
+    });
+    var menuAnimationBack = gsapWithCSS.timeline({
+      paused: true,
+      reversed: true
+    });
+    hamburgerMenu.addEventListener("click", function () {
+      if (hamburgerMenu.classList.contains("hamburger--active")) {
+        hamburgerMenu.classList.remove("hamburger--active");
+        sectionContent.style.display = "none";
+        menuAnimationBack.to(navMain, 0.55, {
+          width: 0,
+          className: "+=skewback",
+          ease: "power4.easeIn",
+          transform: "translate3d(0,0,0)"
+        }, 0);
+        menuAnimationBack.play(0);
+      } else {
+        hamburgerMenu.classList.add("hamburger--active");
+        sectionContent.style.display = "block";
+        menuAnimation.to(navMain, 0.4, {
+          width: "100%",
+          className: "+=vertical",
+          ease: "power2.easeInOut",
+          transform: "translate3d(0,0,0)"
+        }, 0);
+        menuAnimation.play(0);
+      }
+    });
+    pageWrapper.style.paddingTop = headerHeight2 + 30 + "px";
+  } else {
+    pageWrapper.style.paddingTop = headerHeight + 30 + "px";
+  }
 
   var smoothScrollTrigger = function smoothScrollTrigger(containerId, videoClass) {
     var video = document.querySelector(videoClass);
@@ -16504,7 +16538,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (detailsContent.style.maxHeight) {
         detailsContent.style.maxHeight = null;
       } else {
-        detailsContent.style.maxHeight = btn.scrollHeight + "px";
+        detailsContent.style.maxHeight = btn.scrollHeight + 50 + "px";
       }
     });
   });
