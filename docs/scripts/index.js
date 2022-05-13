@@ -2436,26 +2436,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     _proto2.tweenTo = function tweenTo(position, vars) {
       vars = vars || {};
 
-      var tl2 = this,
-          endTime = _parsePosition(tl2, position),
+      var tl = this,
+          endTime = _parsePosition(tl, position),
           _vars = vars,
           startAt = _vars.startAt,
           _onStart = _vars.onStart,
           onStartParams = _vars.onStartParams,
           immediateRender = _vars.immediateRender,
           initted,
-          tween = Tween.to(tl2, _setDefaults({
+          tween = Tween.to(tl, _setDefaults({
         ease: vars.ease || "none",
         lazy: false,
         immediateRender: false,
         time: endTime,
         overwrite: "auto",
-        duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl2._time)) / tl2.timeScale()) || _tinyNum,
+        duration: vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale()) || _tinyNum,
         onStart: function onStart() {
-          tl2.pause();
+          tl.pause();
 
           if (!initted) {
-            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl2._time)) / tl2.timeScale());
+            var duration = vars.duration || Math.abs((endTime - (startAt && "time" in startAt ? startAt.time : tl._time)) / tl.timeScale());
             tween._dur !== duration && _setDuration(tween, duration, 0, 1).render(tween._time, true, true);
             initted = 1;
           }
@@ -2801,7 +2801,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         parent2 = tween.parent,
         fullTargets = parent2 && parent2.data === "nested" ? parent2.parent._targets : targets,
         autoOverwrite = tween._overwrite === "auto" && !_suppressOverwrites,
-        tl2 = tween.timeline,
+        tl = tween.timeline,
         cleanVars,
         i,
         p,
@@ -2815,7 +2815,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         index2,
         harnessVars,
         overwritten;
-    tl2 && (!keyframes || !ease) && (ease = "none");
+    tl && (!keyframes || !ease) && (ease = "none");
     tween._ease = _parseEase(ease, _defaults.ease);
     tween._yEase = yoyoEase ? _invertEase(_parseEase(yoyoEase === true ? ease : yoyoEase, _defaults.ease)) : 0;
 
@@ -2825,9 +2825,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       tween._ease = yoyoEase;
     }
 
-    tween._from = !tl2 && !!vars.runBackwards;
+    tween._from = !tl && !!vars.runBackwards;
 
-    if (!tl2 || keyframes && !vars.stagger) {
+    if (!tl || keyframes && !vars.stagger) {
       harness = targets[0] ? _getCache(targets[0]).harness : 0;
       harnessVars = harness && vars[harness.prop];
       cleanVars = _copyExcluding(vars, _reservedProps);
@@ -2943,7 +2943,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     tween._onUpdate = onUpdate;
     tween._initted = (!tween._op || tween._pt) && !overwritten;
-    keyframes && time <= 0 && tl2.render(_bigNum, true, true);
+    keyframes && time <= 0 && tl.render(_bigNum, true, true);
   };
 
   var _updatePropTweens = function _updatePropTweens2(tween, property, value, start, startIsRelative, ratio, time) {
@@ -3084,7 +3084,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           yoyoEase = _this3$vars.yoyoEase,
           parent2 = vars.parent || _globalTimeline,
           parsedTargets = (_isArray(targets) || _isTypedArray(targets) ? _isNumber(targets[0]) : "length" in vars) ? [targets] : toArray(targets),
-          tl2,
+          tl,
           i,
           copy,
           l,
@@ -3098,13 +3098,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
       if (keyframes || stagger || _isFuncOrString(duration) || _isFuncOrString(delay)) {
         vars = _this3.vars;
-        tl2 = _this3.timeline = new Timeline({
+        tl = _this3.timeline = new Timeline({
           data: "nested",
           defaults: defaults2 || {}
         });
-        tl2.kill();
-        tl2.parent = tl2._dp = _assertThisInitialized(_this3);
-        tl2._start = 0;
+        tl.kill();
+        tl.parent = tl._dp = _assertThisInitialized(_this3);
+        tl._start = 0;
 
         if (stagger || _isFuncOrString(duration) || _isFuncOrString(delay)) {
           l = parsedTargets.length;
@@ -3134,17 +3134,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               copy.delay = 0;
             }
 
-            tl2.to(curTarget, copy, staggerFunc ? staggerFunc(i, curTarget, parsedTargets) : 0);
-            tl2._ease = _easeMap.none;
+            tl.to(curTarget, copy, staggerFunc ? staggerFunc(i, curTarget, parsedTargets) : 0);
+            tl._ease = _easeMap.none;
           }
 
-          tl2.duration() ? duration = delay = 0 : _this3.timeline = 0;
+          tl.duration() ? duration = delay = 0 : _this3.timeline = 0;
         } else if (keyframes) {
-          _inheritDefaults(_setDefaults(tl2.vars.defaults, {
+          _inheritDefaults(_setDefaults(tl.vars.defaults, {
             ease: "none"
           }));
 
-          tl2._ease = _parseEase(keyframes.ease || vars.ease || "none");
+          tl._ease = _parseEase(keyframes.ease || vars.ease || "none");
           var time = 0,
               a,
               kf,
@@ -3152,7 +3152,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
           if (_isArray(keyframes)) {
             keyframes.forEach(function (frame) {
-              return tl2.to(parsedTargets, frame, ">");
+              return tl.to(parsedTargets, frame, ">");
             });
           } else {
             copy = {};
@@ -3174,18 +3174,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
                   duration: (kf.t - (i ? a[i - 1].t : 0)) / 100 * duration
                 };
                 v[p] = kf.v;
-                tl2.to(parsedTargets, v, time);
+                tl.to(parsedTargets, v, time);
                 time += v.duration;
               }
             }
 
-            tl2.duration() < duration && tl2.to({}, {
-              duration: duration - tl2.duration()
+            tl.duration() < duration && tl.to({}, {
+              duration: duration - tl.duration()
             });
           }
         }
 
-        duration || _this3.duration(duration = tl2.duration());
+        duration || _this3.duration(duration = tl.duration());
       } else {
         _this3.timeline = 0;
       }
@@ -3517,11 +3517,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   _forEachName("staggerTo,staggerFrom,staggerFromTo", function (name) {
     Tween[name] = function () {
-      var tl2 = new Timeline(),
+      var tl = new Timeline(),
           params = _slice.call(arguments, 0);
 
       params.splice(name === "staggerFromTo" ? 5 : 4, 0, 0);
-      return tl2[name].apply(tl2, params);
+      return tl[name].apply(tl, params);
     };
   });
 
@@ -3786,8 +3786,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return pluginName && !_plugins[pluginName] && !_globals[pluginName] && _warn(name + " effect requires " + pluginName + " plugin.");
       });
 
-      _effects[name] = function (targets, vars, tl2) {
-        return effect(toArray(targets), _setDefaults(vars || {}, defaults2), tl2);
+      _effects[name] = function (targets, vars, tl) {
+        return effect(toArray(targets), _setDefaults(vars || {}, defaults2), tl);
       };
 
       if (extendTimeline) {
@@ -3810,30 +3810,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         vars = {};
       }
 
-      var tl2 = new Timeline(vars),
+      var tl = new Timeline(vars),
           child,
           next2;
-      tl2.smoothChildTiming = _isNotFalse(vars.smoothChildTiming);
+      tl.smoothChildTiming = _isNotFalse(vars.smoothChildTiming);
 
-      _globalTimeline.remove(tl2);
+      _globalTimeline.remove(tl);
 
-      tl2._dp = 0;
-      tl2._time = tl2._tTime = _globalTimeline._time;
+      tl._dp = 0;
+      tl._time = tl._tTime = _globalTimeline._time;
       child = _globalTimeline._first;
 
       while (child) {
         next2 = child._next;
 
         if (includeDelayedCalls || !(!child._dur && child instanceof Tween && child.vars.onComplete === child._targets[0])) {
-          _addToTimeline(tl2, child, child._start - child._delay);
+          _addToTimeline(tl, child, child._start - child._delay);
         }
 
         child = next2;
       }
 
-      _addToTimeline(_globalTimeline, tl2, 0);
+      _addToTimeline(_globalTimeline, tl, 0);
 
-      return tl2;
+      return tl;
     },
     utils: {
       wrap: wrap,
@@ -6888,28 +6888,28 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   var _stateProps = _propNamesToCopy.concat([_width, _height, "boxSizing", "max" + _Width, "max" + _Height, "position", _margin, _padding, _padding + _Top, _padding + _Right, _padding + _Bottom, _padding + _Left]);
 
-  var _swapPinOut = function _swapPinOut2(pin2, spacer, state) {
+  var _swapPinOut = function _swapPinOut2(pin, spacer, state) {
     _setState(state);
 
-    var cache = pin2._gsap;
+    var cache = pin._gsap;
 
     if (cache.spacerIsNative) {
       _setState(cache.spacerState);
-    } else if (pin2.parentNode === spacer) {
+    } else if (pin.parentNode === spacer) {
       var parent2 = spacer.parentNode;
 
       if (parent2) {
-        parent2.insertBefore(pin2, spacer);
+        parent2.insertBefore(pin, spacer);
         parent2.removeChild(spacer);
       }
     }
   };
 
-  var _swapPinIn = function _swapPinIn2(pin2, spacer, cs, spacerState) {
-    if (pin2.parentNode !== spacer) {
+  var _swapPinIn = function _swapPinIn2(pin, spacer, cs, spacerState) {
+    if (pin.parentNode !== spacer) {
       var i = _propNamesToCopy.length,
           spacerStyle = spacer.style,
-          pinStyle = pin2.style,
+          pinStyle = pin.style,
           p;
 
       while (i--) {
@@ -6922,8 +6922,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       pinStyle[_bottom] = pinStyle[_right] = spacerStyle.flexBasis = "auto";
       spacerStyle.overflow = "visible";
       spacerStyle.boxSizing = "border-box";
-      spacerStyle[_width] = _getSize(pin2, _horizontal) + _px;
-      spacerStyle[_height] = _getSize(pin2, _vertical) + _px;
+      spacerStyle[_width] = _getSize(pin, _horizontal) + _px;
+      spacerStyle[_height] = _getSize(pin, _vertical) + _px;
       spacerStyle[_padding] = pinStyle[_margin] = pinStyle[_top] = pinStyle[_left] = "0";
 
       _setState(spacerState);
@@ -6931,8 +6931,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       pinStyle[_width] = pinStyle["max" + _Width] = cs[_width];
       pinStyle[_height] = pinStyle["max" + _Height] = cs[_height];
       pinStyle[_padding] = cs[_padding];
-      pin2.parentNode.insertBefore(spacer, pin2);
-      spacer.appendChild(pin2);
+      pin.parentNode.insertBefore(spacer, pin);
+      spacer.appendChild(pin);
     }
   };
 
@@ -7167,7 +7167,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           onRefresh = _vars.onRefresh,
           scrub = _vars.scrub,
           trigger2 = _vars.trigger,
-          pin2 = _vars.pin,
+          pin = _vars.pin,
           pinSpacing = _vars.pinSpacing,
           invalidateOnRefresh = _vars.invalidateOnRefresh,
           anticipatePin = _vars.anticipatePin,
@@ -7358,22 +7358,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
 
       id && (_ids[id] = self);
-      trigger2 = self.trigger = _getTarget(trigger2 || pin2);
+      trigger2 = self.trigger = _getTarget(trigger2 || pin);
       customRevertReturn = trigger2 && trigger2._gsap && trigger2._gsap.stRevert;
       customRevertReturn && (customRevertReturn = customRevertReturn(self));
-      pin2 = pin2 === true ? trigger2 : _getTarget(pin2);
+      pin = pin === true ? trigger2 : _getTarget(pin);
       _isString5(toggleClass2) && (toggleClass2 = {
         targets: trigger2,
         className: toggleClass2
       });
 
-      if (pin2) {
-        pinSpacing === false || pinSpacing === _margin || (pinSpacing = !pinSpacing && _getComputedStyle(pin2.parentNode).display === "flex" ? false : _padding);
-        self.pin = pin2;
-        vars.force3D !== false && gsap4.set(pin2, {
+      if (pin) {
+        pinSpacing === false || pinSpacing === _margin || (pinSpacing = !pinSpacing && _getComputedStyle(pin.parentNode).display === "flex" ? false : _padding);
+        self.pin = pin;
+        vars.force3D !== false && gsap4.set(pin, {
           force3D: true
         });
-        pinCache = gsap4.core.getCache(pin2);
+        pinCache = gsap4.core.getCache(pin);
 
         if (!pinCache.spacer) {
           if (pinSpacer) {
@@ -7386,20 +7386,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           pinCache.spacer = spacer = pinSpacer || _doc4.createElement("div");
           spacer.classList.add("pin-spacer");
           id && spacer.classList.add("pin-spacer-" + id);
-          pinCache.pinState = pinOriginalState = _getState(pin2);
+          pinCache.pinState = pinOriginalState = _getState(pin);
         } else {
           pinOriginalState = pinCache.pinState;
         }
 
         self.spacer = spacer = pinCache.spacer;
-        cs = _getComputedStyle(pin2);
+        cs = _getComputedStyle(pin);
         spacingStart = cs[pinSpacing + direction.os2];
-        pinGetter = gsap4.getProperty(pin2);
-        pinSetter = gsap4.quickSetter(pin2, direction.a, _px);
+        pinGetter = gsap4.getProperty(pin);
+        pinSetter = gsap4.quickSetter(pin, direction.a, _px);
 
-        _swapPinIn(pin2, spacer, cs);
+        _swapPinIn(pin, spacer, cs);
 
-        pinState = _getState(pin2);
+        pinState = _getState(pin);
       }
 
       if (markers) {
@@ -7460,7 +7460,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           r && (_refreshing = 1);
           self.update(r);
           _refreshing = prevRefreshing;
-          pin2 && (r ? _swapPinOut(pin2, spacer, pinOriginalState) : (!pinReparent || !self.isActive) && _swapPinIn(pin2, spacer, _getComputedStyle(pin2), spacerState));
+          pin && (r ? _swapPinOut(pin, spacer, pinOriginalState) : (!pinReparent || !self.isActive) && _swapPinIn(pin, spacer, _getComputedStyle(pin), spacerState));
           self.isReverted = r;
         }
       };
@@ -7470,7 +7470,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           return;
         }
 
-        if (pin2 && soft && _lastScrollTime) {
+        if (pin && soft && _lastScrollTime) {
           _addListener3(ScrollTrigger3, "scrollEnd", _softRefresh);
 
           return;
@@ -7496,7 +7496,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             otherPinOffset = 0,
             parsedEnd = vars.end,
             parsedEndTrigger = vars.endTrigger || trigger2,
-            parsedStart = vars.start || (vars.start === 0 || !trigger2 ? 0 : pin2 ? "0 0" : "0 100%"),
+            parsedStart = vars.start || (vars.start === 0 || !trigger2 ? 0 : pin ? "0 0" : "0 100%"),
             pinnedContainer = self.pinnedContainer = vars.pinnedContainer && _getTarget(vars.pinnedContainer),
             triggerIndex = trigger2 && Math.max(0, _triggers.indexOf(self)) || 0,
             i = triggerIndex,
@@ -7516,7 +7516,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           curTrigger.end || curTrigger.refresh(0, 1) || (_refreshing = 1);
           curPin = curTrigger.pin;
 
-          if (curPin && (curPin === trigger2 || curPin === pin2) && !curTrigger.isReverted) {
+          if (curPin && (curPin === trigger2 || curPin === pin) && !curTrigger.isReverted) {
             revertedPins || (revertedPins = []);
             revertedPins.unshift(curTrigger);
             curTrigger.revert();
@@ -7529,7 +7529,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }
 
         _isFunction5(parsedStart) && (parsedStart = parsedStart(self));
-        start = _parsePosition3(parsedStart, trigger2, size, direction, scrollFunc(), markerStart, markerStartTrigger, self, scrollerBounds, borderWidth, useFixedPosition, max, containerAnimation) || (pin2 ? -1e-3 : 0);
+        start = _parsePosition3(parsedStart, trigger2, size, direction, scrollFunc(), markerStart, markerStartTrigger, self, scrollerBounds, borderWidth, useFixedPosition, max, containerAnimation) || (pin ? -1e-3 : 0);
         _isFunction5(parsedEnd) && (parsedEnd = parsedEnd(self));
 
         if (_isString5(parsedEnd) && !parsedEnd.indexOf("+=")) {
@@ -7558,7 +7558,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
               offset3 += cs2 * (1 - curTrigger.progress);
             }
 
-            curPin === pin2 && (otherPinOffset += cs2);
+            curPin === pin && (otherPinOffset += cs2);
           }
         }
 
@@ -7573,23 +7573,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           gsap4.set([markerStart, markerEnd], cs2);
         }
 
-        if (pin2) {
-          cs2 = _getComputedStyle(pin2);
+        if (pin) {
+          cs2 = _getComputedStyle(pin);
           isVertical = direction === _vertical;
           scroll3 = scrollFunc();
           pinStart = parseFloat(pinGetter(direction.a)) + otherPinOffset;
           !max && end > 1 && ((isViewport ? _body3 : scroller).style["overflow-" + direction.a] = "scroll");
 
-          _swapPinIn(pin2, spacer, cs2);
+          _swapPinIn(pin, spacer, cs2);
 
-          pinState = _getState(pin2);
-          bounds = _getBounds(pin2, true);
+          pinState = _getState(pin);
+          bounds = _getBounds(pin, true);
           oppositeScroll = useFixedPosition && _getScrollFunc(scroller, isVertical ? _horizontal : _vertical)();
 
           if (pinSpacing) {
             spacerState = [pinSpacing + direction.os2, change2 + otherPinOffset + _px];
             spacerState.t = spacer;
-            i = pinSpacing === _padding ? _getSize(pin2, direction) + change2 + otherPinOffset : 0;
+            i = pinSpacing === _padding ? _getSize(pin, direction) + change2 + otherPinOffset : 0;
             i && spacerState.push(direction.d, i + _px);
 
             _setState(spacerState);
@@ -7672,7 +7672,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           self.update(0, 0, 1);
         }
 
-        pin2 && pinSpacing && (spacer._pinOffset = Math.round(self.progress * pinChange));
+        pin && pinSpacing && (spacer._pinOffset = Math.round(self.progress * pinChange));
         onRefresh && onRefresh(self);
       };
 
@@ -7731,7 +7731,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         }
 
-        anticipatePin && !clipped && pin2 && !_refreshing && !_startup2 && _lastScrollTime && start < scroll3 + (scroll3 - scroll2) / (_getTime2() - _time2) * anticipatePin && (clipped = 1e-4);
+        anticipatePin && !clipped && pin && !_refreshing && !_startup2 && _lastScrollTime && start < scroll3 + (scroll3 - scroll2) / (_getTime2() - _time2) * anticipatePin && (clipped = 1e-4);
 
         if (clipped !== prevProgress2 && self.enabled) {
           isActive = self.isActive = !!clipped && clipped < 1;
@@ -7769,7 +7769,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
             }
           }
 
-          if (pin2) {
+          if (pin) {
             reset && pinSpacing && (spacer.style[pinSpacing + direction.os2] = spacingStart);
 
             if (!useFixedPosition) {
@@ -7779,12 +7779,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
               if (pinReparent) {
                 if (!reset && (isActive || isAtMax)) {
-                  var bounds = _getBounds(pin2, true),
+                  var bounds = _getBounds(pin, true),
                       _offset = scroll3 - start;
 
-                  _reparent(pin2, _body3, bounds.top + (direction === _vertical ? _offset : 0) + _px, bounds.left + (direction === _vertical ? 0 : _offset) + _px);
+                  _reparent(pin, _body3, bounds.top + (direction === _vertical ? _offset : 0) + _px, bounds.left + (direction === _vertical ? 0 : _offset) + _px);
                 } else {
-                  _reparent(pin2, spacer);
+                  _reparent(pin, spacer);
                 }
               }
 
@@ -7871,7 +7871,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       };
 
       self.setPositions = function (newStart, newEnd) {
-        if (pin2) {
+        if (pin) {
           pinStart += newStart - start;
           pinChange += newEnd - newStart - change2;
         }
@@ -7940,12 +7940,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         });
         _primary === self && (_primary = 0);
 
-        if (pin2) {
+        if (pin) {
           pinCache && (pinCache.uncache = 1);
           i = 0;
 
           _triggers.forEach(function (t) {
-            return t.pin === pin2 && i++;
+            return t.pin === pin && i++;
           });
 
           i || (pinCache.spacer = 0);
@@ -12812,16 +12812,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function animateCSSModeScroll(_ref) {
-    var swiper2 = _ref.swiper,
+    var swiper = _ref.swiper,
         targetPosition = _ref.targetPosition,
         side = _ref.side;
     var window2 = getWindow();
-    var startPosition = -swiper2.translate;
+    var startPosition = -swiper.translate;
     var startTime = null;
     var time;
-    var duration = swiper2.params.speed;
-    swiper2.wrapperEl.style.scrollSnapType = "none";
-    window2.cancelAnimationFrame(swiper2.cssModeFrameID);
+    var duration = swiper.params.speed;
+    swiper.wrapperEl.style.scrollSnapType = "none";
+    window2.cancelAnimationFrame(swiper.cssModeFrameID);
     var dir = targetPosition > startPosition ? "next" : "prev";
 
     var isOutOfBound = function isOutOfBound(current, target) {
@@ -12843,20 +12843,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         currentPosition = targetPosition;
       }
 
-      swiper2.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
+      swiper.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
 
       if (isOutOfBound(currentPosition, targetPosition)) {
-        swiper2.wrapperEl.style.overflow = "hidden";
-        swiper2.wrapperEl.style.scrollSnapType = "";
+        swiper.wrapperEl.style.overflow = "hidden";
+        swiper.wrapperEl.style.scrollSnapType = "";
         setTimeout(function () {
-          swiper2.wrapperEl.style.overflow = "";
-          swiper2.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
+          swiper.wrapperEl.style.overflow = "";
+          swiper.wrapperEl.scrollTo(_defineProperty({}, side, currentPosition));
         });
-        window2.cancelAnimationFrame(swiper2.cssModeFrameID);
+        window2.cancelAnimationFrame(swiper.cssModeFrameID);
         return;
       }
 
-      swiper2.cssModeFrameID = window2.requestAnimationFrame(animate);
+      swiper.cssModeFrameID = window2.requestAnimationFrame(animate);
     };
 
     animate();
@@ -12982,7 +12982,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function Resize(_ref) {
-    var swiper2 = _ref.swiper,
+    var swiper = _ref.swiper,
         on2 = _ref.on,
         emit = _ref.emit;
     var window2 = getWindow();
@@ -12990,24 +12990,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var animationFrame = null;
 
     var resizeHandler = function resizeHandler() {
-      if (!swiper2 || swiper2.destroyed || !swiper2.initialized) return;
+      if (!swiper || swiper.destroyed || !swiper.initialized) return;
       emit("beforeResize");
       emit("resize");
     };
 
     var createObserver = function createObserver() {
-      if (!swiper2 || swiper2.destroyed || !swiper2.initialized) return;
+      if (!swiper || swiper.destroyed || !swiper.initialized) return;
       observer = new ResizeObserver(function (entries) {
         animationFrame = window2.requestAnimationFrame(function () {
-          var width = swiper2.width,
-              height = swiper2.height;
+          var width = swiper.width,
+              height = swiper.height;
           var newWidth = width;
           var newHeight = height;
           entries.forEach(function (_ref2) {
             var contentBoxSize = _ref2.contentBoxSize,
                 contentRect = _ref2.contentRect,
                 target = _ref2.target;
-            if (target && target !== swiper2.el) return;
+            if (target && target !== swiper.el) return;
             newWidth = contentRect ? contentRect.width : (contentBoxSize[0] || contentBoxSize).inlineSize;
             newHeight = contentRect ? contentRect.height : (contentBoxSize[0] || contentBoxSize).blockSize;
           });
@@ -13017,7 +13017,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         });
       });
-      observer.observe(swiper2.el);
+      observer.observe(swiper.el);
     };
 
     var removeObserver = function removeObserver() {
@@ -13025,19 +13025,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         window2.cancelAnimationFrame(animationFrame);
       }
 
-      if (observer && observer.unobserve && swiper2.el) {
-        observer.unobserve(swiper2.el);
+      if (observer && observer.unobserve && swiper.el) {
+        observer.unobserve(swiper.el);
         observer = null;
       }
     };
 
     var orientationChangeHandler = function orientationChangeHandler() {
-      if (!swiper2 || swiper2.destroyed || !swiper2.initialized) return;
+      if (!swiper || swiper.destroyed || !swiper.initialized) return;
       emit("orientationchange");
     };
 
     on2("init", function () {
-      if (swiper2.params.resizeObserver && typeof window2.ResizeObserver !== "undefined") {
+      if (swiper.params.resizeObserver && typeof window2.ResizeObserver !== "undefined") {
         createObserver();
         return;
       }
@@ -13054,7 +13054,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function Observer2(_ref) {
-    var swiper2 = _ref.swiper,
+    var swiper = _ref.swiper,
         extendParams = _ref.extendParams,
         on2 = _ref.on,
         emit = _ref.emit;
@@ -13092,20 +13092,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     };
 
     var init5 = function init5() {
-      if (!swiper2.params.observer) return;
+      if (!swiper.params.observer) return;
 
-      if (swiper2.params.observeParents) {
-        var containerParents = swiper2.$el.parents();
+      if (swiper.params.observeParents) {
+        var containerParents = swiper.$el.parents();
 
         for (var i = 0; i < containerParents.length; i += 1) {
           attach(containerParents[i]);
         }
       }
 
-      attach(swiper2.$el[0], {
-        childList: swiper2.params.observeSlideChildren
+      attach(swiper.$el[0], {
+        childList: swiper.params.observeSlideChildren
       });
-      attach(swiper2.$wrapperEl[0], {
+      attach(swiper.$wrapperEl[0], {
         attributes: false
       });
     };
@@ -13244,24 +13244,24 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }; // node_modules/swiper/core/update/updateSize.js
 
   function updateSize() {
-    var swiper2 = this;
+    var swiper = this;
     var width;
     var height;
-    var $el = swiper2.$el;
+    var $el = swiper.$el;
 
-    if (typeof swiper2.params.width !== "undefined" && swiper2.params.width !== null) {
-      width = swiper2.params.width;
+    if (typeof swiper.params.width !== "undefined" && swiper.params.width !== null) {
+      width = swiper.params.width;
     } else {
       width = $el[0].clientWidth;
     }
 
-    if (typeof swiper2.params.height !== "undefined" && swiper2.params.height !== null) {
-      height = swiper2.params.height;
+    if (typeof swiper.params.height !== "undefined" && swiper.params.height !== null) {
+      height = swiper.params.height;
     } else {
       height = $el[0].clientHeight;
     }
 
-    if (width === 0 && swiper2.isHorizontal() || height === 0 && swiper2.isVertical()) {
+    if (width === 0 && swiper.isHorizontal() || height === 0 && swiper.isVertical()) {
       return;
     }
 
@@ -13269,19 +13269,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     height = height - parseInt($el.css("padding-top") || 0, 10) - parseInt($el.css("padding-bottom") || 0, 10);
     if (Number.isNaN(width)) width = 0;
     if (Number.isNaN(height)) height = 0;
-    Object.assign(swiper2, {
+    Object.assign(swiper, {
       width: width,
       height: height,
-      size: swiper2.isHorizontal() ? width : height
+      size: swiper.isHorizontal() ? width : height
     });
   } // node_modules/swiper/core/update/updateSlides.js
 
 
   function updateSlides() {
-    var swiper2 = this;
+    var swiper = this;
 
     function getDirectionLabel(property) {
-      if (swiper2.isHorizontal()) {
+      if (swiper.isHorizontal()) {
         return property;
       }
 
@@ -13301,32 +13301,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return parseFloat(node.getPropertyValue(getDirectionLabel(label)) || 0);
     }
 
-    var params = swiper2.params;
-    var $wrapperEl = swiper2.$wrapperEl,
-        swiperSize = swiper2.size,
-        rtl = swiper2.rtlTranslate,
-        wrongRTL = swiper2.wrongRTL;
-    var isVirtual = swiper2.virtual && params.virtual.enabled;
-    var previousSlidesLength = isVirtual ? swiper2.virtual.slides.length : swiper2.slides.length;
-    var slides = $wrapperEl.children(".".concat(swiper2.params.slideClass));
-    var slidesLength = isVirtual ? swiper2.virtual.slides.length : slides.length;
+    var params = swiper.params;
+    var $wrapperEl = swiper.$wrapperEl,
+        swiperSize = swiper.size,
+        rtl = swiper.rtlTranslate,
+        wrongRTL = swiper.wrongRTL;
+    var isVirtual = swiper.virtual && params.virtual.enabled;
+    var previousSlidesLength = isVirtual ? swiper.virtual.slides.length : swiper.slides.length;
+    var slides = $wrapperEl.children(".".concat(swiper.params.slideClass));
+    var slidesLength = isVirtual ? swiper.virtual.slides.length : slides.length;
     var snapGrid = [];
     var slidesGrid = [];
     var slidesSizesGrid = [];
     var offsetBefore = params.slidesOffsetBefore;
 
     if (typeof offsetBefore === "function") {
-      offsetBefore = params.slidesOffsetBefore.call(swiper2);
+      offsetBefore = params.slidesOffsetBefore.call(swiper);
     }
 
     var offsetAfter = params.slidesOffsetAfter;
 
     if (typeof offsetAfter === "function") {
-      offsetAfter = params.slidesOffsetAfter.call(swiper2);
+      offsetAfter = params.slidesOffsetAfter.call(swiper);
     }
 
-    var previousSnapGridLength = swiper2.snapGrid.length;
-    var previousSlidesGridLength = swiper2.slidesGrid.length;
+    var previousSnapGridLength = swiper.snapGrid.length;
+    var previousSlidesGridLength = swiper.slidesGrid.length;
     var spaceBetween = params.spaceBetween;
     var slidePosition = -offsetBefore;
     var prevSlideSize = 0;
@@ -13340,7 +13340,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       spaceBetween = parseFloat(spaceBetween.replace("%", "")) / 100 * swiperSize;
     }
 
-    swiper2.virtualSize = -spaceBetween;
+    swiper.virtualSize = -spaceBetween;
     if (rtl) slides.css({
       marginLeft: "",
       marginBottom: "",
@@ -13352,14 +13352,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     });
 
     if (params.centeredSlides && params.cssMode) {
-      setCSSProperty(swiper2.wrapperEl, "--swiper-centered-offset-before", "");
-      setCSSProperty(swiper2.wrapperEl, "--swiper-centered-offset-after", "");
+      setCSSProperty(swiper.wrapperEl, "--swiper-centered-offset-before", "");
+      setCSSProperty(swiper.wrapperEl, "--swiper-centered-offset-after", "");
     }
 
-    var gridEnabled = params.grid && params.grid.rows > 1 && swiper2.grid;
+    var gridEnabled = params.grid && params.grid.rows > 1 && swiper.grid;
 
     if (gridEnabled) {
-      swiper2.grid.initSlides(slidesLength);
+      swiper.grid.initSlides(slidesLength);
     }
 
     var slideSize;
@@ -13372,7 +13372,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       var slide = slides.eq(i);
 
       if (gridEnabled) {
-        swiper2.grid.updateSlide(i, slide, slidesLength, getDirectionLabel);
+        swiper.grid.updateSlide(i, slide, slidesLength, getDirectionLabel);
       }
 
       if (slide.css("display") === "none") continue;
@@ -13395,7 +13395,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }
 
         if (params.roundLengths) {
-          slideSize = swiper2.isHorizontal() ? slide.outerWidth(true) : slide.outerHeight(true);
+          slideSize = swiper.isHorizontal() ? slide.outerWidth(true) : slide.outerHeight(true);
         } else {
           var width = getDirectionPropertyValue(slideStyles, "width");
           var paddingLeft = getDirectionPropertyValue(slideStyles, "padding-left");
@@ -13448,30 +13448,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         slidesGrid.push(slidePosition);
       } else {
         if (params.roundLengths) slidePosition = Math.floor(slidePosition);
-        if ((index2 - Math.min(swiper2.params.slidesPerGroupSkip, index2)) % swiper2.params.slidesPerGroup === 0) snapGrid.push(slidePosition);
+        if ((index2 - Math.min(swiper.params.slidesPerGroupSkip, index2)) % swiper.params.slidesPerGroup === 0) snapGrid.push(slidePosition);
         slidesGrid.push(slidePosition);
         slidePosition = slidePosition + slideSize + spaceBetween;
       }
 
-      swiper2.virtualSize += slideSize + spaceBetween;
+      swiper.virtualSize += slideSize + spaceBetween;
       prevSlideSize = slideSize;
       index2 += 1;
     }
 
-    swiper2.virtualSize = Math.max(swiper2.virtualSize, swiperSize) + offsetAfter;
+    swiper.virtualSize = Math.max(swiper.virtualSize, swiperSize) + offsetAfter;
 
     if (rtl && wrongRTL && (params.effect === "slide" || params.effect === "coverflow")) {
       $wrapperEl.css({
-        width: "".concat(swiper2.virtualSize + params.spaceBetween, "px")
+        width: "".concat(swiper.virtualSize + params.spaceBetween, "px")
       });
     }
 
     if (params.setWrapperSize) {
-      $wrapperEl.css(_defineProperty({}, getDirectionLabel("width"), "".concat(swiper2.virtualSize + params.spaceBetween, "px")));
+      $wrapperEl.css(_defineProperty({}, getDirectionLabel("width"), "".concat(swiper.virtualSize + params.spaceBetween, "px")));
     }
 
     if (gridEnabled) {
-      swiper2.grid.updateWrapperSize(slideSize, snapGrid, getDirectionLabel);
+      swiper.grid.updateWrapperSize(slideSize, snapGrid, getDirectionLabel);
     }
 
     if (!params.centeredSlides) {
@@ -13481,22 +13481,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         var slidesGridItem = snapGrid[_i3];
         if (params.roundLengths) slidesGridItem = Math.floor(slidesGridItem);
 
-        if (snapGrid[_i3] <= swiper2.virtualSize - swiperSize) {
+        if (snapGrid[_i3] <= swiper.virtualSize - swiperSize) {
           newSlidesGrid.push(slidesGridItem);
         }
       }
 
       snapGrid = newSlidesGrid;
 
-      if (Math.floor(swiper2.virtualSize - swiperSize) - Math.floor(snapGrid[snapGrid.length - 1]) > 1) {
-        snapGrid.push(swiper2.virtualSize - swiperSize);
+      if (Math.floor(swiper.virtualSize - swiperSize) - Math.floor(snapGrid[snapGrid.length - 1]) > 1) {
+        snapGrid.push(swiper.virtualSize - swiperSize);
       }
     }
 
     if (snapGrid.length === 0) snapGrid = [0];
 
     if (params.spaceBetween !== 0) {
-      var key = swiper2.isHorizontal() && rtl ? "marginLeft" : getDirectionLabel("marginRight");
+      var key = swiper.isHorizontal() && rtl ? "marginLeft" : getDirectionLabel("marginRight");
       slides.filter(function (_, slideIndex) {
         if (!params.cssMode) return true;
 
@@ -13540,7 +13540,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }
 
-    Object.assign(swiper2, {
+    Object.assign(swiper, {
       slides: slides,
       snapGrid: snapGrid,
       slidesGrid: slidesGrid,
@@ -13548,85 +13548,85 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     });
 
     if (params.centeredSlides && params.cssMode && !params.centeredSlidesBounds) {
-      setCSSProperty(swiper2.wrapperEl, "--swiper-centered-offset-before", "".concat(-snapGrid[0], "px"));
-      setCSSProperty(swiper2.wrapperEl, "--swiper-centered-offset-after", "".concat(swiper2.size / 2 - slidesSizesGrid[slidesSizesGrid.length - 1] / 2, "px"));
-      var addToSnapGrid = -swiper2.snapGrid[0];
-      var addToSlidesGrid = -swiper2.slidesGrid[0];
-      swiper2.snapGrid = swiper2.snapGrid.map(function (v) {
+      setCSSProperty(swiper.wrapperEl, "--swiper-centered-offset-before", "".concat(-snapGrid[0], "px"));
+      setCSSProperty(swiper.wrapperEl, "--swiper-centered-offset-after", "".concat(swiper.size / 2 - slidesSizesGrid[slidesSizesGrid.length - 1] / 2, "px"));
+      var addToSnapGrid = -swiper.snapGrid[0];
+      var addToSlidesGrid = -swiper.slidesGrid[0];
+      swiper.snapGrid = swiper.snapGrid.map(function (v) {
         return v + addToSnapGrid;
       });
-      swiper2.slidesGrid = swiper2.slidesGrid.map(function (v) {
+      swiper.slidesGrid = swiper.slidesGrid.map(function (v) {
         return v + addToSlidesGrid;
       });
     }
 
     if (slidesLength !== previousSlidesLength) {
-      swiper2.emit("slidesLengthChange");
+      swiper.emit("slidesLengthChange");
     }
 
     if (snapGrid.length !== previousSnapGridLength) {
-      if (swiper2.params.watchOverflow) swiper2.checkOverflow();
-      swiper2.emit("snapGridLengthChange");
+      if (swiper.params.watchOverflow) swiper.checkOverflow();
+      swiper.emit("snapGridLengthChange");
     }
 
     if (slidesGrid.length !== previousSlidesGridLength) {
-      swiper2.emit("slidesGridLengthChange");
+      swiper.emit("slidesGridLengthChange");
     }
 
     if (params.watchSlidesProgress) {
-      swiper2.updateSlidesOffset();
+      swiper.updateSlidesOffset();
     }
 
     if (!isVirtual && !params.cssMode && (params.effect === "slide" || params.effect === "fade")) {
       var backFaceHiddenClass = "".concat(params.containerModifierClass, "backface-hidden");
-      var hasClassBackfaceClassAdded = swiper2.$el.hasClass(backFaceHiddenClass);
+      var hasClassBackfaceClassAdded = swiper.$el.hasClass(backFaceHiddenClass);
 
       if (slidesLength <= params.maxBackfaceHiddenSlides) {
-        if (!hasClassBackfaceClassAdded) swiper2.$el.addClass(backFaceHiddenClass);
+        if (!hasClassBackfaceClassAdded) swiper.$el.addClass(backFaceHiddenClass);
       } else if (hasClassBackfaceClassAdded) {
-        swiper2.$el.removeClass(backFaceHiddenClass);
+        swiper.$el.removeClass(backFaceHiddenClass);
       }
     }
   } // node_modules/swiper/core/update/updateAutoHeight.js
 
 
   function updateAutoHeight(speed) {
-    var swiper2 = this;
+    var swiper = this;
     var activeSlides = [];
-    var isVirtual = swiper2.virtual && swiper2.params.virtual.enabled;
+    var isVirtual = swiper.virtual && swiper.params.virtual.enabled;
     var newHeight = 0;
     var i;
 
     if (typeof speed === "number") {
-      swiper2.setTransition(speed);
+      swiper.setTransition(speed);
     } else if (speed === true) {
-      swiper2.setTransition(swiper2.params.speed);
+      swiper.setTransition(swiper.params.speed);
     }
 
     var getSlideByIndex = function getSlideByIndex(index2) {
       if (isVirtual) {
-        return swiper2.slides.filter(function (el) {
+        return swiper.slides.filter(function (el) {
           return parseInt(el.getAttribute("data-swiper-slide-index"), 10) === index2;
         })[0];
       }
 
-      return swiper2.slides.eq(index2)[0];
+      return swiper.slides.eq(index2)[0];
     };
 
-    if (swiper2.params.slidesPerView !== "auto" && swiper2.params.slidesPerView > 1) {
-      if (swiper2.params.centeredSlides) {
-        swiper2.visibleSlides.each(function (slide) {
+    if (swiper.params.slidesPerView !== "auto" && swiper.params.slidesPerView > 1) {
+      if (swiper.params.centeredSlides) {
+        swiper.visibleSlides.each(function (slide) {
           activeSlides.push(slide);
         });
       } else {
-        for (i = 0; i < Math.ceil(swiper2.params.slidesPerView); i += 1) {
-          var index2 = swiper2.activeIndex + i;
-          if (index2 > swiper2.slides.length && !isVirtual) break;
+        for (i = 0; i < Math.ceil(swiper.params.slidesPerView); i += 1) {
+          var index2 = swiper.activeIndex + i;
+          if (index2 > swiper.slides.length && !isVirtual) break;
           activeSlides.push(getSlideByIndex(index2));
         }
       }
     } else {
-      activeSlides.push(getSlideByIndex(swiper2.activeIndex));
+      activeSlides.push(getSlideByIndex(swiper.activeIndex));
     }
 
     for (i = 0; i < activeSlides.length; i += 1) {
@@ -13636,16 +13636,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }
 
-    if (newHeight || newHeight === 0) swiper2.$wrapperEl.css("height", "".concat(newHeight, "px"));
+    if (newHeight || newHeight === 0) swiper.$wrapperEl.css("height", "".concat(newHeight, "px"));
   } // node_modules/swiper/core/update/updateSlidesOffset.js
 
 
   function updateSlidesOffset() {
-    var swiper2 = this;
-    var slides = swiper2.slides;
+    var swiper = this;
+    var slides = swiper.slides;
 
     for (var i = 0; i < slides.length; i += 1) {
-      slides[i].swiperSlideOffset = swiper2.isHorizontal() ? slides[i].offsetLeft : slides[i].offsetTop;
+      slides[i].swiperSlideOffset = swiper.isHorizontal() ? slides[i].offsetLeft : slides[i].offsetTop;
     }
   } // node_modules/swiper/core/update/updateSlidesProgress.js
 
@@ -13655,18 +13655,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       translate = this && this.translate || 0;
     }
 
-    var swiper2 = this;
-    var params = swiper2.params;
-    var slides = swiper2.slides,
-        rtl = swiper2.rtlTranslate,
-        snapGrid = swiper2.snapGrid;
+    var swiper = this;
+    var params = swiper.params;
+    var slides = swiper.slides,
+        rtl = swiper.rtlTranslate,
+        snapGrid = swiper.snapGrid;
     if (slides.length === 0) return;
-    if (typeof slides[0].swiperSlideOffset === "undefined") swiper2.updateSlidesOffset();
+    if (typeof slides[0].swiperSlideOffset === "undefined") swiper.updateSlidesOffset();
     var offsetCenter = -translate;
     if (rtl) offsetCenter = translate;
     slides.removeClass(params.slideVisibleClass);
-    swiper2.visibleSlidesIndexes = [];
-    swiper2.visibleSlides = [];
+    swiper.visibleSlidesIndexes = [];
+    swiper.visibleSlides = [];
 
     for (var i = 0; i < slides.length; i += 1) {
       var slide = slides[i];
@@ -13676,15 +13676,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         slideOffset -= slides[0].swiperSlideOffset;
       }
 
-      var slideProgress = (offsetCenter + (params.centeredSlides ? swiper2.minTranslate() : 0) - slideOffset) / (slide.swiperSlideSize + params.spaceBetween);
-      var originalSlideProgress = (offsetCenter - snapGrid[0] + (params.centeredSlides ? swiper2.minTranslate() : 0) - slideOffset) / (slide.swiperSlideSize + params.spaceBetween);
+      var slideProgress = (offsetCenter + (params.centeredSlides ? swiper.minTranslate() : 0) - slideOffset) / (slide.swiperSlideSize + params.spaceBetween);
+      var originalSlideProgress = (offsetCenter - snapGrid[0] + (params.centeredSlides ? swiper.minTranslate() : 0) - slideOffset) / (slide.swiperSlideSize + params.spaceBetween);
       var slideBefore = -(offsetCenter - slideOffset);
-      var slideAfter = slideBefore + swiper2.slidesSizesGrid[i];
-      var isVisible = slideBefore >= 0 && slideBefore < swiper2.size - 1 || slideAfter > 1 && slideAfter <= swiper2.size || slideBefore <= 0 && slideAfter >= swiper2.size;
+      var slideAfter = slideBefore + swiper.slidesSizesGrid[i];
+      var isVisible = slideBefore >= 0 && slideBefore < swiper.size - 1 || slideAfter > 1 && slideAfter <= swiper.size || slideBefore <= 0 && slideAfter >= swiper.size;
 
       if (isVisible) {
-        swiper2.visibleSlides.push(slide);
-        swiper2.visibleSlidesIndexes.push(i);
+        swiper.visibleSlides.push(slide);
+        swiper.visibleSlidesIndexes.push(i);
         slides.eq(i).addClass(params.slideVisibleClass);
       }
 
@@ -13692,23 +13692,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       slide.originalProgress = rtl ? -originalSlideProgress : originalSlideProgress;
     }
 
-    swiper2.visibleSlides = dom_default(swiper2.visibleSlides);
+    swiper.visibleSlides = dom_default(swiper.visibleSlides);
   } // node_modules/swiper/core/update/updateProgress.js
 
 
   function updateProgress(translate) {
-    var swiper2 = this;
+    var swiper = this;
 
     if (typeof translate === "undefined") {
-      var multiplier = swiper2.rtlTranslate ? -1 : 1;
-      translate = swiper2 && swiper2.translate && swiper2.translate * multiplier || 0;
+      var multiplier = swiper.rtlTranslate ? -1 : 1;
+      translate = swiper && swiper.translate && swiper.translate * multiplier || 0;
     }
 
-    var params = swiper2.params;
-    var translatesDiff = swiper2.maxTranslate() - swiper2.minTranslate();
-    var progress = swiper2.progress,
-        isBeginning = swiper2.isBeginning,
-        isEnd = swiper2.isEnd;
+    var params = swiper.params;
+    var translatesDiff = swiper.maxTranslate() - swiper.minTranslate();
+    var progress = swiper.progress,
+        isBeginning = swiper.isBeginning,
+        isEnd = swiper.isEnd;
     var wasBeginning = isBeginning;
     var wasEnd = isEnd;
 
@@ -13717,47 +13717,47 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       isBeginning = true;
       isEnd = true;
     } else {
-      progress = (translate - swiper2.minTranslate()) / translatesDiff;
+      progress = (translate - swiper.minTranslate()) / translatesDiff;
       isBeginning = progress <= 0;
       isEnd = progress >= 1;
     }
 
-    Object.assign(swiper2, {
+    Object.assign(swiper, {
       progress: progress,
       isBeginning: isBeginning,
       isEnd: isEnd
     });
-    if (params.watchSlidesProgress || params.centeredSlides && params.autoHeight) swiper2.updateSlidesProgress(translate);
+    if (params.watchSlidesProgress || params.centeredSlides && params.autoHeight) swiper.updateSlidesProgress(translate);
 
     if (isBeginning && !wasBeginning) {
-      swiper2.emit("reachBeginning toEdge");
+      swiper.emit("reachBeginning toEdge");
     }
 
     if (isEnd && !wasEnd) {
-      swiper2.emit("reachEnd toEdge");
+      swiper.emit("reachEnd toEdge");
     }
 
     if (wasBeginning && !isBeginning || wasEnd && !isEnd) {
-      swiper2.emit("fromEdge");
+      swiper.emit("fromEdge");
     }
 
-    swiper2.emit("progress", progress);
+    swiper.emit("progress", progress);
   } // node_modules/swiper/core/update/updateSlidesClasses.js
 
 
   function updateSlidesClasses() {
-    var swiper2 = this;
-    var slides = swiper2.slides,
-        params = swiper2.params,
-        $wrapperEl = swiper2.$wrapperEl,
-        activeIndex = swiper2.activeIndex,
-        realIndex = swiper2.realIndex;
-    var isVirtual = swiper2.virtual && params.virtual.enabled;
+    var swiper = this;
+    var slides = swiper.slides,
+        params = swiper.params,
+        $wrapperEl = swiper.$wrapperEl,
+        activeIndex = swiper.activeIndex,
+        realIndex = swiper.realIndex;
+    var isVirtual = swiper.virtual && params.virtual.enabled;
     slides.removeClass("".concat(params.slideActiveClass, " ").concat(params.slideNextClass, " ").concat(params.slidePrevClass, " ").concat(params.slideDuplicateActiveClass, " ").concat(params.slideDuplicateNextClass, " ").concat(params.slideDuplicatePrevClass));
     var activeSlide;
 
     if (isVirtual) {
-      activeSlide = swiper2.$wrapperEl.find(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(activeIndex, "\"]"));
+      activeSlide = swiper.$wrapperEl.find(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(activeIndex, "\"]"));
     } else {
       activeSlide = slides.eq(activeIndex);
     }
@@ -13800,19 +13800,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }
 
-    swiper2.emitSlidesClasses();
+    swiper.emitSlidesClasses();
   } // node_modules/swiper/core/update/updateActiveIndex.js
 
 
   function updateActiveIndex(newActiveIndex) {
-    var swiper2 = this;
-    var translate = swiper2.rtlTranslate ? swiper2.translate : -swiper2.translate;
-    var slidesGrid = swiper2.slidesGrid,
-        snapGrid = swiper2.snapGrid,
-        params = swiper2.params,
-        previousIndex = swiper2.activeIndex,
-        previousRealIndex = swiper2.realIndex,
-        previousSnapIndex = swiper2.snapIndex;
+    var swiper = this;
+    var translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
+    var slidesGrid = swiper.slidesGrid,
+        snapGrid = swiper.snapGrid,
+        params = swiper.params,
+        previousIndex = swiper.activeIndex,
+        previousRealIndex = swiper.realIndex,
+        previousSnapIndex = swiper.snapIndex;
     var activeIndex = newActiveIndex;
     var snapIndex;
 
@@ -13845,43 +13845,43 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     if (activeIndex === previousIndex) {
       if (snapIndex !== previousSnapIndex) {
-        swiper2.snapIndex = snapIndex;
-        swiper2.emit("snapIndexChange");
+        swiper.snapIndex = snapIndex;
+        swiper.emit("snapIndexChange");
       }
 
       return;
     }
 
-    var realIndex = parseInt(swiper2.slides.eq(activeIndex).attr("data-swiper-slide-index") || activeIndex, 10);
-    Object.assign(swiper2, {
+    var realIndex = parseInt(swiper.slides.eq(activeIndex).attr("data-swiper-slide-index") || activeIndex, 10);
+    Object.assign(swiper, {
       snapIndex: snapIndex,
       realIndex: realIndex,
       previousIndex: previousIndex,
       activeIndex: activeIndex
     });
-    swiper2.emit("activeIndexChange");
-    swiper2.emit("snapIndexChange");
+    swiper.emit("activeIndexChange");
+    swiper.emit("snapIndexChange");
 
     if (previousRealIndex !== realIndex) {
-      swiper2.emit("realIndexChange");
+      swiper.emit("realIndexChange");
     }
 
-    if (swiper2.initialized || swiper2.params.runCallbacksOnInit) {
-      swiper2.emit("slideChange");
+    if (swiper.initialized || swiper.params.runCallbacksOnInit) {
+      swiper.emit("slideChange");
     }
   } // node_modules/swiper/core/update/updateClickedSlide.js
 
 
   function updateClickedSlide(e) {
-    var swiper2 = this;
-    var params = swiper2.params;
+    var swiper = this;
+    var params = swiper.params;
     var slide = dom_default(e).closest(".".concat(params.slideClass))[0];
     var slideFound = false;
     var slideIndex;
 
     if (slide) {
-      for (var i = 0; i < swiper2.slides.length; i += 1) {
-        if (swiper2.slides[i] === slide) {
+      for (var i = 0; i < swiper.slides.length; i += 1) {
+        if (swiper.slides[i] === slide) {
           slideFound = true;
           slideIndex = i;
           break;
@@ -13890,21 +13890,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (slide && slideFound) {
-      swiper2.clickedSlide = slide;
+      swiper.clickedSlide = slide;
 
-      if (swiper2.virtual && swiper2.params.virtual.enabled) {
-        swiper2.clickedIndex = parseInt(dom_default(slide).attr("data-swiper-slide-index"), 10);
+      if (swiper.virtual && swiper.params.virtual.enabled) {
+        swiper.clickedIndex = parseInt(dom_default(slide).attr("data-swiper-slide-index"), 10);
       } else {
-        swiper2.clickedIndex = slideIndex;
+        swiper.clickedIndex = slideIndex;
       }
     } else {
-      swiper2.clickedSlide = void 0;
-      swiper2.clickedIndex = void 0;
+      swiper.clickedSlide = void 0;
+      swiper.clickedIndex = void 0;
       return;
     }
 
-    if (params.slideToClickedSlide && swiper2.clickedIndex !== void 0 && swiper2.clickedIndex !== swiper2.activeIndex) {
-      swiper2.slideToClickedSlide();
+    if (params.slideToClickedSlide && swiper.clickedIndex !== void 0 && swiper.clickedIndex !== swiper.activeIndex) {
+      swiper.slideToClickedSlide();
     }
   } // node_modules/swiper/core/update/index.js
 
@@ -13926,11 +13926,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       axis = this.isHorizontal() ? "x" : "y";
     }
 
-    var swiper2 = this;
-    var params = swiper2.params,
-        rtl = swiper2.rtlTranslate,
-        translate = swiper2.translate,
-        $wrapperEl = swiper2.$wrapperEl;
+    var swiper = this;
+    var params = swiper.params,
+        rtl = swiper.rtlTranslate,
+        translate = swiper.translate,
+        $wrapperEl = swiper.$wrapperEl;
 
     if (params.virtualTranslate) {
       return rtl ? -translate : translate;
@@ -13947,17 +13947,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function setTranslate(translate, byController) {
-    var swiper2 = this;
-    var rtl = swiper2.rtlTranslate,
-        params = swiper2.params,
-        $wrapperEl = swiper2.$wrapperEl,
-        wrapperEl = swiper2.wrapperEl,
-        progress = swiper2.progress;
+    var swiper = this;
+    var rtl = swiper.rtlTranslate,
+        params = swiper.params,
+        $wrapperEl = swiper.$wrapperEl,
+        wrapperEl = swiper.wrapperEl,
+        progress = swiper.progress;
     var x = 0;
     var y = 0;
     var z = 0;
 
-    if (swiper2.isHorizontal()) {
+    if (swiper.isHorizontal()) {
       x = rtl ? -translate : translate;
     } else {
       y = translate;
@@ -13969,27 +13969,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (params.cssMode) {
-      wrapperEl[swiper2.isHorizontal() ? "scrollLeft" : "scrollTop"] = swiper2.isHorizontal() ? -x : -y;
+      wrapperEl[swiper.isHorizontal() ? "scrollLeft" : "scrollTop"] = swiper.isHorizontal() ? -x : -y;
     } else if (!params.virtualTranslate) {
       $wrapperEl.transform("translate3d(".concat(x, "px, ").concat(y, "px, ").concat(z, "px)"));
     }
 
-    swiper2.previousTranslate = swiper2.translate;
-    swiper2.translate = swiper2.isHorizontal() ? x : y;
+    swiper.previousTranslate = swiper.translate;
+    swiper.translate = swiper.isHorizontal() ? x : y;
     var newProgress;
-    var translatesDiff = swiper2.maxTranslate() - swiper2.minTranslate();
+    var translatesDiff = swiper.maxTranslate() - swiper.minTranslate();
 
     if (translatesDiff === 0) {
       newProgress = 0;
     } else {
-      newProgress = (translate - swiper2.minTranslate()) / translatesDiff;
+      newProgress = (translate - swiper.minTranslate()) / translatesDiff;
     }
 
     if (newProgress !== progress) {
-      swiper2.updateProgress(translate);
+      swiper.updateProgress(translate);
     }
 
-    swiper2.emit("setTranslate", swiper2.translate, byController);
+    swiper.emit("setTranslate", swiper.translate, byController);
   } // node_modules/swiper/core/translate/minTranslate.js
 
 
@@ -14020,31 +14020,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       translateBounds = true;
     }
 
-    var swiper2 = this;
-    var params = swiper2.params,
-        wrapperEl = swiper2.wrapperEl;
+    var swiper = this;
+    var params = swiper.params,
+        wrapperEl = swiper.wrapperEl;
 
-    if (swiper2.animating && params.preventInteractionOnTransition) {
+    if (swiper.animating && params.preventInteractionOnTransition) {
       return false;
     }
 
-    var minTranslate2 = swiper2.minTranslate();
-    var maxTranslate2 = swiper2.maxTranslate();
+    var minTranslate2 = swiper.minTranslate();
+    var maxTranslate2 = swiper.maxTranslate();
     var newTranslate;
     if (translateBounds && translate > minTranslate2) newTranslate = minTranslate2;else if (translateBounds && translate < maxTranslate2) newTranslate = maxTranslate2;else newTranslate = translate;
-    swiper2.updateProgress(newTranslate);
+    swiper.updateProgress(newTranslate);
 
     if (params.cssMode) {
-      var isH = swiper2.isHorizontal();
+      var isH = swiper.isHorizontal();
 
       if (speed === 0) {
         wrapperEl[isH ? "scrollLeft" : "scrollTop"] = -newTranslate;
       } else {
         var _wrapperEl$scrollTo;
 
-        if (!swiper2.support.smoothScroll) {
+        if (!swiper.support.smoothScroll) {
           animateCSSModeScroll({
-            swiper: swiper2,
+            swiper: swiper,
             targetPosition: -newTranslate,
             side: isH ? "left" : "top"
           });
@@ -14058,42 +14058,42 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (speed === 0) {
-      swiper2.setTransition(0);
-      swiper2.setTranslate(newTranslate);
+      swiper.setTransition(0);
+      swiper.setTranslate(newTranslate);
 
       if (runCallbacks) {
-        swiper2.emit("beforeTransitionStart", speed, internal);
-        swiper2.emit("transitionEnd");
+        swiper.emit("beforeTransitionStart", speed, internal);
+        swiper.emit("transitionEnd");
       }
     } else {
-      swiper2.setTransition(speed);
-      swiper2.setTranslate(newTranslate);
+      swiper.setTransition(speed);
+      swiper.setTranslate(newTranslate);
 
       if (runCallbacks) {
-        swiper2.emit("beforeTransitionStart", speed, internal);
-        swiper2.emit("transitionStart");
+        swiper.emit("beforeTransitionStart", speed, internal);
+        swiper.emit("transitionStart");
       }
 
-      if (!swiper2.animating) {
-        swiper2.animating = true;
+      if (!swiper.animating) {
+        swiper.animating = true;
 
-        if (!swiper2.onTranslateToWrapperTransitionEnd) {
-          swiper2.onTranslateToWrapperTransitionEnd = function transitionEnd3(e) {
-            if (!swiper2 || swiper2.destroyed) return;
+        if (!swiper.onTranslateToWrapperTransitionEnd) {
+          swiper.onTranslateToWrapperTransitionEnd = function transitionEnd3(e) {
+            if (!swiper || swiper.destroyed) return;
             if (e.target !== this) return;
-            swiper2.$wrapperEl[0].removeEventListener("transitionend", swiper2.onTranslateToWrapperTransitionEnd);
-            swiper2.$wrapperEl[0].removeEventListener("webkitTransitionEnd", swiper2.onTranslateToWrapperTransitionEnd);
-            swiper2.onTranslateToWrapperTransitionEnd = null;
-            delete swiper2.onTranslateToWrapperTransitionEnd;
+            swiper.$wrapperEl[0].removeEventListener("transitionend", swiper.onTranslateToWrapperTransitionEnd);
+            swiper.$wrapperEl[0].removeEventListener("webkitTransitionEnd", swiper.onTranslateToWrapperTransitionEnd);
+            swiper.onTranslateToWrapperTransitionEnd = null;
+            delete swiper.onTranslateToWrapperTransitionEnd;
 
             if (runCallbacks) {
-              swiper2.emit("transitionEnd");
+              swiper.emit("transitionEnd");
             }
           };
         }
 
-        swiper2.$wrapperEl[0].addEventListener("transitionend", swiper2.onTranslateToWrapperTransitionEnd);
-        swiper2.$wrapperEl[0].addEventListener("webkitTransitionEnd", swiper2.onTranslateToWrapperTransitionEnd);
+        swiper.$wrapperEl[0].addEventListener("transitionend", swiper.onTranslateToWrapperTransitionEnd);
+        swiper.$wrapperEl[0].addEventListener("webkitTransitionEnd", swiper.onTranslateToWrapperTransitionEnd);
       }
     }
 
@@ -14110,43 +14110,43 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }; // node_modules/swiper/core/transition/setTransition.js
 
   function setTransition(duration, byController) {
-    var swiper2 = this;
+    var swiper = this;
 
-    if (!swiper2.params.cssMode) {
-      swiper2.$wrapperEl.transition(duration);
+    if (!swiper.params.cssMode) {
+      swiper.$wrapperEl.transition(duration);
     }
 
-    swiper2.emit("setTransition", duration, byController);
+    swiper.emit("setTransition", duration, byController);
   } // node_modules/swiper/core/transition/transitionEmit.js
 
 
   function transitionEmit(_ref) {
-    var swiper2 = _ref.swiper,
+    var swiper = _ref.swiper,
         runCallbacks = _ref.runCallbacks,
         direction = _ref.direction,
         step = _ref.step;
-    var activeIndex = swiper2.activeIndex,
-        previousIndex = swiper2.previousIndex;
+    var activeIndex = swiper.activeIndex,
+        previousIndex = swiper.previousIndex;
     var dir = direction;
 
     if (!dir) {
       if (activeIndex > previousIndex) dir = "next";else if (activeIndex < previousIndex) dir = "prev";else dir = "reset";
     }
 
-    swiper2.emit("transition".concat(step));
+    swiper.emit("transition".concat(step));
 
     if (runCallbacks && activeIndex !== previousIndex) {
       if (dir === "reset") {
-        swiper2.emit("slideResetTransition".concat(step));
+        swiper.emit("slideResetTransition".concat(step));
         return;
       }
 
-      swiper2.emit("slideChangeTransition".concat(step));
+      swiper.emit("slideChangeTransition".concat(step));
 
       if (dir === "next") {
-        swiper2.emit("slideNextTransition".concat(step));
+        swiper.emit("slideNextTransition".concat(step));
       } else {
-        swiper2.emit("slidePrevTransition".concat(step));
+        swiper.emit("slidePrevTransition".concat(step));
       }
     }
   } // node_modules/swiper/core/transition/transitionStart.js
@@ -14157,16 +14157,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
-    var params = swiper2.params;
+    var swiper = this;
+    var params = swiper.params;
     if (params.cssMode) return;
 
     if (params.autoHeight) {
-      swiper2.updateAutoHeight();
+      swiper.updateAutoHeight();
     }
 
     transitionEmit({
-      swiper: swiper2,
+      swiper: swiper,
       runCallbacks: runCallbacks,
       direction: direction,
       step: "Start"
@@ -14179,13 +14179,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
-    var params = swiper2.params;
-    swiper2.animating = false;
+    var swiper = this;
+    var params = swiper.params;
+    swiper.animating = false;
     if (params.cssMode) return;
-    swiper2.setTransition(0);
+    swiper.setTransition(0);
     transitionEmit({
-      swiper: swiper2,
+      swiper: swiper,
       runCallbacks: runCallbacks,
       direction: direction,
       step: "End"
@@ -14227,32 +14227,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       index2 = indexAsNumber;
     }
 
-    var swiper2 = this;
+    var swiper = this;
     var slideIndex = index2;
     if (slideIndex < 0) slideIndex = 0;
-    var params = swiper2.params,
-        snapGrid = swiper2.snapGrid,
-        slidesGrid = swiper2.slidesGrid,
-        previousIndex = swiper2.previousIndex,
-        activeIndex = swiper2.activeIndex,
-        rtl = swiper2.rtlTranslate,
-        wrapperEl = swiper2.wrapperEl,
-        enabled = swiper2.enabled;
+    var params = swiper.params,
+        snapGrid = swiper.snapGrid,
+        slidesGrid = swiper.slidesGrid,
+        previousIndex = swiper.previousIndex,
+        activeIndex = swiper.activeIndex,
+        rtl = swiper.rtlTranslate,
+        wrapperEl = swiper.wrapperEl,
+        enabled = swiper.enabled;
 
-    if (swiper2.animating && params.preventInteractionOnTransition || !enabled && !internal && !initial) {
+    if (swiper.animating && params.preventInteractionOnTransition || !enabled && !internal && !initial) {
       return false;
     }
 
-    var skip = Math.min(swiper2.params.slidesPerGroupSkip, slideIndex);
-    var snapIndex = skip + Math.floor((slideIndex - skip) / swiper2.params.slidesPerGroup);
+    var skip = Math.min(swiper.params.slidesPerGroupSkip, slideIndex);
+    var snapIndex = skip + Math.floor((slideIndex - skip) / swiper.params.slidesPerGroup);
     if (snapIndex >= snapGrid.length) snapIndex = snapGrid.length - 1;
 
     if ((activeIndex || params.initialSlide || 0) === (previousIndex || 0) && runCallbacks) {
-      swiper2.emit("beforeSlideChangeStart");
+      swiper.emit("beforeSlideChangeStart");
     }
 
     var translate = -snapGrid[snapIndex];
-    swiper2.updateProgress(translate);
+    swiper.updateProgress(translate);
 
     if (params.normalizeSlideIndex) {
       for (var i = 0; i < slidesGrid.length; i += 1) {
@@ -14272,12 +14272,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     }
 
-    if (swiper2.initialized && slideIndex !== activeIndex) {
-      if (!swiper2.allowSlideNext && translate < swiper2.translate && translate < swiper2.minTranslate()) {
+    if (swiper.initialized && slideIndex !== activeIndex) {
+      if (!swiper.allowSlideNext && translate < swiper.translate && translate < swiper.minTranslate()) {
         return false;
       }
 
-      if (!swiper2.allowSlidePrev && translate > swiper2.translate && translate > swiper2.maxTranslate()) {
+      if (!swiper.allowSlidePrev && translate > swiper.translate && translate > swiper.maxTranslate()) {
         if ((activeIndex || 0) !== slideIndex) return false;
       }
     }
@@ -14285,53 +14285,53 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var direction;
     if (slideIndex > activeIndex) direction = "next";else if (slideIndex < activeIndex) direction = "prev";else direction = "reset";
 
-    if (rtl && -translate === swiper2.translate || !rtl && translate === swiper2.translate) {
-      swiper2.updateActiveIndex(slideIndex);
+    if (rtl && -translate === swiper.translate || !rtl && translate === swiper.translate) {
+      swiper.updateActiveIndex(slideIndex);
 
       if (params.autoHeight) {
-        swiper2.updateAutoHeight();
+        swiper.updateAutoHeight();
       }
 
-      swiper2.updateSlidesClasses();
+      swiper.updateSlidesClasses();
 
       if (params.effect !== "slide") {
-        swiper2.setTranslate(translate);
+        swiper.setTranslate(translate);
       }
 
       if (direction !== "reset") {
-        swiper2.transitionStart(runCallbacks, direction);
-        swiper2.transitionEnd(runCallbacks, direction);
+        swiper.transitionStart(runCallbacks, direction);
+        swiper.transitionEnd(runCallbacks, direction);
       }
 
       return false;
     }
 
     if (params.cssMode) {
-      var isH = swiper2.isHorizontal();
+      var isH = swiper.isHorizontal();
       var t = rtl ? translate : -translate;
 
       if (speed === 0) {
-        var isVirtual = swiper2.virtual && swiper2.params.virtual.enabled;
+        var isVirtual = swiper.virtual && swiper.params.virtual.enabled;
 
         if (isVirtual) {
-          swiper2.wrapperEl.style.scrollSnapType = "none";
-          swiper2._immediateVirtual = true;
+          swiper.wrapperEl.style.scrollSnapType = "none";
+          swiper._immediateVirtual = true;
         }
 
         wrapperEl[isH ? "scrollLeft" : "scrollTop"] = t;
 
         if (isVirtual) {
           requestAnimationFrame(function () {
-            swiper2.wrapperEl.style.scrollSnapType = "";
-            swiper2._swiperImmediateVirtual = false;
+            swiper.wrapperEl.style.scrollSnapType = "";
+            swiper._swiperImmediateVirtual = false;
           });
         }
       } else {
         var _wrapperEl$scrollTo2;
 
-        if (!swiper2.support.smoothScroll) {
+        if (!swiper.support.smoothScroll) {
           animateCSSModeScroll({
-            swiper: swiper2,
+            swiper: swiper,
             targetPosition: t,
             side: isH ? "left" : "top"
           });
@@ -14344,32 +14344,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return true;
     }
 
-    swiper2.setTransition(speed);
-    swiper2.setTranslate(translate);
-    swiper2.updateActiveIndex(slideIndex);
-    swiper2.updateSlidesClasses();
-    swiper2.emit("beforeTransitionStart", speed, internal);
-    swiper2.transitionStart(runCallbacks, direction);
+    swiper.setTransition(speed);
+    swiper.setTranslate(translate);
+    swiper.updateActiveIndex(slideIndex);
+    swiper.updateSlidesClasses();
+    swiper.emit("beforeTransitionStart", speed, internal);
+    swiper.transitionStart(runCallbacks, direction);
 
     if (speed === 0) {
-      swiper2.transitionEnd(runCallbacks, direction);
-    } else if (!swiper2.animating) {
-      swiper2.animating = true;
+      swiper.transitionEnd(runCallbacks, direction);
+    } else if (!swiper.animating) {
+      swiper.animating = true;
 
-      if (!swiper2.onSlideToWrapperTransitionEnd) {
-        swiper2.onSlideToWrapperTransitionEnd = function transitionEnd3(e) {
-          if (!swiper2 || swiper2.destroyed) return;
+      if (!swiper.onSlideToWrapperTransitionEnd) {
+        swiper.onSlideToWrapperTransitionEnd = function transitionEnd3(e) {
+          if (!swiper || swiper.destroyed) return;
           if (e.target !== this) return;
-          swiper2.$wrapperEl[0].removeEventListener("transitionend", swiper2.onSlideToWrapperTransitionEnd);
-          swiper2.$wrapperEl[0].removeEventListener("webkitTransitionEnd", swiper2.onSlideToWrapperTransitionEnd);
-          swiper2.onSlideToWrapperTransitionEnd = null;
-          delete swiper2.onSlideToWrapperTransitionEnd;
-          swiper2.transitionEnd(runCallbacks, direction);
+          swiper.$wrapperEl[0].removeEventListener("transitionend", swiper.onSlideToWrapperTransitionEnd);
+          swiper.$wrapperEl[0].removeEventListener("webkitTransitionEnd", swiper.onSlideToWrapperTransitionEnd);
+          swiper.onSlideToWrapperTransitionEnd = null;
+          delete swiper.onSlideToWrapperTransitionEnd;
+          swiper.transitionEnd(runCallbacks, direction);
         };
       }
 
-      swiper2.$wrapperEl[0].addEventListener("transitionend", swiper2.onSlideToWrapperTransitionEnd);
-      swiper2.$wrapperEl[0].addEventListener("webkitTransitionEnd", swiper2.onSlideToWrapperTransitionEnd);
+      swiper.$wrapperEl[0].addEventListener("transitionend", swiper.onSlideToWrapperTransitionEnd);
+      swiper.$wrapperEl[0].addEventListener("webkitTransitionEnd", swiper.onSlideToWrapperTransitionEnd);
     }
 
     return true;
@@ -14389,14 +14389,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
+    var swiper = this;
     var newIndex = index2;
 
-    if (swiper2.params.loop) {
-      newIndex += swiper2.loopedSlides;
+    if (swiper.params.loop) {
+      newIndex += swiper.loopedSlides;
     }
 
-    return swiper2.slideTo(newIndex, speed, runCallbacks, internal);
+    return swiper.slideTo(newIndex, speed, runCallbacks, internal);
   } // node_modules/swiper/core/slide/slideNext.js
 
 
@@ -14409,30 +14409,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
-    var animating = swiper2.animating,
-        enabled = swiper2.enabled,
-        params = swiper2.params;
-    if (!enabled) return swiper2;
+    var swiper = this;
+    var animating = swiper.animating,
+        enabled = swiper.enabled,
+        params = swiper.params;
+    if (!enabled) return swiper;
     var perGroup = params.slidesPerGroup;
 
     if (params.slidesPerView === "auto" && params.slidesPerGroup === 1 && params.slidesPerGroupAuto) {
-      perGroup = Math.max(swiper2.slidesPerViewDynamic("current", true), 1);
+      perGroup = Math.max(swiper.slidesPerViewDynamic("current", true), 1);
     }
 
-    var increment = swiper2.activeIndex < params.slidesPerGroupSkip ? 1 : perGroup;
+    var increment = swiper.activeIndex < params.slidesPerGroupSkip ? 1 : perGroup;
 
     if (params.loop) {
       if (animating && params.loopPreventsSlide) return false;
-      swiper2.loopFix();
-      swiper2._clientLeft = swiper2.$wrapperEl[0].clientLeft;
+      swiper.loopFix();
+      swiper._clientLeft = swiper.$wrapperEl[0].clientLeft;
     }
 
-    if (params.rewind && swiper2.isEnd) {
-      return swiper2.slideTo(0, speed, runCallbacks, internal);
+    if (params.rewind && swiper.isEnd) {
+      return swiper.slideTo(0, speed, runCallbacks, internal);
     }
 
-    return swiper2.slideTo(swiper2.activeIndex + increment, speed, runCallbacks, internal);
+    return swiper.slideTo(swiper.activeIndex + increment, speed, runCallbacks, internal);
   } // node_modules/swiper/core/slide/slidePrev.js
 
 
@@ -14445,22 +14445,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
-    var params = swiper2.params,
-        animating = swiper2.animating,
-        snapGrid = swiper2.snapGrid,
-        slidesGrid = swiper2.slidesGrid,
-        rtlTranslate = swiper2.rtlTranslate,
-        enabled = swiper2.enabled;
-    if (!enabled) return swiper2;
+    var swiper = this;
+    var params = swiper.params,
+        animating = swiper.animating,
+        snapGrid = swiper.snapGrid,
+        slidesGrid = swiper.slidesGrid,
+        rtlTranslate = swiper.rtlTranslate,
+        enabled = swiper.enabled;
+    if (!enabled) return swiper;
 
     if (params.loop) {
       if (animating && params.loopPreventsSlide) return false;
-      swiper2.loopFix();
-      swiper2._clientLeft = swiper2.$wrapperEl[0].clientLeft;
+      swiper.loopFix();
+      swiper._clientLeft = swiper.$wrapperEl[0].clientLeft;
     }
 
-    var translate = rtlTranslate ? swiper2.translate : -swiper2.translate;
+    var translate = rtlTranslate ? swiper.translate : -swiper.translate;
 
     function normalize3(val) {
       if (val < 0) return -Math.floor(Math.abs(val));
@@ -14490,20 +14490,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     if (typeof prevSnap !== "undefined") {
       prevIndex = slidesGrid.indexOf(prevSnap);
-      if (prevIndex < 0) prevIndex = swiper2.activeIndex - 1;
+      if (prevIndex < 0) prevIndex = swiper.activeIndex - 1;
 
       if (params.slidesPerView === "auto" && params.slidesPerGroup === 1 && params.slidesPerGroupAuto) {
-        prevIndex = prevIndex - swiper2.slidesPerViewDynamic("previous", true) + 1;
+        prevIndex = prevIndex - swiper.slidesPerViewDynamic("previous", true) + 1;
         prevIndex = Math.max(prevIndex, 0);
       }
     }
 
-    if (params.rewind && swiper2.isBeginning) {
-      var lastIndex = swiper2.params.virtual && swiper2.params.virtual.enabled && swiper2.virtual ? swiper2.virtual.slides.length - 1 : swiper2.slides.length - 1;
-      return swiper2.slideTo(lastIndex, speed, runCallbacks, internal);
+    if (params.rewind && swiper.isBeginning) {
+      var lastIndex = swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual ? swiper.virtual.slides.length - 1 : swiper.slides.length - 1;
+      return swiper.slideTo(lastIndex, speed, runCallbacks, internal);
     }
 
-    return swiper2.slideTo(prevIndex, speed, runCallbacks, internal);
+    return swiper.slideTo(prevIndex, speed, runCallbacks, internal);
   } // node_modules/swiper/core/slide/slideReset.js
 
 
@@ -14516,8 +14516,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       runCallbacks = true;
     }
 
-    var swiper2 = this;
-    return swiper2.slideTo(swiper2.activeIndex, speed, runCallbacks, internal);
+    var swiper = this;
+    return swiper.slideTo(swiper.activeIndex, speed, runCallbacks, internal);
   } // node_modules/swiper/core/slide/slideToClosest.js
 
 
@@ -14534,67 +14534,67 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       threshold = 0.5;
     }
 
-    var swiper2 = this;
-    var index2 = swiper2.activeIndex;
-    var skip = Math.min(swiper2.params.slidesPerGroupSkip, index2);
-    var snapIndex = skip + Math.floor((index2 - skip) / swiper2.params.slidesPerGroup);
-    var translate = swiper2.rtlTranslate ? swiper2.translate : -swiper2.translate;
+    var swiper = this;
+    var index2 = swiper.activeIndex;
+    var skip = Math.min(swiper.params.slidesPerGroupSkip, index2);
+    var snapIndex = skip + Math.floor((index2 - skip) / swiper.params.slidesPerGroup);
+    var translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
 
-    if (translate >= swiper2.snapGrid[snapIndex]) {
-      var currentSnap = swiper2.snapGrid[snapIndex];
-      var nextSnap = swiper2.snapGrid[snapIndex + 1];
+    if (translate >= swiper.snapGrid[snapIndex]) {
+      var currentSnap = swiper.snapGrid[snapIndex];
+      var nextSnap = swiper.snapGrid[snapIndex + 1];
 
       if (translate - currentSnap > (nextSnap - currentSnap) * threshold) {
-        index2 += swiper2.params.slidesPerGroup;
+        index2 += swiper.params.slidesPerGroup;
       }
     } else {
-      var prevSnap = swiper2.snapGrid[snapIndex - 1];
-      var _currentSnap = swiper2.snapGrid[snapIndex];
+      var prevSnap = swiper.snapGrid[snapIndex - 1];
+      var _currentSnap = swiper.snapGrid[snapIndex];
 
       if (translate - prevSnap <= (_currentSnap - prevSnap) * threshold) {
-        index2 -= swiper2.params.slidesPerGroup;
+        index2 -= swiper.params.slidesPerGroup;
       }
     }
 
     index2 = Math.max(index2, 0);
-    index2 = Math.min(index2, swiper2.slidesGrid.length - 1);
-    return swiper2.slideTo(index2, speed, runCallbacks, internal);
+    index2 = Math.min(index2, swiper.slidesGrid.length - 1);
+    return swiper.slideTo(index2, speed, runCallbacks, internal);
   } // node_modules/swiper/core/slide/slideToClickedSlide.js
 
 
   function slideToClickedSlide() {
-    var swiper2 = this;
-    var params = swiper2.params,
-        $wrapperEl = swiper2.$wrapperEl;
-    var slidesPerView = params.slidesPerView === "auto" ? swiper2.slidesPerViewDynamic() : params.slidesPerView;
-    var slideToIndex = swiper2.clickedIndex;
+    var swiper = this;
+    var params = swiper.params,
+        $wrapperEl = swiper.$wrapperEl;
+    var slidesPerView = params.slidesPerView === "auto" ? swiper.slidesPerViewDynamic() : params.slidesPerView;
+    var slideToIndex = swiper.clickedIndex;
     var realIndex;
 
     if (params.loop) {
-      if (swiper2.animating) return;
-      realIndex = parseInt(dom_default(swiper2.clickedSlide).attr("data-swiper-slide-index"), 10);
+      if (swiper.animating) return;
+      realIndex = parseInt(dom_default(swiper.clickedSlide).attr("data-swiper-slide-index"), 10);
 
       if (params.centeredSlides) {
-        if (slideToIndex < swiper2.loopedSlides - slidesPerView / 2 || slideToIndex > swiper2.slides.length - swiper2.loopedSlides + slidesPerView / 2) {
-          swiper2.loopFix();
+        if (slideToIndex < swiper.loopedSlides - slidesPerView / 2 || slideToIndex > swiper.slides.length - swiper.loopedSlides + slidesPerView / 2) {
+          swiper.loopFix();
           slideToIndex = $wrapperEl.children(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(realIndex, "\"]:not(.").concat(params.slideDuplicateClass, ")")).eq(0).index();
           nextTick(function () {
-            swiper2.slideTo(slideToIndex);
+            swiper.slideTo(slideToIndex);
           });
         } else {
-          swiper2.slideTo(slideToIndex);
+          swiper.slideTo(slideToIndex);
         }
-      } else if (slideToIndex > swiper2.slides.length - slidesPerView) {
-        swiper2.loopFix();
+      } else if (slideToIndex > swiper.slides.length - slidesPerView) {
+        swiper.loopFix();
         slideToIndex = $wrapperEl.children(".".concat(params.slideClass, "[data-swiper-slide-index=\"").concat(realIndex, "\"]:not(.").concat(params.slideDuplicateClass, ")")).eq(0).index();
         nextTick(function () {
-          swiper2.slideTo(slideToIndex);
+          swiper.slideTo(slideToIndex);
         });
       } else {
-        swiper2.slideTo(slideToIndex);
+        swiper.slideTo(slideToIndex);
       }
     } else {
-      swiper2.slideTo(slideToIndex);
+      swiper.slideTo(slideToIndex);
     }
   } // node_modules/swiper/core/slide/index.js
 
@@ -14610,10 +14610,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }; // node_modules/swiper/core/loop/loopCreate.js
 
   function loopCreate() {
-    var swiper2 = this;
+    var swiper = this;
     var document2 = getDocument();
-    var params = swiper2.params,
-        $wrapperEl = swiper2.$wrapperEl;
+    var params = swiper.params,
+        $wrapperEl = swiper.$wrapperEl;
     var $selector = $wrapperEl.children().length > 0 ? dom_default($wrapperEl.children()[0].parentNode) : $wrapperEl;
     $selector.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass)).remove();
     var slides = $selector.children(".".concat(params.slideClass));
@@ -14632,11 +14632,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (params.slidesPerView === "auto" && !params.loopedSlides) params.loopedSlides = slides.length;
-    swiper2.loopedSlides = Math.ceil(parseFloat(params.loopedSlides || params.slidesPerView, 10));
-    swiper2.loopedSlides += params.loopAdditionalSlides;
+    swiper.loopedSlides = Math.ceil(parseFloat(params.loopedSlides || params.slidesPerView, 10));
+    swiper.loopedSlides += params.loopAdditionalSlides;
 
-    if (swiper2.loopedSlides > slides.length) {
-      swiper2.loopedSlides = slides.length;
+    if (swiper.loopedSlides > slides.length) {
+      swiper.loopedSlides = slides.length;
     }
 
     var prependSlides = [];
@@ -14644,11 +14644,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     slides.each(function (el, index2) {
       var slide = dom_default(el);
 
-      if (index2 < swiper2.loopedSlides) {
+      if (index2 < swiper.loopedSlides) {
         appendSlides.push(el);
       }
 
-      if (index2 < slides.length && index2 >= slides.length - swiper2.loopedSlides) {
+      if (index2 < slides.length && index2 >= slides.length - swiper.loopedSlides) {
         prependSlides.push(el);
       }
 
@@ -14666,51 +14666,51 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function loopFix() {
-    var swiper2 = this;
-    swiper2.emit("beforeLoopFix");
-    var activeIndex = swiper2.activeIndex,
-        slides = swiper2.slides,
-        loopedSlides = swiper2.loopedSlides,
-        allowSlidePrev = swiper2.allowSlidePrev,
-        allowSlideNext = swiper2.allowSlideNext,
-        snapGrid = swiper2.snapGrid,
-        rtl = swiper2.rtlTranslate;
+    var swiper = this;
+    swiper.emit("beforeLoopFix");
+    var activeIndex = swiper.activeIndex,
+        slides = swiper.slides,
+        loopedSlides = swiper.loopedSlides,
+        allowSlidePrev = swiper.allowSlidePrev,
+        allowSlideNext = swiper.allowSlideNext,
+        snapGrid = swiper.snapGrid,
+        rtl = swiper.rtlTranslate;
     var newIndex;
-    swiper2.allowSlidePrev = true;
-    swiper2.allowSlideNext = true;
+    swiper.allowSlidePrev = true;
+    swiper.allowSlideNext = true;
     var snapTranslate = -snapGrid[activeIndex];
-    var diff = snapTranslate - swiper2.getTranslate();
+    var diff = snapTranslate - swiper.getTranslate();
 
     if (activeIndex < loopedSlides) {
       newIndex = slides.length - loopedSlides * 3 + activeIndex;
       newIndex += loopedSlides;
-      var slideChanged = swiper2.slideTo(newIndex, 0, false, true);
+      var slideChanged = swiper.slideTo(newIndex, 0, false, true);
 
       if (slideChanged && diff !== 0) {
-        swiper2.setTranslate((rtl ? -swiper2.translate : swiper2.translate) - diff);
+        swiper.setTranslate((rtl ? -swiper.translate : swiper.translate) - diff);
       }
     } else if (activeIndex >= slides.length - loopedSlides) {
       newIndex = -slides.length + activeIndex + loopedSlides;
       newIndex += loopedSlides;
 
-      var _slideChanged = swiper2.slideTo(newIndex, 0, false, true);
+      var _slideChanged = swiper.slideTo(newIndex, 0, false, true);
 
       if (_slideChanged && diff !== 0) {
-        swiper2.setTranslate((rtl ? -swiper2.translate : swiper2.translate) - diff);
+        swiper.setTranslate((rtl ? -swiper.translate : swiper.translate) - diff);
       }
     }
 
-    swiper2.allowSlidePrev = allowSlidePrev;
-    swiper2.allowSlideNext = allowSlideNext;
-    swiper2.emit("loopFix");
+    swiper.allowSlidePrev = allowSlidePrev;
+    swiper.allowSlideNext = allowSlideNext;
+    swiper.emit("loopFix");
   } // node_modules/swiper/core/loop/loopDestroy.js
 
 
   function loopDestroy() {
-    var swiper2 = this;
-    var $wrapperEl = swiper2.$wrapperEl,
-        params = swiper2.params,
-        slides = swiper2.slides;
+    var swiper = this;
+    var $wrapperEl = swiper.$wrapperEl,
+        params = swiper.params,
+        slides = swiper.slides;
     $wrapperEl.children(".".concat(params.slideClass, ".").concat(params.slideDuplicateClass, ",.").concat(params.slideClass, ".").concat(params.slideBlankClass)).remove();
     slides.removeAttr("data-swiper-slide-index");
   } // node_modules/swiper/core/loop/index.js
@@ -14723,22 +14723,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }; // node_modules/swiper/core/grab-cursor/setGrabCursor.js
 
   function setGrabCursor(moving) {
-    var swiper2 = this;
-    if (swiper2.support.touch || !swiper2.params.simulateTouch || swiper2.params.watchOverflow && swiper2.isLocked || swiper2.params.cssMode) return;
-    var el = swiper2.params.touchEventsTarget === "container" ? swiper2.el : swiper2.wrapperEl;
+    var swiper = this;
+    if (swiper.support.touch || !swiper.params.simulateTouch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) return;
+    var el = swiper.params.touchEventsTarget === "container" ? swiper.el : swiper.wrapperEl;
     el.style.cursor = "move";
     el.style.cursor = moving ? "grabbing" : "grab";
   } // node_modules/swiper/core/grab-cursor/unsetGrabCursor.js
 
 
   function unsetGrabCursor() {
-    var swiper2 = this;
+    var swiper = this;
 
-    if (swiper2.support.touch || swiper2.params.watchOverflow && swiper2.isLocked || swiper2.params.cssMode) {
+    if (swiper.support.touch || swiper.params.watchOverflow && swiper.isLocked || swiper.params.cssMode) {
       return;
     }
 
-    swiper2[swiper2.params.touchEventsTarget === "container" ? "el" : "wrapperEl"].style.cursor = "";
+    swiper[swiper.params.touchEventsTarget === "container" ? "el" : "wrapperEl"].style.cursor = "";
   } // node_modules/swiper/core/grab-cursor/index.js
 
 
@@ -14763,21 +14763,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function onTouchStart(event2) {
-    var swiper2 = this;
+    var swiper = this;
     var document2 = getDocument();
     var window2 = getWindow();
-    var data = swiper2.touchEventsData;
-    var params = swiper2.params,
-        touches = swiper2.touches,
-        enabled = swiper2.enabled;
+    var data = swiper.touchEventsData;
+    var params = swiper.params,
+        touches = swiper.touches,
+        enabled = swiper.enabled;
     if (!enabled) return;
 
-    if (swiper2.animating && params.preventInteractionOnTransition) {
+    if (swiper.animating && params.preventInteractionOnTransition) {
       return;
     }
 
-    if (!swiper2.animating && params.cssMode && params.loop) {
-      swiper2.loopFix();
+    if (!swiper.animating && params.cssMode && params.loop) {
+      swiper.loopFix();
     }
 
     var e = event2;
@@ -14785,7 +14785,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var $targetEl = dom_default(e.target);
 
     if (params.touchEventsTarget === "wrapper") {
-      if (!$targetEl.closest(swiper2.wrapperEl).length) return;
+      if (!$targetEl.closest(swiper.wrapperEl).length) return;
     }
 
     data.isTouchEvent = e.type === "touchstart";
@@ -14802,7 +14802,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var isTargetShadow = !!(e.target && e.target.shadowRoot);
 
     if (params.noSwiping && (isTargetShadow ? closestElement(noSwipingSelector, e.target) : $targetEl.closest(noSwipingSelector)[0])) {
-      swiper2.allowClick = true;
+      swiper.allowClick = true;
       return;
     }
 
@@ -14835,9 +14835,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     touches.startX = startX;
     touches.startY = startY;
     data.touchStartTime = now();
-    swiper2.allowClick = true;
-    swiper2.updateSize();
-    swiper2.swipeDirection = void 0;
+    swiper.allowClick = true;
+    swiper.updateSize();
+    swiper.swipeDirection = void 0;
     if (params.threshold > 0) data.allowThresholdMove = false;
 
     if (e.type !== "touchstart") {
@@ -14855,36 +14855,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         document2.activeElement.blur();
       }
 
-      var shouldPreventDefault = preventDefault && swiper2.allowTouchMove && params.touchStartPreventDefault;
+      var shouldPreventDefault = preventDefault && swiper.allowTouchMove && params.touchStartPreventDefault;
 
       if ((params.touchStartForcePreventDefault || shouldPreventDefault) && !$targetEl[0].isContentEditable) {
         e.preventDefault();
       }
     }
 
-    if (swiper2.params.freeMode && swiper2.params.freeMode.enabled && swiper2.freeMode && swiper2.animating && !params.cssMode) {
-      swiper2.freeMode.onTouchStart();
+    if (swiper.params.freeMode && swiper.params.freeMode.enabled && swiper.freeMode && swiper.animating && !params.cssMode) {
+      swiper.freeMode.onTouchStart();
     }
 
-    swiper2.emit("touchStart", e);
+    swiper.emit("touchStart", e);
   } // node_modules/swiper/core/events/onTouchMove.js
 
 
   function onTouchMove(event2) {
     var document2 = getDocument();
-    var swiper2 = this;
-    var data = swiper2.touchEventsData;
-    var params = swiper2.params,
-        touches = swiper2.touches,
-        rtl = swiper2.rtlTranslate,
-        enabled = swiper2.enabled;
+    var swiper = this;
+    var data = swiper.touchEventsData;
+    var params = swiper.params,
+        touches = swiper.touches,
+        rtl = swiper.rtlTranslate,
+        enabled = swiper.enabled;
     if (!enabled) return;
     var e = event2;
     if (e.originalEvent) e = e.originalEvent;
 
     if (!data.isTouched) {
       if (data.startMoving && data.isScrolling) {
-        swiper2.emit("touchMoveOpposite", e);
+        swiper.emit("touchMoveOpposite", e);
       }
 
       return;
@@ -14901,9 +14901,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return;
     }
 
-    if (!swiper2.allowTouchMove) {
+    if (!swiper.allowTouchMove) {
       if (!dom_default(e.target).is(data.focusableElements)) {
-        swiper2.allowClick = false;
+        swiper.allowClick = false;
       }
 
       if (data.isTouched) {
@@ -14920,13 +14920,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }
 
     if (data.isTouchEvent && params.touchReleaseOnEdges && !params.loop) {
-      if (swiper2.isVertical()) {
-        if (pageY < touches.startY && swiper2.translate <= swiper2.maxTranslate() || pageY > touches.startY && swiper2.translate >= swiper2.minTranslate()) {
+      if (swiper.isVertical()) {
+        if (pageY < touches.startY && swiper.translate <= swiper.maxTranslate() || pageY > touches.startY && swiper.translate >= swiper.minTranslate()) {
           data.isTouched = false;
           data.isMoved = false;
           return;
         }
-      } else if (pageX < touches.startX && swiper2.translate <= swiper2.maxTranslate() || pageX > touches.startX && swiper2.translate >= swiper2.minTranslate()) {
+      } else if (pageX < touches.startX && swiper.translate <= swiper.maxTranslate() || pageX > touches.startX && swiper.translate >= swiper.minTranslate()) {
         return;
       }
     }
@@ -14934,13 +14934,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     if (data.isTouchEvent && document2.activeElement) {
       if (e.target === document2.activeElement && dom_default(e.target).is(data.focusableElements)) {
         data.isMoved = true;
-        swiper2.allowClick = false;
+        swiper.allowClick = false;
         return;
       }
     }
 
     if (data.allowTouchCallbacks) {
-      swiper2.emit("touchMove", e);
+      swiper.emit("touchMove", e);
     }
 
     if (e.targetTouches && e.targetTouches.length > 1) return;
@@ -14948,23 +14948,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     touches.currentY = pageY;
     var diffX = touches.currentX - touches.startX;
     var diffY = touches.currentY - touches.startY;
-    if (swiper2.params.threshold && Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) < swiper2.params.threshold) return;
+    if (swiper.params.threshold && Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2)) < swiper.params.threshold) return;
 
     if (typeof data.isScrolling === "undefined") {
       var touchAngle;
 
-      if (swiper2.isHorizontal() && touches.currentY === touches.startY || swiper2.isVertical() && touches.currentX === touches.startX) {
+      if (swiper.isHorizontal() && touches.currentY === touches.startY || swiper.isVertical() && touches.currentX === touches.startX) {
         data.isScrolling = false;
       } else {
         if (diffX * diffX + diffY * diffY >= 25) {
           touchAngle = Math.atan2(Math.abs(diffY), Math.abs(diffX)) * 180 / Math.PI;
-          data.isScrolling = swiper2.isHorizontal() ? touchAngle > params.touchAngle : 90 - touchAngle > params.touchAngle;
+          data.isScrolling = swiper.isHorizontal() ? touchAngle > params.touchAngle : 90 - touchAngle > params.touchAngle;
         }
       }
     }
 
     if (data.isScrolling) {
-      swiper2.emit("touchMoveOpposite", e);
+      swiper.emit("touchMoveOpposite", e);
     }
 
     if (typeof data.startMoving === "undefined") {
@@ -14982,7 +14982,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return;
     }
 
-    swiper2.allowClick = false;
+    swiper.allowClick = false;
 
     if (!params.cssMode && e.cancelable) {
       e.preventDefault();
@@ -14994,32 +14994,32 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     if (!data.isMoved) {
       if (params.loop && !params.cssMode) {
-        swiper2.loopFix();
+        swiper.loopFix();
       }
 
-      data.startTranslate = swiper2.getTranslate();
-      swiper2.setTransition(0);
+      data.startTranslate = swiper.getTranslate();
+      swiper.setTransition(0);
 
-      if (swiper2.animating) {
-        swiper2.$wrapperEl.trigger("webkitTransitionEnd transitionend");
+      if (swiper.animating) {
+        swiper.$wrapperEl.trigger("webkitTransitionEnd transitionend");
       }
 
       data.allowMomentumBounce = false;
 
-      if (params.grabCursor && (swiper2.allowSlideNext === true || swiper2.allowSlidePrev === true)) {
-        swiper2.setGrabCursor(true);
+      if (params.grabCursor && (swiper.allowSlideNext === true || swiper.allowSlidePrev === true)) {
+        swiper.setGrabCursor(true);
       }
 
-      swiper2.emit("sliderFirstMove", e);
+      swiper.emit("sliderFirstMove", e);
     }
 
-    swiper2.emit("sliderMove", e);
+    swiper.emit("sliderMove", e);
     data.isMoved = true;
-    var diff = swiper2.isHorizontal() ? diffX : diffY;
+    var diff = swiper.isHorizontal() ? diffX : diffY;
     touches.diff = diff;
     diff *= params.touchRatio;
     if (rtl) diff = -diff;
-    swiper2.swipeDirection = diff > 0 ? "prev" : "next";
+    swiper.swipeDirection = diff > 0 ? "prev" : "next";
     data.currentTranslate = diff + data.startTranslate;
     var disableParentSwiper = true;
     var resistanceRatio = params.resistanceRatio;
@@ -15028,27 +15028,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       resistanceRatio = 0;
     }
 
-    if (diff > 0 && data.currentTranslate > swiper2.minTranslate()) {
+    if (diff > 0 && data.currentTranslate > swiper.minTranslate()) {
       disableParentSwiper = false;
-      if (params.resistance) data.currentTranslate = swiper2.minTranslate() - 1 + Math.pow(-swiper2.minTranslate() + data.startTranslate + diff, resistanceRatio);
-    } else if (diff < 0 && data.currentTranslate < swiper2.maxTranslate()) {
+      if (params.resistance) data.currentTranslate = swiper.minTranslate() - 1 + Math.pow(-swiper.minTranslate() + data.startTranslate + diff, resistanceRatio);
+    } else if (diff < 0 && data.currentTranslate < swiper.maxTranslate()) {
       disableParentSwiper = false;
-      if (params.resistance) data.currentTranslate = swiper2.maxTranslate() + 1 - Math.pow(swiper2.maxTranslate() - data.startTranslate - diff, resistanceRatio);
+      if (params.resistance) data.currentTranslate = swiper.maxTranslate() + 1 - Math.pow(swiper.maxTranslate() - data.startTranslate - diff, resistanceRatio);
     }
 
     if (disableParentSwiper) {
       e.preventedByNestedSwiper = true;
     }
 
-    if (!swiper2.allowSlideNext && swiper2.swipeDirection === "next" && data.currentTranslate < data.startTranslate) {
+    if (!swiper.allowSlideNext && swiper.swipeDirection === "next" && data.currentTranslate < data.startTranslate) {
       data.currentTranslate = data.startTranslate;
     }
 
-    if (!swiper2.allowSlidePrev && swiper2.swipeDirection === "prev" && data.currentTranslate > data.startTranslate) {
+    if (!swiper.allowSlidePrev && swiper.swipeDirection === "prev" && data.currentTranslate > data.startTranslate) {
       data.currentTranslate = data.startTranslate;
     }
 
-    if (!swiper2.allowSlidePrev && !swiper2.allowSlideNext) {
+    if (!swiper.allowSlidePrev && !swiper.allowSlideNext) {
       data.currentTranslate = data.startTranslate;
     }
 
@@ -15059,7 +15059,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           touches.startX = touches.currentX;
           touches.startY = touches.currentY;
           data.currentTranslate = data.startTranslate;
-          touches.diff = swiper2.isHorizontal() ? touches.currentX - touches.startX : touches.currentY - touches.startY;
+          touches.diff = swiper.isHorizontal() ? touches.currentX - touches.startX : touches.currentY - touches.startY;
           return;
         }
       } else {
@@ -15070,41 +15070,41 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     if (!params.followFinger || params.cssMode) return;
 
-    if (params.freeMode && params.freeMode.enabled && swiper2.freeMode || params.watchSlidesProgress) {
-      swiper2.updateActiveIndex();
-      swiper2.updateSlidesClasses();
+    if (params.freeMode && params.freeMode.enabled && swiper.freeMode || params.watchSlidesProgress) {
+      swiper.updateActiveIndex();
+      swiper.updateSlidesClasses();
     }
 
-    if (swiper2.params.freeMode && params.freeMode.enabled && swiper2.freeMode) {
-      swiper2.freeMode.onTouchMove();
+    if (swiper.params.freeMode && params.freeMode.enabled && swiper.freeMode) {
+      swiper.freeMode.onTouchMove();
     }
 
-    swiper2.updateProgress(data.currentTranslate);
-    swiper2.setTranslate(data.currentTranslate);
+    swiper.updateProgress(data.currentTranslate);
+    swiper.setTranslate(data.currentTranslate);
   } // node_modules/swiper/core/events/onTouchEnd.js
 
 
   function onTouchEnd(event2) {
-    var swiper2 = this;
-    var data = swiper2.touchEventsData;
-    var params = swiper2.params,
-        touches = swiper2.touches,
-        rtl = swiper2.rtlTranslate,
-        slidesGrid = swiper2.slidesGrid,
-        enabled = swiper2.enabled;
+    var swiper = this;
+    var data = swiper.touchEventsData;
+    var params = swiper.params,
+        touches = swiper.touches,
+        rtl = swiper.rtlTranslate,
+        slidesGrid = swiper.slidesGrid,
+        enabled = swiper.enabled;
     if (!enabled) return;
     var e = event2;
     if (e.originalEvent) e = e.originalEvent;
 
     if (data.allowTouchCallbacks) {
-      swiper2.emit("touchEnd", e);
+      swiper.emit("touchEnd", e);
     }
 
     data.allowTouchCallbacks = false;
 
     if (!data.isTouched) {
       if (data.isMoved && params.grabCursor) {
-        swiper2.setGrabCursor(false);
+        swiper.setGrabCursor(false);
       }
 
       data.isMoved = false;
@@ -15112,29 +15112,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return;
     }
 
-    if (params.grabCursor && data.isMoved && data.isTouched && (swiper2.allowSlideNext === true || swiper2.allowSlidePrev === true)) {
-      swiper2.setGrabCursor(false);
+    if (params.grabCursor && data.isMoved && data.isTouched && (swiper.allowSlideNext === true || swiper.allowSlidePrev === true)) {
+      swiper.setGrabCursor(false);
     }
 
     var touchEndTime = now();
     var timeDiff = touchEndTime - data.touchStartTime;
 
-    if (swiper2.allowClick) {
+    if (swiper.allowClick) {
       var pathTree = e.path || e.composedPath && e.composedPath();
-      swiper2.updateClickedSlide(pathTree && pathTree[0] || e.target);
-      swiper2.emit("tap click", e);
+      swiper.updateClickedSlide(pathTree && pathTree[0] || e.target);
+      swiper.emit("tap click", e);
 
       if (timeDiff < 300 && touchEndTime - data.lastClickTime < 300) {
-        swiper2.emit("doubleTap doubleClick", e);
+        swiper.emit("doubleTap doubleClick", e);
       }
     }
 
     data.lastClickTime = now();
     nextTick(function () {
-      if (!swiper2.destroyed) swiper2.allowClick = true;
+      if (!swiper.destroyed) swiper.allowClick = true;
     });
 
-    if (!data.isTouched || !data.isMoved || !swiper2.swipeDirection || touches.diff === 0 || data.currentTranslate === data.startTranslate) {
+    if (!data.isTouched || !data.isMoved || !swiper.swipeDirection || touches.diff === 0 || data.currentTranslate === data.startTranslate) {
       data.isTouched = false;
       data.isMoved = false;
       data.startMoving = false;
@@ -15147,7 +15147,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var currentPos;
 
     if (params.followFinger) {
-      currentPos = rtl ? swiper2.translate : -swiper2.translate;
+      currentPos = rtl ? swiper.translate : -swiper.translate;
     } else {
       currentPos = -data.currentTranslate;
     }
@@ -15156,15 +15156,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       return;
     }
 
-    if (swiper2.params.freeMode && params.freeMode.enabled) {
-      swiper2.freeMode.onTouchEnd({
+    if (swiper.params.freeMode && params.freeMode.enabled) {
+      swiper.freeMode.onTouchEnd({
         currentPos: currentPos
       });
       return;
     }
 
     var stopIndex = 0;
-    var groupSize = swiper2.slidesSizesGrid[0];
+    var groupSize = swiper.slidesSizesGrid[0];
 
     for (var i = 0; i < slidesGrid.length; i += i < params.slidesPerGroupSkip ? 1 : params.slidesPerGroup) {
       var increment2 = i < params.slidesPerGroupSkip - 1 ? 1 : params.slidesPerGroup;
@@ -15184,9 +15184,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var rewindLastIndex = null;
 
     if (params.rewind) {
-      if (swiper2.isBeginning) {
-        rewindLastIndex = swiper2.params.virtual && swiper2.params.virtual.enabled && swiper2.virtual ? swiper2.virtual.slides.length - 1 : swiper2.slides.length - 1;
-      } else if (swiper2.isEnd) {
+      if (swiper.isBeginning) {
+        rewindLastIndex = swiper.params.virtual && swiper.params.virtual.enabled && swiper.virtual ? swiper.virtual.slides.length - 1 : swiper.slides.length - 1;
+      } else if (swiper.isEnd) {
         rewindFirstIndex = 0;
       }
     }
@@ -15196,94 +15196,94 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
     if (timeDiff > params.longSwipesMs) {
       if (!params.longSwipes) {
-        swiper2.slideTo(swiper2.activeIndex);
+        swiper.slideTo(swiper.activeIndex);
         return;
       }
 
-      if (swiper2.swipeDirection === "next") {
-        if (ratio >= params.longSwipesRatio) swiper2.slideTo(params.rewind && swiper2.isEnd ? rewindFirstIndex : stopIndex + increment);else swiper2.slideTo(stopIndex);
+      if (swiper.swipeDirection === "next") {
+        if (ratio >= params.longSwipesRatio) swiper.slideTo(params.rewind && swiper.isEnd ? rewindFirstIndex : stopIndex + increment);else swiper.slideTo(stopIndex);
       }
 
-      if (swiper2.swipeDirection === "prev") {
+      if (swiper.swipeDirection === "prev") {
         if (ratio > 1 - params.longSwipesRatio) {
-          swiper2.slideTo(stopIndex + increment);
+          swiper.slideTo(stopIndex + increment);
         } else if (rewindLastIndex !== null && ratio < 0 && Math.abs(ratio) > params.longSwipesRatio) {
-          swiper2.slideTo(rewindLastIndex);
+          swiper.slideTo(rewindLastIndex);
         } else {
-          swiper2.slideTo(stopIndex);
+          swiper.slideTo(stopIndex);
         }
       }
     } else {
       if (!params.shortSwipes) {
-        swiper2.slideTo(swiper2.activeIndex);
+        swiper.slideTo(swiper.activeIndex);
         return;
       }
 
-      var isNavButtonTarget = swiper2.navigation && (e.target === swiper2.navigation.nextEl || e.target === swiper2.navigation.prevEl);
+      var isNavButtonTarget = swiper.navigation && (e.target === swiper.navigation.nextEl || e.target === swiper.navigation.prevEl);
 
       if (!isNavButtonTarget) {
-        if (swiper2.swipeDirection === "next") {
-          swiper2.slideTo(rewindFirstIndex !== null ? rewindFirstIndex : stopIndex + increment);
+        if (swiper.swipeDirection === "next") {
+          swiper.slideTo(rewindFirstIndex !== null ? rewindFirstIndex : stopIndex + increment);
         }
 
-        if (swiper2.swipeDirection === "prev") {
-          swiper2.slideTo(rewindLastIndex !== null ? rewindLastIndex : stopIndex);
+        if (swiper.swipeDirection === "prev") {
+          swiper.slideTo(rewindLastIndex !== null ? rewindLastIndex : stopIndex);
         }
-      } else if (e.target === swiper2.navigation.nextEl) {
-        swiper2.slideTo(stopIndex + increment);
+      } else if (e.target === swiper.navigation.nextEl) {
+        swiper.slideTo(stopIndex + increment);
       } else {
-        swiper2.slideTo(stopIndex);
+        swiper.slideTo(stopIndex);
       }
     }
   } // node_modules/swiper/core/events/onResize.js
 
 
   function onResize() {
-    var swiper2 = this;
-    var params = swiper2.params,
-        el = swiper2.el;
+    var swiper = this;
+    var params = swiper.params,
+        el = swiper.el;
     if (el && el.offsetWidth === 0) return;
 
     if (params.breakpoints) {
-      swiper2.setBreakpoint();
+      swiper.setBreakpoint();
     }
 
-    var allowSlideNext = swiper2.allowSlideNext,
-        allowSlidePrev = swiper2.allowSlidePrev,
-        snapGrid = swiper2.snapGrid;
-    swiper2.allowSlideNext = true;
-    swiper2.allowSlidePrev = true;
-    swiper2.updateSize();
-    swiper2.updateSlides();
-    swiper2.updateSlidesClasses();
+    var allowSlideNext = swiper.allowSlideNext,
+        allowSlidePrev = swiper.allowSlidePrev,
+        snapGrid = swiper.snapGrid;
+    swiper.allowSlideNext = true;
+    swiper.allowSlidePrev = true;
+    swiper.updateSize();
+    swiper.updateSlides();
+    swiper.updateSlidesClasses();
 
-    if ((params.slidesPerView === "auto" || params.slidesPerView > 1) && swiper2.isEnd && !swiper2.isBeginning && !swiper2.params.centeredSlides) {
-      swiper2.slideTo(swiper2.slides.length - 1, 0, false, true);
+    if ((params.slidesPerView === "auto" || params.slidesPerView > 1) && swiper.isEnd && !swiper.isBeginning && !swiper.params.centeredSlides) {
+      swiper.slideTo(swiper.slides.length - 1, 0, false, true);
     } else {
-      swiper2.slideTo(swiper2.activeIndex, 0, false, true);
+      swiper.slideTo(swiper.activeIndex, 0, false, true);
     }
 
-    if (swiper2.autoplay && swiper2.autoplay.running && swiper2.autoplay.paused) {
-      swiper2.autoplay.run();
+    if (swiper.autoplay && swiper.autoplay.running && swiper.autoplay.paused) {
+      swiper.autoplay.run();
     }
 
-    swiper2.allowSlidePrev = allowSlidePrev;
-    swiper2.allowSlideNext = allowSlideNext;
+    swiper.allowSlidePrev = allowSlidePrev;
+    swiper.allowSlideNext = allowSlideNext;
 
-    if (swiper2.params.watchOverflow && snapGrid !== swiper2.snapGrid) {
-      swiper2.checkOverflow();
+    if (swiper.params.watchOverflow && snapGrid !== swiper.snapGrid) {
+      swiper.checkOverflow();
     }
   } // node_modules/swiper/core/events/onClick.js
 
 
   function onClick(e) {
-    var swiper2 = this;
-    if (!swiper2.enabled) return;
+    var swiper = this;
+    if (!swiper.enabled) return;
 
-    if (!swiper2.allowClick) {
-      if (swiper2.params.preventClicks) e.preventDefault();
+    if (!swiper.allowClick) {
+      if (swiper.params.preventClicks) e.preventDefault();
 
-      if (swiper2.params.preventClicksPropagation && swiper2.animating) {
+      if (swiper.params.preventClicksPropagation && swiper.animating) {
         e.stopPropagation();
         e.stopImmediatePropagation();
       }
@@ -15292,36 +15292,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function onScroll() {
-    var swiper2 = this;
-    var wrapperEl = swiper2.wrapperEl,
-        rtlTranslate = swiper2.rtlTranslate,
-        enabled = swiper2.enabled;
+    var swiper = this;
+    var wrapperEl = swiper.wrapperEl,
+        rtlTranslate = swiper.rtlTranslate,
+        enabled = swiper.enabled;
     if (!enabled) return;
-    swiper2.previousTranslate = swiper2.translate;
+    swiper.previousTranslate = swiper.translate;
 
-    if (swiper2.isHorizontal()) {
-      swiper2.translate = -wrapperEl.scrollLeft;
+    if (swiper.isHorizontal()) {
+      swiper.translate = -wrapperEl.scrollLeft;
     } else {
-      swiper2.translate = -wrapperEl.scrollTop;
+      swiper.translate = -wrapperEl.scrollTop;
     }
 
-    if (swiper2.translate === 0) swiper2.translate = 0;
-    swiper2.updateActiveIndex();
-    swiper2.updateSlidesClasses();
+    if (swiper.translate === 0) swiper.translate = 0;
+    swiper.updateActiveIndex();
+    swiper.updateSlidesClasses();
     var newProgress;
-    var translatesDiff = swiper2.maxTranslate() - swiper2.minTranslate();
+    var translatesDiff = swiper.maxTranslate() - swiper.minTranslate();
 
     if (translatesDiff === 0) {
       newProgress = 0;
     } else {
-      newProgress = (swiper2.translate - swiper2.minTranslate()) / translatesDiff;
+      newProgress = (swiper.translate - swiper.minTranslate()) / translatesDiff;
     }
 
-    if (newProgress !== swiper2.progress) {
-      swiper2.updateProgress(rtlTranslate ? -swiper2.translate : swiper2.translate);
+    if (newProgress !== swiper.progress) {
+      swiper.updateProgress(rtlTranslate ? -swiper.translate : swiper.translate);
     }
 
-    swiper2.emit("setTranslate", swiper2.translate, false);
+    swiper.emit("setTranslate", swiper.translate, false);
   } // node_modules/swiper/core/events/index.js
 
 
@@ -15329,80 +15329,80 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   function dummyEventListener() {}
 
-  var events = function events(swiper2, method) {
+  var events = function events(swiper, method) {
     var document2 = getDocument();
-    var params = swiper2.params,
-        touchEvents = swiper2.touchEvents,
-        el = swiper2.el,
-        wrapperEl = swiper2.wrapperEl,
-        device = swiper2.device,
-        support2 = swiper2.support;
+    var params = swiper.params,
+        touchEvents = swiper.touchEvents,
+        el = swiper.el,
+        wrapperEl = swiper.wrapperEl,
+        device = swiper.device,
+        support2 = swiper.support;
     var capture = !!params.nested;
     var domMethod = method === "on" ? "addEventListener" : "removeEventListener";
     var swiperMethod = method;
 
     if (!support2.touch) {
-      el[domMethod](touchEvents.start, swiper2.onTouchStart, false);
-      document2[domMethod](touchEvents.move, swiper2.onTouchMove, capture);
-      document2[domMethod](touchEvents.end, swiper2.onTouchEnd, false);
+      el[domMethod](touchEvents.start, swiper.onTouchStart, false);
+      document2[domMethod](touchEvents.move, swiper.onTouchMove, capture);
+      document2[domMethod](touchEvents.end, swiper.onTouchEnd, false);
     } else {
       var passiveListener = touchEvents.start === "touchstart" && support2.passiveListener && params.passiveListeners ? {
         passive: true,
         capture: false
       } : false;
-      el[domMethod](touchEvents.start, swiper2.onTouchStart, passiveListener);
-      el[domMethod](touchEvents.move, swiper2.onTouchMove, support2.passiveListener ? {
+      el[domMethod](touchEvents.start, swiper.onTouchStart, passiveListener);
+      el[domMethod](touchEvents.move, swiper.onTouchMove, support2.passiveListener ? {
         passive: false,
         capture: capture
       } : capture);
-      el[domMethod](touchEvents.end, swiper2.onTouchEnd, passiveListener);
+      el[domMethod](touchEvents.end, swiper.onTouchEnd, passiveListener);
 
       if (touchEvents.cancel) {
-        el[domMethod](touchEvents.cancel, swiper2.onTouchEnd, passiveListener);
+        el[domMethod](touchEvents.cancel, swiper.onTouchEnd, passiveListener);
       }
     }
 
     if (params.preventClicks || params.preventClicksPropagation) {
-      el[domMethod]("click", swiper2.onClick, true);
+      el[domMethod]("click", swiper.onClick, true);
     }
 
     if (params.cssMode) {
-      wrapperEl[domMethod]("scroll", swiper2.onScroll);
+      wrapperEl[domMethod]("scroll", swiper.onScroll);
     }
 
     if (params.updateOnWindowResize) {
-      swiper2[swiperMethod](device.ios || device.android ? "resize orientationchange observerUpdate" : "resize observerUpdate", onResize, true);
+      swiper[swiperMethod](device.ios || device.android ? "resize orientationchange observerUpdate" : "resize observerUpdate", onResize, true);
     } else {
-      swiper2[swiperMethod]("observerUpdate", onResize, true);
+      swiper[swiperMethod]("observerUpdate", onResize, true);
     }
   };
 
   function attachEvents() {
-    var swiper2 = this;
+    var swiper = this;
     var document2 = getDocument();
-    var params = swiper2.params,
-        support2 = swiper2.support;
-    swiper2.onTouchStart = onTouchStart.bind(swiper2);
-    swiper2.onTouchMove = onTouchMove.bind(swiper2);
-    swiper2.onTouchEnd = onTouchEnd.bind(swiper2);
+    var params = swiper.params,
+        support2 = swiper.support;
+    swiper.onTouchStart = onTouchStart.bind(swiper);
+    swiper.onTouchMove = onTouchMove.bind(swiper);
+    swiper.onTouchEnd = onTouchEnd.bind(swiper);
 
     if (params.cssMode) {
-      swiper2.onScroll = onScroll.bind(swiper2);
+      swiper.onScroll = onScroll.bind(swiper);
     }
 
-    swiper2.onClick = onClick.bind(swiper2);
+    swiper.onClick = onClick.bind(swiper);
 
     if (support2.touch && !dummyEventAttached) {
       document2.addEventListener("touchstart", dummyEventListener);
       dummyEventAttached = true;
     }
 
-    events(swiper2, "on");
+    events(swiper, "on");
   }
 
   function detachEvents() {
-    var swiper2 = this;
-    events(swiper2, "off");
+    var swiper = this;
+    events(swiper, "off");
   }
 
   var events_default = {
@@ -15410,31 +15410,31 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     detachEvents: detachEvents
   }; // node_modules/swiper/core/breakpoints/setBreakpoint.js
 
-  var isGridEnabled = function isGridEnabled(swiper2, params) {
-    return swiper2.grid && params.grid && params.grid.rows > 1;
+  var isGridEnabled = function isGridEnabled(swiper, params) {
+    return swiper.grid && params.grid && params.grid.rows > 1;
   };
 
   function setBreakpoint() {
-    var swiper2 = this;
-    var activeIndex = swiper2.activeIndex,
-        initialized = swiper2.initialized,
-        _swiper2$loopedSlides = swiper2.loopedSlides,
-        loopedSlides = _swiper2$loopedSlides === void 0 ? 0 : _swiper2$loopedSlides,
-        params = swiper2.params,
-        $el = swiper2.$el;
+    var swiper = this;
+    var activeIndex = swiper.activeIndex,
+        initialized = swiper.initialized,
+        _swiper$loopedSlides = swiper.loopedSlides,
+        loopedSlides = _swiper$loopedSlides === void 0 ? 0 : _swiper$loopedSlides,
+        params = swiper.params,
+        $el = swiper.$el;
     var breakpoints = params.breakpoints;
     if (!breakpoints || breakpoints && Object.keys(breakpoints).length === 0) return;
-    var breakpoint = swiper2.getBreakpoint(breakpoints, swiper2.params.breakpointsBase, swiper2.el);
-    if (!breakpoint || swiper2.currentBreakpoint === breakpoint) return;
+    var breakpoint = swiper.getBreakpoint(breakpoints, swiper.params.breakpointsBase, swiper.el);
+    if (!breakpoint || swiper.currentBreakpoint === breakpoint) return;
     var breakpointOnlyParams = breakpoint in breakpoints ? breakpoints[breakpoint] : void 0;
-    var breakpointParams = breakpointOnlyParams || swiper2.originalParams;
-    var wasMultiRow = isGridEnabled(swiper2, params);
-    var isMultiRow = isGridEnabled(swiper2, breakpointParams);
+    var breakpointParams = breakpointOnlyParams || swiper.originalParams;
+    var wasMultiRow = isGridEnabled(swiper, params);
+    var isMultiRow = isGridEnabled(swiper, breakpointParams);
     var wasEnabled = params.enabled;
 
     if (wasMultiRow && !isMultiRow) {
       $el.removeClass("".concat(params.containerModifierClass, "grid ").concat(params.containerModifierClass, "grid-column"));
-      swiper2.emitContainerClasses();
+      swiper.emitContainerClasses();
     } else if (!wasMultiRow && isMultiRow) {
       $el.addClass("".concat(params.containerModifierClass, "grid"));
 
@@ -15442,41 +15442,41 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         $el.addClass("".concat(params.containerModifierClass, "grid-column"));
       }
 
-      swiper2.emitContainerClasses();
+      swiper.emitContainerClasses();
     }
 
     var directionChanged = breakpointParams.direction && breakpointParams.direction !== params.direction;
     var needsReLoop = params.loop && (breakpointParams.slidesPerView !== params.slidesPerView || directionChanged);
 
     if (directionChanged && initialized) {
-      swiper2.changeDirection();
+      swiper.changeDirection();
     }
 
-    extend2(swiper2.params, breakpointParams);
-    var isEnabled = swiper2.params.enabled;
-    Object.assign(swiper2, {
-      allowTouchMove: swiper2.params.allowTouchMove,
-      allowSlideNext: swiper2.params.allowSlideNext,
-      allowSlidePrev: swiper2.params.allowSlidePrev
+    extend2(swiper.params, breakpointParams);
+    var isEnabled = swiper.params.enabled;
+    Object.assign(swiper, {
+      allowTouchMove: swiper.params.allowTouchMove,
+      allowSlideNext: swiper.params.allowSlideNext,
+      allowSlidePrev: swiper.params.allowSlidePrev
     });
 
     if (wasEnabled && !isEnabled) {
-      swiper2.disable();
+      swiper.disable();
     } else if (!wasEnabled && isEnabled) {
-      swiper2.enable();
+      swiper.enable();
     }
 
-    swiper2.currentBreakpoint = breakpoint;
-    swiper2.emit("_beforeBreakpoint", breakpointParams);
+    swiper.currentBreakpoint = breakpoint;
+    swiper.emit("_beforeBreakpoint", breakpointParams);
 
     if (needsReLoop && initialized) {
-      swiper2.loopDestroy();
-      swiper2.loopCreate();
-      swiper2.updateSlides();
-      swiper2.slideTo(activeIndex - loopedSlides + swiper2.loopedSlides, 0, false);
+      swiper.loopDestroy();
+      swiper.loopCreate();
+      swiper.updateSlides();
+      swiper.slideTo(activeIndex - loopedSlides + swiper.loopedSlides, 0, false);
     }
 
-    swiper2.emit("breakpoint", breakpointParams);
+    swiper.emit("breakpoint", breakpointParams);
   } // node_modules/swiper/core/breakpoints/getBreakpoint.js
 
 
@@ -15548,17 +15548,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }
 
   function addClasses() {
-    var swiper2 = this;
-    var classNames = swiper2.classNames,
-        params = swiper2.params,
-        rtl = swiper2.rtl,
-        $el = swiper2.$el,
-        device = swiper2.device,
-        support2 = swiper2.support;
+    var swiper = this;
+    var classNames = swiper.classNames,
+        params = swiper.params,
+        rtl = swiper.rtl,
+        $el = swiper.$el,
+        device = swiper.device,
+        support2 = swiper.support;
     var suffixes = prepareClasses(["initialized", params.direction, {
       "pointer-events": !support2.touch
     }, {
-      "free-mode": swiper2.params.freeMode && params.freeMode.enabled
+      "free-mode": swiper.params.freeMode && params.freeMode.enabled
     }, {
       "autoheight": params.autoHeight
     }, {
@@ -15580,16 +15580,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }], params.containerModifierClass);
     classNames.push.apply(classNames, _toConsumableArray(suffixes));
     $el.addClass(_toConsumableArray(classNames).join(" "));
-    swiper2.emitContainerClasses();
+    swiper.emitContainerClasses();
   } // node_modules/swiper/core/classes/removeClasses.js
 
 
   function removeClasses() {
-    var swiper2 = this;
-    var $el = swiper2.$el,
-        classNames = swiper2.classNames;
+    var swiper = this;
+    var $el = swiper.$el,
+        classNames = swiper.classNames;
     $el.removeClass(classNames.join(" "));
-    swiper2.emitContainerClasses();
+    swiper.emitContainerClasses();
   } // node_modules/swiper/core/classes/index.js
 
 
@@ -15635,22 +15635,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
 
   function preloadImages() {
-    var swiper2 = this;
-    swiper2.imagesToLoad = swiper2.$el.find("img");
+    var swiper = this;
+    swiper.imagesToLoad = swiper.$el.find("img");
 
     function onReady() {
-      if (typeof swiper2 === "undefined" || swiper2 === null || !swiper2 || swiper2.destroyed) return;
-      if (swiper2.imagesLoaded !== void 0) swiper2.imagesLoaded += 1;
+      if (typeof swiper === "undefined" || swiper === null || !swiper || swiper.destroyed) return;
+      if (swiper.imagesLoaded !== void 0) swiper.imagesLoaded += 1;
 
-      if (swiper2.imagesLoaded === swiper2.imagesToLoad.length) {
-        if (swiper2.params.updateOnImagesReady) swiper2.update();
-        swiper2.emit("imagesReady");
+      if (swiper.imagesLoaded === swiper.imagesToLoad.length) {
+        if (swiper.params.updateOnImagesReady) swiper.update();
+        swiper.emit("imagesReady");
       }
     }
 
-    for (var i = 0; i < swiper2.imagesToLoad.length; i += 1) {
-      var imageEl = swiper2.imagesToLoad[i];
-      swiper2.loadImage(imageEl, imageEl.currentSrc || imageEl.getAttribute("src"), imageEl.srcset || imageEl.getAttribute("srcset"), imageEl.sizes || imageEl.getAttribute("sizes"), true, onReady);
+    for (var i = 0; i < swiper.imagesToLoad.length; i += 1) {
+      var imageEl = swiper.imagesToLoad[i];
+      swiper.loadImage(imageEl, imageEl.currentSrc || imageEl.getAttribute("src"), imageEl.srcset || imageEl.getAttribute("srcset"), imageEl.sizes || imageEl.getAttribute("sizes"), true, onReady);
     }
   } // node_modules/swiper/core/images/index.js
 
@@ -15661,33 +15661,33 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }; // node_modules/swiper/core/check-overflow/index.js
 
   function checkOverflow() {
-    var swiper2 = this;
-    var wasLocked = swiper2.isLocked,
-        params = swiper2.params;
+    var swiper = this;
+    var wasLocked = swiper.isLocked,
+        params = swiper.params;
     var slidesOffsetBefore = params.slidesOffsetBefore;
 
     if (slidesOffsetBefore) {
-      var lastSlideIndex = swiper2.slides.length - 1;
-      var lastSlideRightEdge = swiper2.slidesGrid[lastSlideIndex] + swiper2.slidesSizesGrid[lastSlideIndex] + slidesOffsetBefore * 2;
-      swiper2.isLocked = swiper2.size > lastSlideRightEdge;
+      var lastSlideIndex = swiper.slides.length - 1;
+      var lastSlideRightEdge = swiper.slidesGrid[lastSlideIndex] + swiper.slidesSizesGrid[lastSlideIndex] + slidesOffsetBefore * 2;
+      swiper.isLocked = swiper.size > lastSlideRightEdge;
     } else {
-      swiper2.isLocked = swiper2.snapGrid.length === 1;
+      swiper.isLocked = swiper.snapGrid.length === 1;
     }
 
     if (params.allowSlideNext === true) {
-      swiper2.allowSlideNext = !swiper2.isLocked;
+      swiper.allowSlideNext = !swiper.isLocked;
     }
 
     if (params.allowSlidePrev === true) {
-      swiper2.allowSlidePrev = !swiper2.isLocked;
+      swiper.allowSlidePrev = !swiper.isLocked;
     }
 
-    if (wasLocked && wasLocked !== swiper2.isLocked) {
-      swiper2.isEnd = false;
+    if (wasLocked && wasLocked !== swiper.isLocked) {
+      swiper.isEnd = false;
     }
 
-    if (wasLocked !== swiper2.isLocked) {
-      swiper2.emit(swiper2.isLocked ? "lock" : "unlock");
+    if (wasLocked !== swiper.isLocked) {
+      swiper.emit(swiper.isLocked ? "lock" : "unlock");
     }
   }
 
@@ -15880,52 +15880,52 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         return swipers;
       }
 
-      var swiper2 = this;
-      swiper2.__swiper__ = true;
-      swiper2.support = getSupport();
-      swiper2.device = getDevice({
+      var swiper = this;
+      swiper.__swiper__ = true;
+      swiper.support = getSupport();
+      swiper.device = getDevice({
         userAgent: params.userAgent
       });
-      swiper2.browser = getBrowser();
-      swiper2.eventsListeners = {};
-      swiper2.eventsAnyListeners = [];
-      swiper2.modules = _toConsumableArray(swiper2.__modules__);
+      swiper.browser = getBrowser();
+      swiper.eventsListeners = {};
+      swiper.eventsAnyListeners = [];
+      swiper.modules = _toConsumableArray(swiper.__modules__);
 
       if (params.modules && Array.isArray(params.modules)) {
-        var _swiper2$modules;
+        var _swiper$modules;
 
-        (_swiper2$modules = swiper2.modules).push.apply(_swiper2$modules, _toConsumableArray(params.modules));
+        (_swiper$modules = swiper.modules).push.apply(_swiper$modules, _toConsumableArray(params.modules));
       }
 
       var allModulesParams = {};
-      swiper2.modules.forEach(function (mod) {
+      swiper.modules.forEach(function (mod) {
         mod({
-          swiper: swiper2,
+          swiper: swiper,
           extendParams: moduleExtendParams(params, allModulesParams),
-          on: swiper2.on.bind(swiper2),
-          once: swiper2.once.bind(swiper2),
-          off: swiper2.off.bind(swiper2),
-          emit: swiper2.emit.bind(swiper2)
+          on: swiper.on.bind(swiper),
+          once: swiper.once.bind(swiper),
+          off: swiper.off.bind(swiper),
+          emit: swiper.emit.bind(swiper)
         });
       });
       var swiperParams = extend2({}, defaults_default, allModulesParams);
-      swiper2.params = extend2({}, swiperParams, extendedDefaults, params);
-      swiper2.originalParams = extend2({}, swiper2.params);
-      swiper2.passedParams = extend2({}, params);
+      swiper.params = extend2({}, swiperParams, extendedDefaults, params);
+      swiper.originalParams = extend2({}, swiper.params);
+      swiper.passedParams = extend2({}, params);
 
-      if (swiper2.params && swiper2.params.on) {
-        Object.keys(swiper2.params.on).forEach(function (eventName) {
-          swiper2.on(eventName, swiper2.params.on[eventName]);
+      if (swiper.params && swiper.params.on) {
+        Object.keys(swiper.params.on).forEach(function (eventName) {
+          swiper.on(eventName, swiper.params.on[eventName]);
         });
       }
 
-      if (swiper2.params && swiper2.params.onAny) {
-        swiper2.onAny(swiper2.params.onAny);
+      if (swiper.params && swiper.params.onAny) {
+        swiper.onAny(swiper.params.onAny);
       }
 
-      swiper2.$ = dom_default;
-      Object.assign(swiper2, {
-        enabled: swiper2.params.enabled,
+      swiper.$ = dom_default;
+      Object.assign(swiper, {
+        enabled: swiper.params.enabled,
         el: el,
         classNames: [],
         slides: dom_default(),
@@ -15933,10 +15933,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         snapGrid: [],
         slidesSizesGrid: [],
         isHorizontal: function isHorizontal() {
-          return swiper2.params.direction === "horizontal";
+          return swiper.params.direction === "horizontal";
         },
         isVertical: function isVertical() {
-          return swiper2.params.direction === "vertical";
+          return swiper.params.direction === "vertical";
         },
         activeIndex: 0,
         realIndex: 0,
@@ -15947,23 +15947,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         progress: 0,
         velocity: 0,
         animating: false,
-        allowSlideNext: swiper2.params.allowSlideNext,
-        allowSlidePrev: swiper2.params.allowSlidePrev,
+        allowSlideNext: swiper.params.allowSlideNext,
+        allowSlidePrev: swiper.params.allowSlidePrev,
         touchEvents: function touchEvents() {
           var touch = ["touchstart", "touchmove", "touchend", "touchcancel"];
           var desktop = ["pointerdown", "pointermove", "pointerup"];
-          swiper2.touchEventsTouch = {
+          swiper.touchEventsTouch = {
             start: touch[0],
             move: touch[1],
             end: touch[2],
             cancel: touch[3]
           };
-          swiper2.touchEventsDesktop = {
+          swiper.touchEventsDesktop = {
             start: desktop[0],
             move: desktop[1],
             end: desktop[2]
           };
-          return swiper2.support.touch || !swiper2.params.simulateTouch ? swiper2.touchEventsTouch : swiper2.touchEventsDesktop;
+          return swiper.support.touch || !swiper.params.simulateTouch ? swiper.touchEventsTouch : swiper.touchEventsDesktop;
         }(),
         touchEventsData: {
           isTouched: void 0,
@@ -15974,7 +15974,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           currentTranslate: void 0,
           startTranslate: void 0,
           allowThresholdMove: void 0,
-          focusableElements: swiper2.params.focusableElements,
+          focusableElements: swiper.params.focusableElements,
           lastClickTime: now(),
           clickTimeout: void 0,
           velocities: [],
@@ -15983,7 +15983,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           startMoving: void 0
         },
         allowClick: true,
-        allowTouchMove: swiper2.params.allowTouchMove,
+        allowTouchMove: swiper.params.allowTouchMove,
         touches: {
           startX: 0,
           startY: 0,
@@ -15994,87 +15994,87 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         imagesToLoad: [],
         imagesLoaded: 0
       });
-      swiper2.emit("_swiper");
+      swiper.emit("_swiper");
 
-      if (swiper2.params.init) {
-        swiper2.init();
+      if (swiper.params.init) {
+        swiper.init();
       }
 
-      return swiper2;
+      return swiper;
     }
 
     _createClass2(Swiper, [{
       key: "enable",
       value: function enable() {
-        var swiper2 = this;
-        if (swiper2.enabled) return;
-        swiper2.enabled = true;
+        var swiper = this;
+        if (swiper.enabled) return;
+        swiper.enabled = true;
 
-        if (swiper2.params.grabCursor) {
-          swiper2.setGrabCursor();
+        if (swiper.params.grabCursor) {
+          swiper.setGrabCursor();
         }
 
-        swiper2.emit("enable");
+        swiper.emit("enable");
       }
     }, {
       key: "disable",
       value: function disable() {
-        var swiper2 = this;
-        if (!swiper2.enabled) return;
-        swiper2.enabled = false;
+        var swiper = this;
+        if (!swiper.enabled) return;
+        swiper.enabled = false;
 
-        if (swiper2.params.grabCursor) {
-          swiper2.unsetGrabCursor();
+        if (swiper.params.grabCursor) {
+          swiper.unsetGrabCursor();
         }
 
-        swiper2.emit("disable");
+        swiper.emit("disable");
       }
     }, {
       key: "setProgress",
       value: function setProgress(progress, speed) {
-        var swiper2 = this;
+        var swiper = this;
         progress = Math.min(Math.max(progress, 0), 1);
-        var min = swiper2.minTranslate();
-        var max = swiper2.maxTranslate();
+        var min = swiper.minTranslate();
+        var max = swiper.maxTranslate();
         var current = (max - min) * progress + min;
-        swiper2.translateTo(current, typeof speed === "undefined" ? 0 : speed);
-        swiper2.updateActiveIndex();
-        swiper2.updateSlidesClasses();
+        swiper.translateTo(current, typeof speed === "undefined" ? 0 : speed);
+        swiper.updateActiveIndex();
+        swiper.updateSlidesClasses();
       }
     }, {
       key: "emitContainerClasses",
       value: function emitContainerClasses() {
-        var swiper2 = this;
-        if (!swiper2.params._emitClasses || !swiper2.el) return;
-        var cls = swiper2.el.className.split(" ").filter(function (className) {
-          return className.indexOf("swiper") === 0 || className.indexOf(swiper2.params.containerModifierClass) === 0;
+        var swiper = this;
+        if (!swiper.params._emitClasses || !swiper.el) return;
+        var cls = swiper.el.className.split(" ").filter(function (className) {
+          return className.indexOf("swiper") === 0 || className.indexOf(swiper.params.containerModifierClass) === 0;
         });
-        swiper2.emit("_containerClasses", cls.join(" "));
+        swiper.emit("_containerClasses", cls.join(" "));
       }
     }, {
       key: "getSlideClasses",
       value: function getSlideClasses(slideEl) {
-        var swiper2 = this;
-        if (swiper2.destroyed) return "";
+        var swiper = this;
+        if (swiper.destroyed) return "";
         return slideEl.className.split(" ").filter(function (className) {
-          return className.indexOf("swiper-slide") === 0 || className.indexOf(swiper2.params.slideClass) === 0;
+          return className.indexOf("swiper-slide") === 0 || className.indexOf(swiper.params.slideClass) === 0;
         }).join(" ");
       }
     }, {
       key: "emitSlidesClasses",
       value: function emitSlidesClasses() {
-        var swiper2 = this;
-        if (!swiper2.params._emitClasses || !swiper2.el) return;
+        var swiper = this;
+        if (!swiper.params._emitClasses || !swiper.el) return;
         var updates = [];
-        swiper2.slides.each(function (slideEl) {
-          var classNames = swiper2.getSlideClasses(slideEl);
+        swiper.slides.each(function (slideEl) {
+          var classNames = swiper.getSlideClasses(slideEl);
           updates.push({
             slideEl: slideEl,
             classNames: classNames
           });
-          swiper2.emit("_slideClass", slideEl, classNames);
+          swiper.emit("_slideClass", slideEl, classNames);
         });
-        swiper2.emit("_slideClasses", updates);
+        swiper.emit("_slideClasses", updates);
       }
     }, {
       key: "slidesPerViewDynamic",
@@ -16087,13 +16087,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           exact = false;
         }
 
-        var swiper2 = this;
-        var params = swiper2.params,
-            slides = swiper2.slides,
-            slidesGrid = swiper2.slidesGrid,
-            slidesSizesGrid = swiper2.slidesSizesGrid,
-            swiperSize = swiper2.size,
-            activeIndex = swiper2.activeIndex;
+        var swiper = this;
+        var params = swiper.params,
+            slides = swiper.slides,
+            slidesGrid = swiper.slidesGrid,
+            slidesSizesGrid = swiper.slidesSizesGrid,
+            swiperSize = swiper.size,
+            activeIndex = swiper.activeIndex;
         var spv = 1;
 
         if (params.centeredSlides) {
@@ -16140,41 +16140,41 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "update",
       value: function update() {
-        var swiper2 = this;
-        if (!swiper2 || swiper2.destroyed) return;
-        var snapGrid = swiper2.snapGrid,
-            params = swiper2.params;
+        var swiper = this;
+        if (!swiper || swiper.destroyed) return;
+        var snapGrid = swiper.snapGrid,
+            params = swiper.params;
 
         if (params.breakpoints) {
-          swiper2.setBreakpoint();
+          swiper.setBreakpoint();
         }
 
-        swiper2.updateSize();
-        swiper2.updateSlides();
-        swiper2.updateProgress();
-        swiper2.updateSlidesClasses();
+        swiper.updateSize();
+        swiper.updateSlides();
+        swiper.updateProgress();
+        swiper.updateSlidesClasses();
 
         function setTranslate2() {
-          var translateValue = swiper2.rtlTranslate ? swiper2.translate * -1 : swiper2.translate;
-          var newTranslate = Math.min(Math.max(translateValue, swiper2.maxTranslate()), swiper2.minTranslate());
-          swiper2.setTranslate(newTranslate);
-          swiper2.updateActiveIndex();
-          swiper2.updateSlidesClasses();
+          var translateValue = swiper.rtlTranslate ? swiper.translate * -1 : swiper.translate;
+          var newTranslate = Math.min(Math.max(translateValue, swiper.maxTranslate()), swiper.minTranslate());
+          swiper.setTranslate(newTranslate);
+          swiper.updateActiveIndex();
+          swiper.updateSlidesClasses();
         }
 
         var translated;
 
-        if (swiper2.params.freeMode && swiper2.params.freeMode.enabled) {
+        if (swiper.params.freeMode && swiper.params.freeMode.enabled) {
           setTranslate2();
 
-          if (swiper2.params.autoHeight) {
-            swiper2.updateAutoHeight();
+          if (swiper.params.autoHeight) {
+            swiper.updateAutoHeight();
           }
         } else {
-          if ((swiper2.params.slidesPerView === "auto" || swiper2.params.slidesPerView > 1) && swiper2.isEnd && !swiper2.params.centeredSlides) {
-            translated = swiper2.slideTo(swiper2.slides.length - 1, 0, false, true);
+          if ((swiper.params.slidesPerView === "auto" || swiper.params.slidesPerView > 1) && swiper.isEnd && !swiper.params.centeredSlides) {
+            translated = swiper.slideTo(swiper.slides.length - 1, 0, false, true);
           } else {
-            translated = swiper2.slideTo(swiper2.activeIndex, 0, false, true);
+            translated = swiper.slideTo(swiper.activeIndex, 0, false, true);
           }
 
           if (!translated) {
@@ -16182,11 +16182,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         }
 
-        if (params.watchOverflow && snapGrid !== swiper2.snapGrid) {
-          swiper2.checkOverflow();
+        if (params.watchOverflow && snapGrid !== swiper.snapGrid) {
+          swiper.checkOverflow();
         }
 
-        swiper2.emit("update");
+        swiper.emit("update");
       }
     }, {
       key: "changeDirection",
@@ -16195,47 +16195,47 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           needUpdate = true;
         }
 
-        var swiper2 = this;
-        var currentDirection = swiper2.params.direction;
+        var swiper = this;
+        var currentDirection = swiper.params.direction;
 
         if (!newDirection) {
           newDirection = currentDirection === "horizontal" ? "vertical" : "horizontal";
         }
 
         if (newDirection === currentDirection || newDirection !== "horizontal" && newDirection !== "vertical") {
-          return swiper2;
+          return swiper;
         }
 
-        swiper2.$el.removeClass("".concat(swiper2.params.containerModifierClass).concat(currentDirection)).addClass("".concat(swiper2.params.containerModifierClass).concat(newDirection));
-        swiper2.emitContainerClasses();
-        swiper2.params.direction = newDirection;
-        swiper2.slides.each(function (slideEl) {
+        swiper.$el.removeClass("".concat(swiper.params.containerModifierClass).concat(currentDirection)).addClass("".concat(swiper.params.containerModifierClass).concat(newDirection));
+        swiper.emitContainerClasses();
+        swiper.params.direction = newDirection;
+        swiper.slides.each(function (slideEl) {
           if (newDirection === "vertical") {
             slideEl.style.width = "";
           } else {
             slideEl.style.height = "";
           }
         });
-        swiper2.emit("changeDirection");
-        if (needUpdate) swiper2.update();
-        return swiper2;
+        swiper.emit("changeDirection");
+        if (needUpdate) swiper.update();
+        return swiper;
       }
     }, {
       key: "mount",
       value: function mount(el) {
-        var swiper2 = this;
-        if (swiper2.mounted) return true;
-        var $el = dom_default(el || swiper2.params.el);
+        var swiper = this;
+        if (swiper.mounted) return true;
+        var $el = dom_default(el || swiper.params.el);
         el = $el[0];
 
         if (!el) {
           return false;
         }
 
-        el.swiper = swiper2;
+        el.swiper = swiper;
 
         var getWrapperSelector = function getWrapperSelector() {
-          return ".".concat((swiper2.params.wrapperClass || "").trim().split(" ").join("."));
+          return ".".concat((swiper.params.wrapperClass || "").trim().split(" ").join("."));
         };
 
         var getWrapper = function getWrapper() {
@@ -16254,25 +16254,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
         var $wrapperEl = getWrapper();
 
-        if ($wrapperEl.length === 0 && swiper2.params.createElements) {
+        if ($wrapperEl.length === 0 && swiper.params.createElements) {
           var document2 = getDocument();
           var wrapper = document2.createElement("div");
           $wrapperEl = dom_default(wrapper);
-          wrapper.className = swiper2.params.wrapperClass;
+          wrapper.className = swiper.params.wrapperClass;
           $el.append(wrapper);
-          $el.children(".".concat(swiper2.params.slideClass)).each(function (slideEl) {
+          $el.children(".".concat(swiper.params.slideClass)).each(function (slideEl) {
             $wrapperEl.append(slideEl);
           });
         }
 
-        Object.assign(swiper2, {
+        Object.assign(swiper, {
           $el: $el,
           el: el,
           $wrapperEl: $wrapperEl,
           wrapperEl: $wrapperEl[0],
           mounted: true,
           rtl: el.dir.toLowerCase() === "rtl" || $el.css("direction") === "rtl",
-          rtlTranslate: swiper2.params.direction === "horizontal" && (el.dir.toLowerCase() === "rtl" || $el.css("direction") === "rtl"),
+          rtlTranslate: swiper.params.direction === "horizontal" && (el.dir.toLowerCase() === "rtl" || $el.css("direction") === "rtl"),
           wrongRTL: $wrapperEl.css("display") === "-webkit-box"
         });
         return true;
@@ -16280,48 +16280,48 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     }, {
       key: "init",
       value: function init(el) {
-        var swiper2 = this;
-        if (swiper2.initialized) return swiper2;
-        var mounted = swiper2.mount(el);
-        if (mounted === false) return swiper2;
-        swiper2.emit("beforeInit");
+        var swiper = this;
+        if (swiper.initialized) return swiper;
+        var mounted = swiper.mount(el);
+        if (mounted === false) return swiper;
+        swiper.emit("beforeInit");
 
-        if (swiper2.params.breakpoints) {
-          swiper2.setBreakpoint();
+        if (swiper.params.breakpoints) {
+          swiper.setBreakpoint();
         }
 
-        swiper2.addClasses();
+        swiper.addClasses();
 
-        if (swiper2.params.loop) {
-          swiper2.loopCreate();
+        if (swiper.params.loop) {
+          swiper.loopCreate();
         }
 
-        swiper2.updateSize();
-        swiper2.updateSlides();
+        swiper.updateSize();
+        swiper.updateSlides();
 
-        if (swiper2.params.watchOverflow) {
-          swiper2.checkOverflow();
+        if (swiper.params.watchOverflow) {
+          swiper.checkOverflow();
         }
 
-        if (swiper2.params.grabCursor && swiper2.enabled) {
-          swiper2.setGrabCursor();
+        if (swiper.params.grabCursor && swiper.enabled) {
+          swiper.setGrabCursor();
         }
 
-        if (swiper2.params.preloadImages) {
-          swiper2.preloadImages();
+        if (swiper.params.preloadImages) {
+          swiper.preloadImages();
         }
 
-        if (swiper2.params.loop) {
-          swiper2.slideTo(swiper2.params.initialSlide + swiper2.loopedSlides, 0, swiper2.params.runCallbacksOnInit, false, true);
+        if (swiper.params.loop) {
+          swiper.slideTo(swiper.params.initialSlide + swiper.loopedSlides, 0, swiper.params.runCallbacksOnInit, false, true);
         } else {
-          swiper2.slideTo(swiper2.params.initialSlide, 0, swiper2.params.runCallbacksOnInit, false, true);
+          swiper.slideTo(swiper.params.initialSlide, 0, swiper.params.runCallbacksOnInit, false, true);
         }
 
-        swiper2.attachEvents();
-        swiper2.initialized = true;
-        swiper2.emit("init");
-        swiper2.emit("afterInit");
-        return swiper2;
+        swiper.attachEvents();
+        swiper.initialized = true;
+        swiper.emit("init");
+        swiper.emit("afterInit");
+        return swiper;
       }
     }, {
       key: "destroy",
@@ -16334,26 +16334,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           cleanStyles = true;
         }
 
-        var swiper2 = this;
-        var params = swiper2.params,
-            $el = swiper2.$el,
-            $wrapperEl = swiper2.$wrapperEl,
-            slides = swiper2.slides;
+        var swiper = this;
+        var params = swiper.params,
+            $el = swiper.$el,
+            $wrapperEl = swiper.$wrapperEl,
+            slides = swiper.slides;
 
-        if (typeof swiper2.params === "undefined" || swiper2.destroyed) {
+        if (typeof swiper.params === "undefined" || swiper.destroyed) {
           return null;
         }
 
-        swiper2.emit("beforeDestroy");
-        swiper2.initialized = false;
-        swiper2.detachEvents();
+        swiper.emit("beforeDestroy");
+        swiper.initialized = false;
+        swiper.detachEvents();
 
         if (params.loop) {
-          swiper2.loopDestroy();
+          swiper.loopDestroy();
         }
 
         if (cleanStyles) {
-          swiper2.removeClasses();
+          swiper.removeClasses();
           $el.removeAttr("style");
           $wrapperEl.removeAttr("style");
 
@@ -16362,17 +16362,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           }
         }
 
-        swiper2.emit("destroy");
-        Object.keys(swiper2.eventsListeners).forEach(function (eventName) {
-          swiper2.off(eventName);
+        swiper.emit("destroy");
+        Object.keys(swiper.eventsListeners).forEach(function (eventName) {
+          swiper.off(eventName);
         });
 
         if (deleteInstance !== false) {
-          swiper2.$el[0].swiper = null;
-          deleteProps(swiper2);
+          swiper.$el[0].swiper = null;
+          deleteProps(swiper);
         }
 
-        swiper2.destroyed = true;
+        swiper.destroyed = true;
         return null;
       }
     }], [{
@@ -16431,12 +16431,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   var headerHeight = document.querySelector(".header").offsetHeight;
   var pageWrapper = document.querySelector(".page-wrapper");
 
-  if (window.screen.width < 1024) {
+  if (window.matchMedia("(max-width: 1024px)").matches) {
+    var video1 = document.querySelector(".videocard-first__video");
+    var video2 = document.querySelector(".videocard-second__video");
     var headerHeight2 = document.querySelector(".header-mobile").offsetHeight;
     var hamburgerMenu = document.getElementById("hamburger-image");
     var navMain = document.getElementById("nav-main");
     var sectionContent = document.querySelector(".section-content");
-    var toggle = false;
+    video1.autoPlay = true;
+    video2.autoPlay = true;
+    video1.play();
+    video2.play();
     var menuAnimation = gsapWithCSS.timeline({
       paused: true
     });
@@ -16470,63 +16475,131 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     pageWrapper.style.paddingTop = headerHeight2 + 30 + "px";
   } else {
     pageWrapper.style.paddingTop = headerHeight + 30 + "px";
-  }
 
-  var smoothScrollTrigger = function smoothScrollTrigger(containerId, videoClass) {
-    var video = document.querySelector(videoClass);
-    var src = video.currentSrc || video.src;
+    var smoothScrollTrigger = function smoothScrollTrigger(containerId, videoClass) {
+      var video = document.querySelector(videoClass);
+      var src = video.currentSrc || video.src;
 
-    function once(el, event2, fn, opts) {
-      var onceFn = function onceFn(e) {
-        el.removeEventListener(event2, onceFn);
-        fn.apply(this, arguments);
-      };
+      function once(el, event2, fn, opts) {
+        var onceFn = function onceFn(e) {
+          el.removeEventListener(event2, onceFn);
+          fn.apply(this, arguments);
+        };
 
-      el.addEventListener(event2, onceFn, opts);
-      return onceFn;
-    }
-
-    once(document.documentElement, "touchstart", function (e) {
-      video.play();
-      video.pause();
-    });
-    var tl2 = gsapWithCSS.timeline({
-      defaults: {
-        duration: 5
-      },
-      scrollTrigger: {
-        trigger: containerId,
-        start: "center center",
-        scrub: 1,
-        pin: true
+        el.addEventListener(event2, onceFn, opts);
+        return onceFn;
       }
+
+      once(document.documentElement, "touchstart", function (e) {
+        video.play();
+        video.pause();
+      });
+      var tl2 = gsapWithCSS.timeline({
+        defaults: {
+          duration: 5
+        },
+        scrollTrigger: {
+          trigger: containerId,
+          start: "center center",
+          scrub: 1,
+          pin: true
+        }
+      });
+      console.log("video", video.duration);
+      once(video, "loadedmetadata", function () {
+        tl2.fromTo(video, {
+          currentTime: 0
+        }, {
+          currentTime: video.duration || 1
+        });
+      });
+      setTimeout(function () {
+        if (window["fetch"]) {
+          fetch(src).then(function (response) {
+            return response.blob();
+          }).then(function (response) {
+            var blobURL = URL.createObjectURL(response);
+            var t = video.currentTime;
+            once(document.documentElement, "touchstart", function (e) {
+              video.play();
+              video.pause();
+            });
+            video.setAttribute("src", blobURL);
+            video.currentTime = t + 1e-3;
+          });
+        }
+      }, 1e3);
+    };
+
+    var pin = function pin(container) {
+      gsapWithCSS.timeline({
+        scrollTrigger: {
+          trigger: container,
+          scrub: 1,
+          start: "center center",
+          pin: true,
+          toggleActions: "play reverse play reverse"
+        }
+      });
+    };
+
+    var orders = document.querySelectorAll(".orders");
+    pin(".main-container");
+    smoothScrollTrigger("#videocard-first", ".videocard-first__video");
+    pin(".details--description");
+    smoothScrollTrigger("#videocard-second", ".videocard-second__video");
+    orders.forEach(function (order) {
+      pin(order);
     });
-    console.log("video", video.duration);
-    once(video, "loadedmetadata", function () {
-      tl2.fromTo(video, {
-        currentTime: 0
-      }, {
-        currentTime: video.duration || 1
+    var toHideElements = document.querySelectorAll("._scroll-fade-out");
+    toHideElements.forEach(function (toHideElem) {
+      var tl2 = gsapWithCSS.timeline({
+        scrollTrigger: {
+          trigger: toHideElem,
+          scrub: 1,
+          toggleActions: "play reverse play reverse"
+        }
+      });
+      tl2.to(toHideElem, {
+        opacity: 1
+      }).to(toHideElem, {
+        opacity: 0,
+        yPercent: -20
       });
     });
-    setTimeout(function () {
-      if (window["fetch"]) {
-        fetch(src).then(function (response) {
-          return response.blob();
-        }).then(function (response) {
-          var blobURL = URL.createObjectURL(response);
-          var t = video.currentTime;
-          once(document.documentElement, "touchstart", function (e) {
-            video.play();
-            video.pause();
-          });
-          video.setAttribute("src", blobURL);
-          video.currentTime = t + 1e-3;
+    var greetingAnimatedItems = document.querySelectorAll("._greeting-color-anim, body, .header");
+    var tl = gsapWithCSS.timeline({
+      scrollTrigger: {
+        trigger: ".greeting",
+        scrub: 1,
+        pin: true,
+        toggleActions: "play reverse play reverse"
+      }
+    });
+    greetingAnimatedItems.forEach(function (item) {
+      if (item.className.includes("header")) {
+        tl.to("._header-white", {
+          background: "#fff"
         });
       }
-    }, 1e3);
-  };
 
+      tl.to(item, item.tagName === "BODY" ? {
+        background: "#fff"
+      } : {
+        color: "#000"
+      });
+    });
+    swiper = new core_default(".mySwiper", {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      }
+    });
+  }
+
+  var swiper;
   var detailsButtons = document.querySelectorAll(".description--details");
   detailsButtons.forEach(function (btn) {
     var detailsContent = btn.getElementsByClassName("details__content")[1];
@@ -16541,73 +16614,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         detailsContent.style.maxHeight = btn.scrollHeight + 50 + "px";
       }
     });
-  });
-
-  var pin = function pin(container) {
-    gsapWithCSS.timeline({
-      scrollTrigger: {
-        trigger: container,
-        scrub: 1,
-        start: "center center",
-        pin: true,
-        toggleActions: "play reverse play reverse"
-      }
-    });
-  };
-
-  var orders = document.querySelectorAll(".orders");
-  pin(".main-container");
-  smoothScrollTrigger("#videocard-first", ".videocard-first__video");
-  pin(".details--description");
-  smoothScrollTrigger("#videocard-second", ".videocard-second__video");
-  orders.forEach(function (order) {
-    pin(order);
-  });
-  var toHideElements = document.querySelectorAll("._scroll-fade-out");
-  toHideElements.forEach(function (toHideElem) {
-    var tl2 = gsapWithCSS.timeline({
-      scrollTrigger: {
-        trigger: toHideElem,
-        scrub: 1,
-        toggleActions: "play reverse play reverse"
-      }
-    });
-    tl2.to(toHideElem, {
-      opacity: 1
-    }).to(toHideElem, {
-      opacity: 0,
-      yPercent: -20
-    });
-  });
-  var greetingAnimatedItems = document.querySelectorAll("._greeting-color-anim, body, .header");
-  var tl = gsapWithCSS.timeline({
-    scrollTrigger: {
-      trigger: ".greeting",
-      scrub: 1,
-      pin: true,
-      toggleActions: "play reverse play reverse"
-    }
-  });
-  greetingAnimatedItems.forEach(function (item) {
-    if (item.className.includes("header")) {
-      tl.to("._header-white", {
-        background: "#fff"
-      });
-    }
-
-    tl.to(item, item.tagName === "BODY" ? {
-      background: "#fff"
-    } : {
-      color: "#000"
-    });
-  });
-  var swiper = new core_default(".mySwiper", {
-    slidesPerView: 3,
-    spaceBetween: 30,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    }
   });
 })();
 /*!
