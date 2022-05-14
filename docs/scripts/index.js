@@ -16430,6 +16430,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   gsapWithCSS.registerPlugin(Draggable);
   var headerHeight = document.querySelector(".header").offsetHeight;
   var pageWrapper = document.querySelector(".page-wrapper");
+  var equipments = document.querySelector(".equipments");
+  var greeting = document.querySelector(".greeting");
 
   if (window.matchMedia("(max-width: 1024px)").matches) {
     var video1 = document.querySelector(".videocard-first__video");
@@ -16475,6 +16477,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     pageWrapper.style.paddingTop = headerHeight2 + 30 + "px";
   } else {
     pageWrapper.style.paddingTop = headerHeight + 30 + "px";
+    equipments.style.paddingTop = headerHeight + "px";
+    greeting.style.paddingTop = headerHeight + "px";
 
     var smoothScrollTrigger = function smoothScrollTrigger(containerId, videoClass) {
       var video = document.querySelector(videoClass);
@@ -16505,7 +16509,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           pin: true
         }
       });
-      console.log("video", video.duration);
       once(video, "loadedmetadata", function () {
         tl2.fromTo(video, {
           currentTime: 0
@@ -16531,12 +16534,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }, 1e3);
     };
 
-    var pin = function pin(container) {
+    var pin = function pin(container, type) {
       gsapWithCSS.timeline({
         scrollTrigger: {
           trigger: container,
           scrub: 1,
-          start: "center center",
+          start: type === void 0 ? "center center" : "".concat(type, " ").concat(type),
           pin: true,
           toggleActions: "play reverse play reverse"
         }
@@ -16549,7 +16552,36 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     pin(".details--description");
     smoothScrollTrigger("#videocard-second", ".videocard-second__video");
     orders.forEach(function (order) {
-      pin(order);
+      return pin(order);
+    });
+    pin(".equipments", "top");
+    var greetingAnimatedItems = document.querySelectorAll("._greeting-color-anim, body, .header");
+    var tl = gsapWithCSS.timeline({
+      scrollTrigger: {
+        trigger: ".greeting",
+        scrub: 1,
+        start: "top top",
+        pin: true,
+        toggleActions: "play reverse play rever se"
+      }
+    });
+    greetingAnimatedItems.forEach(function (item) {
+      tl.to("._header-white", {
+        background: "#fff",
+        border: "1px solid #DADADA"
+      }, "start");
+      tl.to("._header-gray", {
+        borderBottomColor: "#DADADA",
+        background: "#fff"
+      }, "start");
+      tl.to("._svg-coloring", {
+        fill: "#000"
+      }, "start");
+      tl.to(item, item.tagName === "BODY" ? {
+        background: "#fff"
+      } : {
+        color: "#000"
+      }, "start");
     });
     var toHideElements = document.querySelectorAll("._scroll-fade-out");
     toHideElements.forEach(function (toHideElem) {
@@ -16565,28 +16597,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }).to(toHideElem, {
         opacity: 0,
         yPercent: -20
-      });
-    });
-    var greetingAnimatedItems = document.querySelectorAll("._greeting-color-anim, body, .header");
-    var tl = gsapWithCSS.timeline({
-      scrollTrigger: {
-        trigger: ".greeting",
-        scrub: 1,
-        pin: true,
-        toggleActions: "play reverse play reverse"
-      }
-    });
-    greetingAnimatedItems.forEach(function (item) {
-      if (item.className.includes("header")) {
-        tl.to("._header-white", {
-          background: "#fff"
-        });
-      }
-
-      tl.to(item, item.tagName === "BODY" ? {
-        background: "#fff"
-      } : {
-        color: "#000"
       });
     });
     swiper = new core_default(".mySwiper", {

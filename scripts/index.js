@@ -9,6 +9,8 @@ gsap.registerPlugin(Draggable);
 
 const headerHeight = document.querySelector('.header').offsetHeight;
 const pageWrapper = document.querySelector('.page-wrapper');
+const equipments = document.querySelector('.equipments');
+const greeting = document.querySelector('.greeting');
 
 if (window.matchMedia("(max-width: 1024px)").matches) {
   const video1 = document.querySelector('.videocard-first__video');
@@ -44,6 +46,9 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
 } else {
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
+  equipments.style.paddingTop = headerHeight + 'px';
+  greeting.style.paddingTop = headerHeight + 'px';
+  
   const smoothScrollTrigger = (containerId, videoClass) => {
     const video = document.querySelector(videoClass);
     let src = video.currentSrc || video.src;
@@ -71,8 +76,6 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
         pin: true,
       }
     });
-  
-    console.log('video', video.duration);
   
     once(video, "loadedmetadata", () => {
       tl.fromTo(
@@ -108,12 +111,12 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   
   };
   
-  const pin = (container) => {
+  const pin = (container, type) => {
     gsap.timeline({
       scrollTrigger: {
         trigger: container,
         scrub: 1,
-        start: "center center",
+        start: type === undefined ? "center center" : `${type} ${type}`,
         pin: true,
         toggleActions: "play reverse play reverse",
       }
@@ -121,16 +124,38 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   }
   
   const orders = document.querySelectorAll('.orders');
-  
   pin('.main-container');
   smoothScrollTrigger('#videocard-first', '.videocard-first__video');
   pin('.details--description');
   smoothScrollTrigger('#videocard-second', '.videocard-second__video');
   
-  orders.forEach(order => {
-    pin(order);
+  orders.forEach(order => pin(order));
+  pin('.equipments', 'top');
+  
+  const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.greeting',
+      scrub: 1,
+      start: 'top top',
+      pin: true,
+      toggleActions: "play reverse play rever se",
+    }
   });
   
+  greetingAnimatedItems.forEach(item => {
+      // tl.add('start', 1)
+      tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
+      tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
+      tl.to('._svg-coloring', { fill: '#000' }, 'start');
+    
+    tl
+      .to(item, item.tagName === 'BODY'
+        ? { background: '#fff' }
+        : { color: '#000' }, 'start')
+  });
+
   const toHideElements = document.querySelectorAll('._scroll-fade-out');
   
   toHideElements.forEach(toHideElem => {
@@ -144,27 +169,6 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     tl
       .to(toHideElem, { opacity: 1 })
       .to(toHideElem, { opacity: 0, yPercent: -20 })
-  });
-  
-  
-  const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header')
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.greeting',
-      scrub: 1,
-      pin: true,
-      toggleActions: "play reverse play reverse",
-    }
-  });
-  
-  greetingAnimatedItems.forEach(item => {
-    if (item.className.includes('header')) {
-      tl.to('._header-white', { background: '#fff' });
-    }
-    tl
-      .to(item, item.tagName === 'BODY'
-        ? { background: '#fff' }
-        : { color: '#000' })
   });
   
   var swiper = new Swiper(".mySwiper", {
