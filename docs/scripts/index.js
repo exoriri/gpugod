@@ -11598,6 +11598,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var sectionContent = document.querySelector(".section-content");
     video1.autoPlay = true;
     video2.autoPlay = true;
+    video1.loop = true;
+    video2.loop = true;
     video1.play();
     video2.play();
     var menuAnimation = gsapWithCSS.timeline({
@@ -11696,7 +11698,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           trigger: container,
           scrub: 1,
           start: type === void 0 ? "center center" : "".concat(type, " ").concat(type),
-          pin: true,
+          end: "bottom bottom",
           toggleActions: "play reverse play reverse"
         }
       });
@@ -11717,7 +11719,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         trigger: ".greeting",
         scrub: 1,
         start: "top top",
-        pin: true,
         toggleActions: "play reverse play rever se"
       }
     });
@@ -11787,7 +11788,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       if (detailsContent.style.maxHeight) {
         detailsContent.style.maxHeight = null;
       } else {
-        detailsContent.style.maxHeight = btn.scrollHeight + 50 + "px";
+        detailsContent.style.maxHeight = btn.offsetHeight + "px";
       }
     });
   });

@@ -220,15 +220,13 @@ body {
 .details__content {
     display: flex;
     align-items: center;
-    flex: 1;
     width: 100%;
+    transition: all 0.3s;
 
     &:nth-child(2) {
-        flex: auto;
         padding-top: 0px;
         max-height: 0;
         overflow: hidden;
-        transition: all 0.3s;
     }
 
     /* to make margin of details__text works properly */
@@ -729,11 +727,15 @@ nav section {
         &__list {
             display: flex;
             flex-direction: row;
+
+            &-link {
+                font-size: 24px;
+            }
         }
     
         &__list-item {
             margin-bottom: 45px;
-            margin-right: 66px;
+            margin-right: calc(100vw / 720 * 40);
     
             &:last-child {
                 margin-right: 0px;
@@ -744,6 +746,10 @@ nav section {
             position: static;
             transform: translateX(0);
             align-self: flex-start;
+
+            &-text {
+                font-size: 24px;
+            }
         }
     }
 
@@ -754,19 +760,19 @@ nav section {
     }
 
     .swiper-slide--img1 {
-        @mixin scale 256, 920;
+        @mixin scale 276, 950;
         background: url('../assets/images/carousel/slide-1.png') no-repeat;
         background-size: 100%;
     }
 
     .swiper-slide--img2 {
-        @mixin scale 256, 920;
+        @mixin scale 276, 950;
         background: url('../assets/images/carousel/slide-2.png') no-repeat;
         background-size: 100%;
     }
 
     .swiper-slide--img3 {
-        @mixin scale 256, 920;
+        @mixin scale 276, 950;
         background: url('../assets/images/carousel/slide-3.png') no-repeat;
         background-size: 100%;
     }
@@ -881,7 +887,6 @@ nav section {
     }
 
     .ready-invest__button {
-
     }
 
     .header {

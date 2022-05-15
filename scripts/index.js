@@ -21,6 +21,8 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
 
   video1.autoPlay = true;
   video2.autoPlay = true;
+  video1.loop = true;
+  video2.loop = true;
   video1.play();
   video2.play();
 
@@ -116,7 +118,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
         trigger: container,
         scrub: 1,
         start: type === undefined ? "center center" : `${type} ${type}`,
-        pin: true,
+        end: 'bottom bottom',
         toggleActions: "play reverse play reverse",
       }
     });
@@ -138,7 +140,6 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       trigger: '.greeting',
       scrub: 1,
       start: 'top top',
-      pin: true,
       toggleActions: "play reverse play rever se",
     }
   });
@@ -206,7 +207,7 @@ detailsButtons.forEach(btn => {
     if (detailsContent.style.maxHeight) {
       detailsContent.style.maxHeight = null;
     } else {
-      detailsContent.style.maxHeight = btn.scrollHeight + 50 + "px";
+      detailsContent.style.maxHeight = btn.offsetHeight + "px";
     }
   })
 });
