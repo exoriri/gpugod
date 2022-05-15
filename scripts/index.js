@@ -202,12 +202,14 @@ detailsButtons.forEach(btn => {
   const detailsIcon = btn.getElementsByClassName('details__toggle-icon--plus')[0];
 
   btn.addEventListener('click', (e) => {
+    const detailsTextContainer = detailsContent.querySelector('.details__text');
+    const detailsTextParagraph = detailsTextContainer.querySelector('p');
     detailsContent.classList.toggle('details__content--active');
     detailsIcon.classList.toggle('details__toggle-icon--minus');
-    if (detailsContent.style.maxHeight) {
-      detailsContent.style.maxHeight = null;
+    if (detailsTextContainer.style.maxHeight) {
+      detailsTextContainer.style.maxHeight = null;
     } else {
-      detailsContent.style.maxHeight = btn.offsetHeight + "px";
+      detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
     }
   })
 });

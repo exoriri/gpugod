@@ -11782,13 +11782,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     var detailsContent = btn.getElementsByClassName("details__content")[1];
     var detailsIcon = btn.getElementsByClassName("details__toggle-icon--plus")[0];
     btn.addEventListener("click", function (e) {
+      var detailsTextContainer = detailsContent.querySelector(".details__text");
+      var detailsTextParagraph = detailsTextContainer.querySelector("p");
       detailsContent.classList.toggle("details__content--active");
       detailsIcon.classList.toggle("details__toggle-icon--minus");
 
-      if (detailsContent.style.maxHeight) {
-        detailsContent.style.maxHeight = null;
+      if (detailsTextContainer.style.maxHeight) {
+        detailsTextContainer.style.maxHeight = null;
       } else {
-        detailsContent.style.maxHeight = btn.offsetHeight + "px";
+        detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
       }
     });
   });
