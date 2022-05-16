@@ -2,15 +2,112 @@ import { gsap } from 'gsap';
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
+import Scrollbar from 'smooth-scrollbar';
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
+
+const scrollBarInit = () => {
+  const scroller = document.querySelector('.scroller');
+
+  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+
+  ScrollTrigger.scrollerProxy(".scroller", {
+    scrollTop(value) {
+      if (arguments.length) {
+        bodyScrollBar.scrollTop = value;
+      }
+      return bodyScrollBar.scrollTop;
+    }
+  });
+  bodyScrollBar.addListener(ScrollTrigger.update);
+
+  ScrollTrigger.defaults({ scroller: scroller });
+};
+
+
+const smoothScrollTrigger = (containerId, videoClass) => {
+  const video = document.querySelector(videoClass);
+  let src = video.currentSrc || video.src;
+
+  /* Make sure the video is 'activated' on iOS */
+  function once(el, event, fn, opts) {
+    var onceFn = function (e) {
+      el.removeEventListener(event, onceFn);
+      fn.apply(this, arguments);
+    };
+    el.addEventListener(event, onceFn, opts);
+    return onceFn;
+  }
+
+  once(document.documentElement, "touchstart", function (e) {
+    video.play();
+    video.pause();
+  });
+  let tl = gsap.timeline({
+    defaults: { duration: 5 },
+    scrollTrigger: {
+      trigger: containerId,
+      start: "center center",
+      scrub: 1,
+      pin: true,
+    }
+  });
+
+  once(video, "loadedmetadata", () => {
+    tl.fromTo(
+      video,
+      {
+        currentTime: 0
+      },
+      {
+        currentTime: video.duration || 1,
+      }
+    );
+  });
+
+  /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
+  setTimeout(function () {
+    if (window["fetch"]) {
+      fetch(src)
+        .then((response) => response.blob())
+        .then((response) => {
+          var blobURL = URL.createObjectURL(response);
+
+          var t = video.currentTime;
+          once(document.documentElement, "touchstart", function (e) {
+            video.play();
+            video.pause();
+          });
+
+          video.setAttribute("src", blobURL);
+          video.currentTime = t + 0.001;
+        });
+    }
+  }, 1000);
+
+};
+
+const pin = (container, type) => {
+  gsap.to({
+    scrollTrigger: {
+      trigger: container,
+      scrub: 1,
+      pin: true,
+      start: type === undefined ? "center center" : `${type} ${type}`,
+      end: 'bottom bottom'
+    }
+  });
+}
+
 
 const headerHeight = document.querySelector('.header').offsetHeight;
 const pageWrapper = document.querySelector('.page-wrapper');
 const equipments = document.querySelector('.equipments');
 const greeting = document.querySelector('.greeting');
 
+
+//MOBILE
 if (window.matchMedia("(max-width: 1024px)").matches) {
   const video1 = document.querySelector('.videocard-first__video');
   const video2 = document.querySelector('.videocard-second__video');
@@ -45,118 +142,44 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     }
   });
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
-} else {
+} else { // DESKTOP
+  scrollBarInit();
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
   equipments.style.paddingTop = headerHeight + 'px';
   greeting.style.paddingTop = headerHeight + 'px';
 
-  const smoothScrollTrigger = (containerId, videoClass) => {
-    const video = document.querySelector(videoClass);
-    let src = video.currentSrc || video.src;
-
-    /* Make sure the video is 'activated' on iOS */
-    function once(el, event, fn, opts) {
-      var onceFn = function (e) {
-        el.removeEventListener(event, onceFn);
-        fn.apply(this, arguments);
-      };
-      el.addEventListener(event, onceFn, opts);
-      return onceFn;
-    }
-
-    once(document.documentElement, "touchstart", function (e) {
-      video.play();
-      video.pause();
-    });
-    let tl = gsap.timeline({
-      defaults: { duration: 5 },
-      scrollTrigger: {
-        trigger: containerId,
-        start: "center center",
-        scrub: 1,
-        pin: true,
-      }
-    });
-
-    once(video, "loadedmetadata", () => {
-      tl.fromTo(
-        video,
-        {
-          currentTime: 0
-        },
-        {
-          currentTime: video.duration || 1,
-        }
-      );
-    });
-
-    /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
-    setTimeout(function () {
-      if (window["fetch"]) {
-        fetch(src)
-          .then((response) => response.blob())
-          .then((response) => {
-            var blobURL = URL.createObjectURL(response);
-
-            var t = video.currentTime;
-            once(document.documentElement, "touchstart", function (e) {
-              video.play();
-              video.pause();
-            });
-
-            video.setAttribute("src", blobURL);
-            video.currentTime = t + 0.001;
-          });
-      }
-    }, 1000);
-
-  };
-
-  const pin = (container, type) => {
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        scrub: 1,
-        pin: true,
-        start: type === undefined ? "center center" : `${type} ${type}`,
-        end: 'bottom bottom',
-        toggleActions: "play reverse play reverse",
-      }
-    });
-  }
-
   const orders = document.querySelectorAll('.orders');
   pin('.main-container');
-  smoothScrollTrigger('#videocard-first', '.videocard-first__video');
-  pin('.details--description');
-  smoothScrollTrigger('#videocard-second', '.videocard-second__video');
+  // smoothScrollTrigger('#videocard-first', '.videocard-first__video');
+  // pin('.details--description');
+  // smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
-  orders.forEach(order => pin(order));
-  pin('.equipments', 'top');
+  // orders.forEach(order => pin(order));
+  // pin('.equipments', 'top');
 
-  const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
+  // const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: '.greeting',
-      scrub: 1,
-      pin: true,
-      start: 'top top',
-    }
-  });
+  // const tl = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: '.greeting',
+  //     scrub: 1,
+  //     pin: true,
+  //     start: 'top top',
+  //   }
+  // });
 
-  greetingAnimatedItems.forEach(item => {
-    // tl.add('start', 1)
-    tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
-    tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
-    tl.to('.header__links-item', {className:" header__links-item header__links-item--white"})
-    tl.to('._svg-coloring', { fill: '#000' }, 'start');
+  // greetingAnimatedItems.forEach(item => {
+  //   tl.add('start', 1)
+  //   tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
+  //   tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
+  //   tl.to('.header__links-item', {className:" header__links-item header__links-item--white"})
+  //   tl.to('._svg-coloring', { fill: '#000' }, 'start');
 
-    tl
-      .to(item, item.tagName === 'BODY'
-        ? { background: '#fff' }
-        : { color: '#000' }, 'start')
-  });
+  //   tl
+  //     .to(item, item.tagName === 'BODY'
+  //       ? { background: '#fff' }
+  //       : { color: '#000' }, 'start')
+  // });
 
   const toHideElements = document.querySelectorAll('._scroll-fade-out');
 
@@ -164,8 +187,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: toHideElem,
-        scrub: 1,
-        toggleActions: "play reverse play reverse",
+        scrub: 1
       }
     });
     tl
@@ -174,7 +196,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   });
 }
 
-var swiper = new Swiper(".mySwiper", {
+new Swiper(".mySwiper", {
   effect: "coverflow",
   grabCursor: true,
   slidesPerView: "auto",
