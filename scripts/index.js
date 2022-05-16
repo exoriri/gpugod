@@ -235,3 +235,7 @@ detailsButtons.forEach(btn => {
     }
   })
 });
+
+const videos = document.querySelectorAll('.swiper-slide--img3');
+
+
