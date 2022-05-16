@@ -45,12 +45,11 @@ const smoothScrollTrigger = (containerId, videoClass) => {
     video.pause();
   });
   let tl = gsap.timeline({
-    defaults: { duration: 5 },
     scrollTrigger: {
       trigger: containerId,
       start: "center center",
       scrub: 1,
-      end: "+=" + (window.innerHeight * 10),
+      end: "+=" + (window.innerHeight * 6),
       pin: true,
     }
   });
@@ -89,7 +88,7 @@ const smoothScrollTrigger = (containerId, videoClass) => {
 
 };
 
-const pin = (container, toHideContaier) => {
+const pin = (container, toHideContaier, fromHiddenContainer) => {
   gsap.to(`${container} ${toHideContaier}`, {
     opacity: 0,
     y: -200,
@@ -98,7 +97,7 @@ const pin = (container, toHideContaier) => {
       scrub: true,
       pin: true,
       start: 'center center',
-      end: "+=" + (window.innerHeight * 10)
+      end: "+=" + (window.innerHeight * 5)
     }
   });
 }
@@ -158,7 +157,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
   orders.forEach((order, i) => pin(`._orders--${i+1}`, '._scroll-fade-out'));
-  pin('.equipments', '._scroll-fade-out');
+  pin('.equipments', '._scroll-fade-out', '.greeting');
 
   const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
 
@@ -166,22 +165,20 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     scrollTrigger: {
       trigger: '.greeting',
       scrub: 1,
-      pin: true,
-      start: 'top top',
+      start: 'top bottom',
     }
   });
 
   greetingAnimatedItems.forEach(item => {
-    tl.add('start', 5)
-    tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' })
-    tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' })
-    tl.to('.header__links-item', {className:" header__links-item header__links-item--white"})
+    tl.add('start', 1)
+    tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
+    tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
+    tl.to('.header__links-item', {className:" header__links-item header__links-item--white"}, 'start')
     tl.to('._svg-coloring', { fill: '#000' }, 'start');
-
     tl
       .to(item, item.tagName === 'BODY'
         ? { background: '#fff' }
-        : { color: '#000', opacity: 1 })
+        : { color: '#000' });
   });
 
   pin('.details--questions', '.description');
@@ -193,7 +190,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       scrub: true,
       start: 'top top',
       pin: true,
-      end: "+=" + (window.innerHeight * 10)
+      end: "+=" + (window.innerHeight * 3)
     }
   });
 }
