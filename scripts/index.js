@@ -38,10 +38,10 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       menuAnimationBack.play(0);
     } else {
       hamburgerMenu.classList.add('hamburger--active');
-      sectionContent.style.display = 'block';
+      sectionContent.style.display = 'flex';
       menuAnimation
         .to(navMain, 0.4, { width: '100%', className: "+=vertical", ease: "power2.easeInOut", transform: "translate3d(0,0,0)" }, 0);
-      menuAnimation.play(0)
+      menuAnimation.play(0);
     }
   });
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
@@ -117,6 +117,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       scrollTrigger: {
         trigger: container,
         scrub: 1,
+        pin: true,
         start: type === undefined ? "center center" : `${type} ${type}`,
         end: 'bottom bottom',
         toggleActions: "play reverse play reverse",
@@ -139,8 +140,8 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     scrollTrigger: {
       trigger: '.greeting',
       scrub: 1,
+      pin: true,
       start: 'top top',
-      toggleActions: "play reverse play rever se",
     }
   });
 

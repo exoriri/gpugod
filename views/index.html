@@ -14,6 +14,36 @@
     <img src="./assets/icons/logo-mobile.svg" />
     <div id="hamburger-image" class=""></div>
   </header>
+  <nav id="nav-main" class="skew">
+    <section class="section-content">
+      <ul class="section-content__list">
+        <li class="section-content__list-item">
+          <a class="section-content__list-text">
+            Преимущества
+          </a>
+        </li>
+        <li class="section-content__list-item">
+          <a class="section-content__list-text">
+            Представители
+          </a>
+        </li>
+        <li class="section-content__list-item">
+          <a class="section-content__list-text">
+            Отзывы
+          </a>
+        </li>
+      </ul>
+      <button class="section-content__btn">
+        <svg style="margin-right: 19px;" width="44" height="36" viewBox="0 0 44 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M7.21237e-07 35.75V27.5L0 19.25L8.25002 19.25V27.5H35.7501V19.25L44.0001 19.25V35.75H35.7501H8.25002H7.21237e-07Z"
+            fill="white" />
+          <path d="M22.0005 18.9694L11.0566 0H32.9444L22.0005 18.9694Z" fill="white" />
+        </svg>
+        <span>Заказать</span>
+      </button>
+    </section>
+  </nav>
 
   <header class="header _header-gray">
     <div class="header__logo _header-white">
@@ -72,33 +102,6 @@
   </header>
 
   <div class="page-wrapper">
-    <nav id="nav-main" class="skew">
-      <section>
-        <div class="section-content" style="font-size: 240px; color: #fff">
-          <ul class="section-content__list">
-            <li class="section-content__list-item">
-              <a class="section-content__list-text">
-                Преимущества
-              </a>
-            </li>
-            <li class="section-content__list-item">
-              <a class="section-content__list-text">
-                Представители
-              </a>
-            </li>
-            <li class="section-content__list-item">
-              <a class="section-content__list-text">
-                Отзывы
-              </a>
-            </li>
-          </ul>
-          <button class="section-content__btn">
-            Заказать
-          </button>
-        </div>
-      </section>
-
-    </nav>
     <!-- <div class="main-container--mobile">
       <img width="100%" height="100%" src="./assets/icons/arrow-circle-mobile.svg" alt="">
     </div> -->
@@ -132,6 +135,34 @@
       </main>
     </div>
 
+    <div class="main-container main-container--mobile">
+      <!-- <img class="main-container__arrow-cirlce-img" src="/assets/icons/arrow-circle-mobile.svg" alt="arrow-circle" /> -->
+      <h1 class="main-container__title">Майнинг</h1>
+      <div class="main-container__pricing">
+        <p class="main-container__price">от 330 000 рублей</p>
+        <p class="main-container__under-key-title">под ключ</p>
+      </div>
+      <div class="main-container__description-container">
+        <div class="description description--main _scroll-fade-out">
+          <p class="main-container__payback-title _scroll-fade-out">
+            C окупаемостью
+          </p>
+          <div class="main-container__payback-duration">
+            <p class="main-container__payback-duration-text _scroll-fade-out">
+              1 год /
+            </p>
+            <p class="main-container__payback-duration-text _scroll-fade-out">
+              1 месяц /
+            </p>
+            <p class="main-container__payback-duration-text _scroll-fade-out">
+              2 дня
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <div id="videocard-first">
       <video src="./assets/videos/firstVideo.mp4" playsinline="true" webkit-playsinline="true" preload="auto"
         muted="muted" class="videocard-first__video"></video>
@@ -155,16 +186,20 @@
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab
               perferendis, delectus dolorum qui voluptates dolor harum omnis
               dignissimos eum pariatur? Nulla obcaecati, hic perspiciatis
-              adipisci sequi nobis laudantium praesentium quia.               ** Example: ** Мы работаем лишь с проверенными производителями,
+              adipisci sequi nobis laudantium praesentium quia. ** Example: ** Мы работаем лишь с проверенными
+              производителями,
               получая комплектующие и продукцию из первых рук. Благодаря этому
               мы всегда готовы поручиться за качество нашей продукции, а так
-              же обеспечить максимально демократичные цены!               ** Example: ** Мы работаем лишь с проверенными производителями,
+              же обеспечить максимально демократичные цены! ** Example: ** Мы работаем лишь с проверенными
+              производителями,
               получая комплектующие и продукцию из первых рук. Благодаря этому
               мы всегда готовы поручиться за качество нашей продукции, а так
-              же обеспечить максимально демократичные цены!               ** Example: ** Мы работаем лишь с проверенными производителями,
+              же обеспечить максимально демократичные цены! ** Example: ** Мы работаем лишь с проверенными
+              производителями,
               получая комплектующие и продукцию из первых рук. Благодаря этому
               мы всегда готовы поручиться за качество нашей продукции, а так
-              же обеспечить максимально демократичные цены!               ** Example: ** Мы работаем лишь с проверенными производителями,
+              же обеспечить максимально демократичные цены! ** Example: ** Мы работаем лишь с проверенными
+              производителями,
               получая комплектующие и продукцию из первых рук. Благодаря этому
               мы всегда готовы поручиться за качество нашей продукции, а так
               же обеспечить максимально демократичные цены!
@@ -317,6 +352,10 @@
             359 000 р
           </p>
         </div>
+        <button class="orders__btn orders__btn--mobile">
+          <span class="orders__btn-text">заказать</span>
+          <img src="./assets/icons/plus.svg" alt="plus" />
+        </button>
       </div>
     </div>
 

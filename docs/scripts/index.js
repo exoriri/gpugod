@@ -11622,7 +11622,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         menuAnimationBack.play(0);
       } else {
         hamburgerMenu.classList.add("hamburger--active");
-        sectionContent.style.display = "block";
+        sectionContent.style.display = "flex";
         menuAnimation.to(navMain, 0.4, {
           width: "100%",
           className: "+=vertical",
@@ -11697,6 +11697,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         scrollTrigger: {
           trigger: container,
           scrub: 1,
+          pin: true,
           start: type === void 0 ? "center center" : "".concat(type, " ").concat(type),
           end: "bottom bottom",
           toggleActions: "play reverse play reverse"
@@ -11718,8 +11719,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       scrollTrigger: {
         trigger: ".greeting",
         scrub: 1,
-        start: "top top",
-        toggleActions: "play reverse play rever se"
+        pin: true,
+        start: "top top"
       }
     });
     greetingAnimatedItems.forEach(function (item) {
