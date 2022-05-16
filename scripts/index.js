@@ -165,7 +165,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     scrollTrigger: {
       trigger: '.greeting',
       scrub: 1,
-      start: 'top bottom',
+      start: 'top center',
     }
   });
 
