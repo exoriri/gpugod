@@ -369,9 +369,8 @@ body {
 }
 
 .greeting {
-    padding: calc(100vw / 1600 * 235) calc(100vw / 1600 * 90);
-    height: 100vh;
-
+    padding: 0 calc(100vw / 1600 * 90);
+    padding-bottom: calc(100vw / 1600 * 235);
     &__title {
         font-family: 'Helvetica-Medium';
         color: #fff;
@@ -561,9 +560,15 @@ body {
 .main-container--mobile {
     display: none;
 }
+.scroller {
+    height: 100vh;
+  }
 
 .main-container--desktop {
-    display: block;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-container--mobile {
@@ -792,6 +797,10 @@ nav section {
         display: none !important;
     }
 
+    .greeting {
+        padding: calc(100vw / 1600 * 235) calc(100vw / 1600 * 90);
+    }
+
     .footer {
         padding: calc(100vw / 1600 * 90) calc(100vw / 1600 * 90);
         background: #FBFBFB;
@@ -882,7 +891,7 @@ nav section {
     }
     .details--questions { 
         background: #fff;
-        height: auto !important;
+        height: 100vh !important;
         & .details__title {
             color: #000;
             font-family: 'Helvetica-Regular';
@@ -966,6 +975,10 @@ nav section {
 
     .header {
         display: none;
+    }
+
+    .details--questions {
+        height: auto !important;
     }
 
     .equipments {

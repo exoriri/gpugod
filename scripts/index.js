@@ -10,7 +10,7 @@ gsap.registerPlugin(Draggable);
 const scrollBarInit = () => {
   const scroller = document.querySelector('.scroller');
 
-  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1, delegateTo: document, alwaysShowTracks: true });
+  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.05, delegateTo: document, thumbMinSize: 0, alwaysShowTracks: false });
 
   ScrollTrigger.scrollerProxy(".scroller", {
     scrollTop(value) {
@@ -50,6 +50,7 @@ const smoothScrollTrigger = (containerId, videoClass) => {
       trigger: containerId,
       start: "center center",
       scrub: 1,
+      end: "+=" + (window.innerHeight * 10),
       pin: true,
     }
   });
@@ -88,14 +89,16 @@ const smoothScrollTrigger = (containerId, videoClass) => {
 
 };
 
-const pin = (container, type) => {
-  gsap.to({
+const pin = (container, toHideContaier) => {
+  gsap.to(`${container} ${toHideContaier}`, {
+    opacity: 0,
+    y: -200,
     scrollTrigger: {
       trigger: container,
-      scrub: 1,
+      scrub: true,
       pin: true,
-      start: type === undefined ? "center center" : `${type} ${type}`,
-      end: 'bottom bottom'
+      start: 'center center',
+      end: "+=" + (window.innerHeight * 10)
     }
   });
 }
@@ -149,50 +152,49 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   greeting.style.paddingTop = headerHeight + 'px';
 
   const orders = document.querySelectorAll('.orders');
-  pin('.main-container');
-  // smoothScrollTrigger('#videocard-first', '.videocard-first__video');
-  // pin('.details--description');
-  // smoothScrollTrigger('#videocard-second', '.videocard-second__video');
+  pin('.main-container', '._scroll-fade-out');
+  smoothScrollTrigger('#videocard-first', '.videocard-first__video');
+  pin('.details--description', '.description--details');
+  smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
-  // orders.forEach(order => pin(order));
-  // pin('.equipments', 'top');
+  orders.forEach((order, i) => pin(`._orders--${i+1}`, '._scroll-fade-out'));
+  pin('.equipments', '._scroll-fade-out');
 
-  // const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
+  const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
 
-  // const tl = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: '.greeting',
-  //     scrub: 1,
-  //     pin: true,
-  //     start: 'top top',
-  //   }
-  // });
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.greeting',
+      scrub: 1,
+      pin: true,
+      start: 'top top',
+    }
+  });
 
-  // greetingAnimatedItems.forEach(item => {
-  //   tl.add('start', 1)
-  //   tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
-  //   tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
-  //   tl.to('.header__links-item', {className:" header__links-item header__links-item--white"})
-  //   tl.to('._svg-coloring', { fill: '#000' }, 'start');
+  greetingAnimatedItems.forEach(item => {
+    tl.add('start', 5)
+    tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' })
+    tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' })
+    tl.to('.header__links-item', {className:" header__links-item header__links-item--white"})
+    tl.to('._svg-coloring', { fill: '#000' }, 'start');
 
-  //   tl
-  //     .to(item, item.tagName === 'BODY'
-  //       ? { background: '#fff' }
-  //       : { color: '#000' }, 'start')
-  // });
-
-  const toHideElements = document.querySelectorAll('._scroll-fade-out');
-
-  toHideElements.forEach(toHideElem => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: toHideElem,
-        scrub: 1
-      }
-    });
     tl
-      .to(toHideElem, { opacity: 1 })
-      .to(toHideElem, { opacity: 0, yPercent: -20 })
+      .to(item, item.tagName === 'BODY'
+        ? { background: '#fff' }
+        : { color: '#000', opacity: 1 })
+  });
+
+  pin('.details--questions', '.description');
+  gsap.to(`.swiper-container`, {
+    opacity: 0,
+    y: -200,
+    scrollTrigger: {
+      trigger: '.swiper-container',
+      scrub: true,
+      start: 'top top',
+      pin: true,
+      end: "+=" + (window.innerHeight * 10)
+    }
   });
 }
 
