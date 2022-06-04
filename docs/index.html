@@ -91,13 +91,16 @@
       </li>
     </ul>
     <div class="header__order _header-white">
-      <svg width="16" height="13" viewBox="0 0 16 13" style="margin-right: 21px;" fill="none"
+      <div class="header__order-content">
+        <svg width="16" height="13" viewBox="0 0 16 13" style="margin-right: 14px;" fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" class="_svg-coloring" clip-rule="evenodd" d="M0 10V7H3V10H13V7H16V10V13H13H3H0V10Z"
           fill="white" />
         <path d="M8 7L4 0H12L8 7Z" class="_svg-coloring" fill="white" />
       </svg>
-      <p class="header__order-text _greeting-color-anim">Заказы</p>
+      <p class="header__order-text _greeting-color-anim">Заказать</p>
+      </div>
+
     </div>
   </header>
 
@@ -304,7 +307,7 @@
             <p class="orders__table-text orders__table-text--white">
               > 250 MH/s
             </p>
-            <p class="orders__table-text">Стоимость (предзаказ)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
             <p class="orders__table-text orders__table-text--white">
               389 000 р
             </p>
@@ -316,7 +319,7 @@
             <p class="orders__table-text orders__table-text--white">
               1300 ватт
             </p>
-            <p class="orders__table-text">Стоимость (наличие)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
             <p class="orders__table-text orders__table-text--white">
               359 000 р
             </p>
@@ -326,7 +329,7 @@
         <div class="orders__table">
           <p class="orders__table-text">Гарантия</p>
           <p class="orders__table-text orders__table-text--white">3 месяца</p>
-          <p class="orders__table-text">Окупаемость</p>
+          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
           <p class="orders__table-text orders__table-text--white">
             ~ 11 месяцев
           </p>
@@ -349,7 +352,7 @@
           </p>
         </div>
         <div class="orders__table">
-          <p class="orders__table-text">Стоимость (наличие)</p>
+          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
           <p class="orders__table-text orders__table-text--white">
             359 000 р
           </p>
@@ -379,7 +382,7 @@
             <p class="orders__table-text orders__table-text--white">
               > 250 MH/s
             </p>
-            <p class="orders__table-text">Стоимость (предзаказ)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
             <p class="orders__table-text orders__table-text--white">
               389 000 р
             </p>
@@ -391,7 +394,7 @@
             <p class="orders__table-text orders__table-text--white">
               1300 ватт
             </p>
-            <p class="orders__table-text">Стоимость (наличие)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
             <p class="orders__table-text orders__table-text--white">
               429 000 р
             </p>
@@ -401,7 +404,7 @@
           <div class="orders__table">
             <p class="orders__table-text">Гарантия</p>
             <p class="orders__table-text orders__table-text--white">3 месяца</p>
-            <p class="orders__table-text">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
             <p class="orders__table-text orders__table-text--white">
               ~ 11 месяцев
             </p>
@@ -428,19 +431,19 @@
           </p>
         </div>
         <div class="orders__table">
-          <p class="orders__table-text">Стоимость (предзаказ)</p>
+          <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
           <p class="orders__table-text orders__table-text--white">
             429 000 р
           </p>
         </div>
         <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Стоимость (наличие)</p>
+          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
           <p class="orders__table-text orders__table-text--white">
             429 000 р
           </p>
         </div>
         <div class="orders__table">
-          <p class="orders__table-text">Окупаемость</p>
+          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
           <p class="orders__table-text orders__table-text--white">
             ~ 12 месяцев
           </p>
@@ -470,7 +473,7 @@
             <p class="orders__table-text orders__table-text--white">
               > 730 Mh/s
             </p>
-            <p class="orders__table-text">Стоимость (предзаказ)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
             <p class="orders__table-text orders__table-text--white">
               389 000 р
             </p>
@@ -480,7 +483,7 @@
           <div class="orders__table">
             <p class="orders__table-text">Потребление</p>
             <p class="orders__table-text orders__table-text--white">250 ватт</p>
-            <p class="orders__table-text">Стоимость (наличие)</p>
+            <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
             <p class="orders__table-text orders__table-text--white">
               429 000 р
             </p>
@@ -490,7 +493,7 @@
           <div class="orders__table">
             <p class="orders__table-text">Гарантия</p>
             <p class="orders__table-text orders__table-text--white">3 месяца</p>
-            <p class="orders__table-text">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
             <p class="orders__table-text orders__table-text--white">
               ~ 11 месяцев
             </p>
@@ -517,19 +520,19 @@
           </p>
         </div>
         <div class="orders__table">
-          <p class="orders__table-text">Стоимость (предзаказ)</p>
+          <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
           <p class="orders__table-text orders__table-text--white">
             429 000 р
           </p>
         </div>
         <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Стоимость (наличие)</p>
+          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
           <p class="orders__table-text orders__table-text--white">
             429 000 р
           </p>
         </div>
         <div class="orders__table">
-          <p class="orders__table-text">Окупаемость</p>
+          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
           <p class="orders__table-text orders__table-text--white">
             ~ 12 месяцев
           </p>

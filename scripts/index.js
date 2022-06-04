@@ -97,7 +97,7 @@ const pin = (container, toHideContaier, fromHiddenContainer) => {
       scrub: true,
       pin: true,
       start: 'center center',
-      end: "+=" + (window.innerHeight * 5)
+      end: "+=" + (window.innerHeight * 3)
     }
   });
 }
