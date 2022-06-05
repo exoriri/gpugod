@@ -23,6 +23,14 @@ body {
     max-height: 101px;
     border-bottom: 1px solid $borderSecondaryColor;
 
+    &_wht {
+        background: #fff !important;
+
+        & p {
+            color: #000 !important;
+        }
+    }
+
     &__order-text {
         font-size: 18px;
         color: #fff;
@@ -65,12 +73,13 @@ body {
             margin-right: 0;
         }
     
-        &--white {
+        &--wht {
             border-bottom: 3px solid #fff;
             &:hover {
                 border-bottom: 3px solid #0D0D0D !important;
                 
                 & a {
+                    color: #fff;
                     font-family: Helvetica-Medium;
                     font-weight: 550;
                 }
@@ -209,7 +218,8 @@ body {
 
 .main__key-payback-title {
     color: $primaryTextColor;
-    font-size: calc(100vw / 1600 * 24);
+    font-size: 1.5rem;
+    font-family: Helvetica-Regular;
 }
 
 .main__key-payback-duration {
@@ -222,6 +232,7 @@ body {
     color: #fff;
     margin-right: 23px;
     font-size: 1.5rem;
+    font-family: Helvetica-Regular;
 
     &:last-child {
         margin-right: 0;
@@ -328,7 +339,7 @@ body {
 
 .orders__title {
     color: #fff;
-    font-family: 'Helvetica-Regular';
+    font-family: Helvetica-Regular;
     font-size: 2.5rem;
     margin-bottom: calc(100vw / 1600 * 58);
     padding: 0 calc(100vw / 1600 * 90);

@@ -88,14 +88,14 @@ const smoothScrollTrigger = (containerId, videoClass) => {
 
 };
 
-const pin = (container, toHideContaier, fromHiddenContainer) => {
+const pin = (container, toHideContaier, fromHiddenContainer, pin=true) => {
   gsap.to(`${container} ${toHideContaier}`, {
     opacity: 0,
     y: -200,
     scrollTrigger: {
       trigger: container,
       scrub: true,
-      pin: true,
+      pin: pin,
       start: 'center center',
       end: "+=" + (window.innerHeight * 3)
     }
@@ -157,24 +157,25 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
   orders.forEach((order, i) => pin(`._orders--${i+1}`, '._scroll-fade-out'));
-  pin('.equipments', '._scroll-fade-out', '.greeting');
+  pin('.equipments', '._scroll-fade-out', '.greeting', false);
 
-  const greetingAnimatedItems = document.querySelectorAll('._greeting-color-anim, body, .header');
+  const greetingAnimatedItems = document.querySelectorAll('body, .header');
 
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: '.greeting',
+      trigger: '.equipments',
       scrub: 1,
-      start: 'top center',
+      start: 'bottom bottom',
     }
   });
 
   greetingAnimatedItems.forEach(item => {
     tl.add('start', 1)
     tl.to('._header-gray', { borderBottomColor: '#DADADA', background: '#fff' }, 'start')
-    tl.to('._header-white', { background: '#fff', border: '1px solid #DADADA' }, 'start')
-    tl.to('.header__links-item', {className:" header__links-item header__links-item--white"}, 'start')
-    tl.to('._svg-coloring', { fill: '#000' }, 'start');
+    tl.to('._header-wht', { background: '#fff', border: '1px solid #DADADA' }, 'start')
+    tl.to('.header__links-item', {className:"header__links-item header__links-item--wht"}, 'start')
+    tl.to('._svg-coloring', { fill: '#000', color: '#000' }, 'start');
+    tl.to('._greeting-color-anim', { fill: '#000', color: '#000' }, 'start');
     tl
       .to(item, item.tagName === 'BODY'
         ? { background: '#fff' }
