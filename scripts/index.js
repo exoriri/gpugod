@@ -97,7 +97,7 @@ const pin = (container, toHideContaier, fromHiddenContainer, pin=true) => {
       scrub: true,
       pin: pin,
       start: 'center center',
-      end: "+=" + (window.innerHeight * 3)
+      end: "+=" + (window.innerHeight * 2)
     }
   });
 }
@@ -191,7 +191,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       scrub: true,
       start: 'top top',
       pin: true,
-      end: "+=" + (window.innerHeight * 3)
+      end: "+=" + (window.innerHeight * 2)
     }
   });
 }
