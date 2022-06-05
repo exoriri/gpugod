@@ -88,14 +88,16 @@ const smoothScrollTrigger = (containerId, videoClass) => {
 
 };
 
-const pin = (container, toHideContaier, fromHiddenContainer, pin=true) => {
+const pin = (options) => {
+  const { container, toHideContaier, fromHiddenContainer, pin, pinSpacing } = options;
   gsap.to(`${container} ${toHideContaier}`, {
     opacity: 0,
     y: -200,
     scrollTrigger: {
       trigger: container,
       scrub: true,
-      pin: pin,
+      pin: pin !== undefined ? pin : true,
+      pinSpacing: pinSpacing !== undefined ? pinSpacing : true,
       start: 'center center',
       end: "+=" + (window.innerHeight * 2)
     }
@@ -151,13 +153,13 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   greeting.style.paddingTop = headerHeight + 'px';
 
   const orders = document.querySelectorAll('.orders');
-  pin('.main-container', '._scroll-fade-out');
+  pin({container: '.main-container', toHideContaier: '._scroll-fade-out'});
   smoothScrollTrigger('#videocard-first', '.videocard-first__video');
-  pin('.details--description', '.description--details');
+  pin({container: '.details--description', toHideContaier: '.description--details'});
   smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
-  orders.forEach((order, i) => pin(`._orders--${i+1}`, '._scroll-fade-out'));
-  pin('.equipments', '._scroll-fade-out', '.greeting', false);
+  orders.forEach((order, i) => pin({container: `._orders--${i+1}`, toHideContaier: '._scroll-fade-out', pinSpacing: i !== orders.length - 1 ? false : true}));
+  pin({container: '.equipments', toHideContaier: '._scroll-fade-out', toHideContaier: '.greeting', pin: false});
 
   const greetingAnimatedItems = document.querySelectorAll('body, .header');
 
@@ -182,7 +184,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
         : { color: '#000' });
   });
 
-  pin('.details--questions', '.description');
+  pin({container: '.details--questions', toHideContaier: '.description'});
   gsap.to(`.swiper-container`, {
     opacity: 0,
     y: -200,
@@ -230,8 +232,10 @@ detailsButtons.forEach(btn => {
     detailsContent.classList.toggle('details__content--active');
     detailsIcon.classList.toggle('details__toggle-icon--minus');
     if (detailsTextContainer.style.maxHeight) {
+      detailsContent.style.maxHeight = null;
       detailsTextContainer.style.maxHeight = null;
     } else {
+      detailsContent.style.maxHeight = '100%';
       detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
     }
   })

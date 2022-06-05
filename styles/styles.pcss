@@ -4,6 +4,7 @@
 
 html,body {
     height: 100%;
+    overflow-x: hidden !important;
 }
 
 body {
@@ -147,6 +148,9 @@ body {
 }
 
 .orders {
+    background: #000;
+    width: 100%;
+
     &__table-text {
         color: #A8A6A6;
         font-family: Helvetica-Regular;
@@ -169,7 +173,19 @@ body {
 .orders__table {
     display: flex;
     align-items: center;
-    padding: 10px calc(100vw / 1600 * 90);
+    padding: 20px calc(100vw / 1600 * 90);
+
+    &-text {
+        &:first-child {
+            width: 148px;
+        }
+    
+        &:nth-child(2) {
+            width: 122px;
+            margin-right: 164px;
+        }
+    }
+
 }
 
 .main-container {
@@ -205,16 +221,22 @@ body {
     &__key-title {
         font-size: 13.75rem;
         width: 100%;
+        margin-bottom: calc(100vw / 1600 * 40);
         text-align: center;
         text-transform: uppercase;
         font-family: 'Helvetica-Regular';
         color: #fff;
     }
+
+    &__key-description {
+        width: 40%;
+        margin-right: calc(100vw / 1600 * 90);
+    }
 }
 
 .description--main {
     padding: 22px 40px 22px 40px;
-    width: calc(100vw/1600 * 774);
+    width: 100%;
 }
 
 .main__key-payback-title {
@@ -259,10 +281,17 @@ body {
     align-items: center;
     width: 100%;
     transition: all 0.3s;
-
+    max-height: 0;
     /* to make margin of details__text works properly */
     &:nth-child(2) > .details__num {
         visibility: hidden;
+    }
+
+    & .details__text {
+        & p {
+          font-size: 22px;
+          font-family: Helvetica-Regular;  
+        }
     }
 
     &--active {
@@ -385,12 +414,16 @@ body {
     justify-content: center;
     cursor: pointer;
     width: calc(100vw / 1600 * 369);
+    max-width: 369px;
     padding: 20px;
+    display: flex;
+    align-items: flex-start;
 }
 
 .orders__btn--single {
     margin-left: 0 !important;
-    width: 50%;
+    width: 613px;
+    max-width: 100%;
     padding: 41px 0 33px 0;
 }
 
@@ -771,6 +804,7 @@ nav section {
             margin-top: 12px;
             color: rgba(0, 0, 0, 0.56);
             font-size: 1.25rem;
+            font-family: 'Helvetica-Regular';
         }
     }
 }
