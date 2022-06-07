@@ -109,7 +109,6 @@ body {
 
 .header__logo {
     max-width: 209px;
-    max-height: 100%;
     flex: 0.5;
     display: flex;
     justify-content: center;
@@ -130,6 +129,7 @@ body {
     background: $primaryBg; 
     max-width: 294px;
     align-items: center;
+    max-height: 100%;
     cursor: pointer;
     @mixin scale 171, 110;
 }
@@ -522,24 +522,12 @@ body {
     align-items: center;
   }
 
-  .swiper-slide--img1 {
-      width: 256px !important;
-      height: 713px;
-
-      & video {
-          width: 100%;
-          height: 100%;
-      }
-  }
-
-  .swiper-slide--img2 {
+  .swiper-slide {
     @mixin scale 394.07, 713.37;
-    background: url('../assets/images/carousel/slide-2.png') no-repeat;
-  }
-
-  .swiper-slide--img3 {
-    @mixin scale 394.07, 713.37;
-    background: url('../assets/images/carousel/slide-3.png') no-repeat;
+    & video {
+        width: 100%;
+        height: 100%;
+    }
   }
 
   .swiper-slide-play {
@@ -951,22 +939,14 @@ nav section {
         height: auto;
     }
 
-    .swiper-slide--img1 {
+    .swiper-slide {
         @mixin scale 276, 950;
-        background: url('../assets/images/carousel/slide-1.png') no-repeat;
-        background-size: 100%;
-    }
 
-    .swiper-slide--img2 {
-        @mixin scale 276, 950;
-        background: url('../assets/images/carousel/slide-2.png') no-repeat;
-        background-size: 100%;
-    }
+        &--img1 {}
 
-    .swiper-slide--img3 {
-        @mixin scale 276, 950;
-        background: url('../assets/images/carousel/slide-3.png') no-repeat;
-        background-size: 100%;
+        &--img2 {}
+
+        &--img3 {}
     }
 
     .videocard-first__video, .videocard-second__video {
