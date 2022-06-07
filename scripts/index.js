@@ -212,10 +212,10 @@ new Swiper(".mySwiper", {
     modifier: 1,
     slideShadows: true,
   },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true
-  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  }
 })
 
 // toggle details
@@ -241,6 +241,11 @@ detailsButtons.forEach(btn => {
   })
 });
 
-const videos = document.querySelectorAll('.swiper-slide--img3');
+const videos = document.querySelectorAll('.embed-responsive-item');
+videos.forEach(video => {
+  video.addEventListener('click', function(e) {
+    console.log(e.currentTarget)
+  })
+})
 
 
