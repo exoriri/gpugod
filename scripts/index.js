@@ -201,13 +201,12 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
 new Swiper(".mySwiper", {
   effect: "coverflow",
   grabCursor: true,
-  slidesPerView: "auto",
   autoPlay: true,
   loop: true,
   slidesPerView: 3,
   coverflowEffect: {
     rotate: 0,
-    stretch: 0,
+    stretch: 1,
     depth: 100,
     modifier: 1,
     slideShadows: true,
@@ -221,25 +220,33 @@ new Swiper(".mySwiper", {
 // toggle details
 const detailsButtons = document.querySelectorAll('.description--details');
 
-detailsButtons.forEach(btn => {
-  //only second element always has a accordion text
-  const detailsContent = btn.getElementsByClassName('details__content')[1];
-  const detailsIcon = btn.getElementsByClassName('details__toggle-icon--plus')[0];
+const togglingAccordions = (plusIconClassNames, minusIconClassNames) => {
+  detailsButtons.forEach(btn => {
+    //only second element always has a accordion text
+    const detailsContent = btn.getElementsByClassName('details__content')[1];
+    const detailsIcon = btn.getElementsByClassName('details__toggle-icon--plus')[0];
+    // const detailsIconQuestions = btn.getElementsByClassName('details__toggle-icon--plus-questions')[0];
+    btn.addEventListener('click', (e) => {
+      const detailsTextContainer = detailsContent.querySelector('.details__text');
+      const detailsTextParagraph = detailsTextContainer.querySelector('p');
+      // console.log(detailsIconQuestions.toggle)
 
-  btn.addEventListener('click', (e) => {
-    const detailsTextContainer = detailsContent.querySelector('.details__text');
-    const detailsTextParagraph = detailsTextContainer.querySelector('p');
-    detailsContent.classList.toggle('details__content--active');
-    detailsIcon.classList.toggle('details__toggle-icon--minus');
-    if (detailsTextContainer.style.maxHeight) {
-      detailsContent.style.maxHeight = null;
-      detailsTextContainer.style.maxHeight = null;
-    } else {
-      detailsContent.style.maxHeight = '100%';
-      detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
-    }
-  })
-});
+      detailsContent.classList.toggle('details__content--active');
+      detailsIcon && detailsIcon.classList.toggle('details__toggle-icon--minus');
+      // detailsIconQuestions && detailsIconQuestions.toggle('details__toggle-icon--minus-questions');
+      if (detailsTextContainer.style.maxHeight) {
+        detailsContent.style.maxHeight = null;
+        detailsTextContainer.style.maxHeight = null;
+      } else {
+        detailsContent.style.maxHeight = '100%';
+        detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
+      }
+    })
+  });
+};
+
+togglingAccordions('details__toggle-icon--plus', 'details__toggle-icon--minus');
+// togglingAccordions('details__toggle-icon--plus-questions', 'details__toggle-icon--minus-questions');
 
 const videos = document.querySelectorAll('.embed-responsive-item');
 videos.forEach(video => {
