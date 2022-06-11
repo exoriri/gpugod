@@ -58,7 +58,7 @@ gulp.task("scripts", () => {
     .src("./scripts/**/*.js")
     .pipe(
       gulpEsdocs({
-        outfile: "index.js",
+        outdir: "bundle",
         bundle: true,
       })
     )

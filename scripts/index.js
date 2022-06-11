@@ -4,6 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import Scrollbar from 'smooth-scrollbar';
 
+import './video.js';
+
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
 
