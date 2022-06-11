@@ -65,6 +65,10 @@ gulp.task("scripts", () => {
     .pipe(
       babel({
         presets: ["@babel/env"],
+        "plugins": [
+          ['@babel/plugin-proposal-decorators', { legacy: true }], 
+          ["@babel/plugin-proposal-class-properties", { loose: true }]
+        ],
       })
     )
     .pipe(gulp.dest("./docs/scripts/"));

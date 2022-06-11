@@ -202,16 +202,10 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
 
 new Swiper(".mySwiper", {
   effect: "coverflow",
-  grabCursor: true,
-  autoPlay: true,
   loop: true,
   slidesPerView: 3,
   coverflowEffect: {
     rotate: 0,
-    stretch: 1,
-    depth: 100,
-    modifier: 1,
-    slideShadows: true,
   },
   navigation: {
     nextEl: '.swiper-button-next',

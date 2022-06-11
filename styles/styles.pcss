@@ -300,19 +300,25 @@ body {
     }
 }
 
-/* Style the accordion panel. Note: hidden by default */
-
-.details__text {
-    color: #fff !important;
-    opacity: .4;
-    /* in figma margin right on 1600 width was 50px */
-    padding-right: calc(100vw / 1600 * 50);
+.plyr button[data-plyr="play"]:last-child {
+    background: url('../assets/images/slider-play.png') no-repeat center center;
+    width: 160px;
+    height: 160px;
+    border-radius: 0;
 }
 
-.details__title {
-    color: #fff;
-    font-size: 18px;
-    font-family: Helvetica-Regular;
+.plyr video {
+    width: 120%;
+}
+
+.plyr__control[data-plyr="play"]:last-child, .plyr__control--overlaid[data-plyr="play"]:last-child {
+    & svg {
+        display: none;
+    }
+
+    & span {
+        display: none;
+    }
 }
 
 .details {
@@ -323,9 +329,18 @@ body {
     justify-content: center;
     height: 100%; 
 
+    &__title {
+        color: #fff;
+        font-size: 18px;
+        font-family: Helvetica-Regular;
+    }
+
     &__text {
         max-height: 0;
         overflow: hidden;
+        opacity: .4;
+        /* in figma margin right on 1600 width was 50px */
+        padding-right: calc(100vw / 1600 * 50);
     }
 
     &__num {
@@ -845,6 +860,13 @@ nav section {
 }
 
 @media screen and (max-width: 1024px) {
+
+    .plyr button[data-plyr="play"]:last-child {
+        background: url('../assets/images/mobile/slider-play.png') no-repeat center center;
+        width: 105px;
+        height: 105px;
+    }
+
     .main-container {
         position: relative; 
         background: url('../assets/icons/arrow-circle-mobile.svg') no-repeat center center;

@@ -1,15 +1,7 @@
-import videojs from 'video.js';
+import Plyr from 'plyr';
 
-import 'video.js/dist/video-js.min.css';
+const playerIndexes = ['', '2', '3', '4', '5']
 
-var player = videojs('#video-js', {}, function onPlayerReady() {
-    videojs.log('Your player is ready!');
-  
-    // In this context, `this` is the player that was created by Video.js.
-    this.play();
-  
-    // How about an event listener?
-    this.on('ended', function() {
-      videojs.log('Awww...over so soon?!');
-    });
-  });
+const players = playerIndexes.map(playerIndex => {
+  return new Plyr(`#player${playerIndex}`)
+});
