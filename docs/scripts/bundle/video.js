@@ -4416,4 +4416,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   var players = playerIndexes.map(function (playerIndex) {
     return new import_plyr["default"]("#player".concat(playerIndex));
   });
+  players.forEach(function (player) {
+    player.on("click", function (e) {
+      if (e.target.previousElementSibling.paused === false) {
+        player.pause();
+      }
+    });
+  });
 })();
