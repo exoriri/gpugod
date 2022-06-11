@@ -200,18 +200,25 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   });
 }
 
-new Swiper(".mySwiper", {
+const swiper = new Swiper(".mySwiper", {
   effect: "coverflow",
   loop: true,
   slidesPerView: 3,
   coverflowEffect: {
     rotate: 0,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
   }
-})
+});
+
+const swiperBtnPrev = document.getElementsByClassName('button-prev')[0];
+const swiperBtnNext = document.getElementsByClassName('button-next')[0];
+
+swiperBtnNext.addEventListener('click', function() {
+  swiper.slideNext();
+});
+
+swiperBtnPrev.addEventListener('click', function() {
+  swiper.slidePrev();
+});
 
 // toggle details
 const detailsButtons = document.querySelectorAll('.description--details');
