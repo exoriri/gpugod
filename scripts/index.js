@@ -193,7 +193,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     scrollTrigger: {
       trigger: '.swiper-container',
       scrub: true,
-      start: 'top top',
+      start: 'center center',
       pin: true,
       end: "+=" + (window.innerHeight * 2)
     }
@@ -206,6 +206,9 @@ const swiper = new Swiper(".mySwiper", {
   slidesPerView: 3,
   coverflowEffect: {
     rotate: 0,
+    stretch: 0,
+    depth: 100,
+    modifier: 1,
   }
 });
 
@@ -223,7 +226,7 @@ swiperBtnPrev.addEventListener('click', function() {
 // toggle details
 const detailsButtons = document.querySelectorAll('.description--details');
 
-const togglingAccordions = (plusIconClassNames, minusIconClassNames) => {
+const togglingAccordions = () => {
   detailsButtons.forEach(btn => {
     //only second element always has a accordion text
     const detailsContent = btn.getElementsByClassName('details__content')[1];
@@ -248,14 +251,6 @@ const togglingAccordions = (plusIconClassNames, minusIconClassNames) => {
   });
 };
 
-togglingAccordions('details__toggle-icon--plus', 'details__toggle-icon--minus');
+togglingAccordions();
 // togglingAccordions('details__toggle-icon--plus-questions', 'details__toggle-icon--minus-questions');
-
-const videos = document.querySelectorAll('.embed-responsive-item');
-videos.forEach(video => {
-  video.addEventListener('click', function(e) {
-    console.log(e.currentTarget)
-  })
-})
-
 
