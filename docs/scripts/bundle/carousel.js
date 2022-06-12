@@ -5,8 +5,18 @@
   var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
     loop: true,
-    slidesPerView: 2,
     centeredSlides: true,
+    spaceBetween: 0,
+    breakpoints: {
+      320: {
+        slidesPerView: 2,
+        spaceBetween: 0
+      },
+      640: {
+        slidesPerView: 2.5,
+        spaceBetween: 0
+      }
+    },
     coverflowEffect: {
       rotate: 0,
       stretch: 0,
