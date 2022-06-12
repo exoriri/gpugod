@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 import Scrollbar from 'smooth-scrollbar';
 
+import scrollToBlock from './scroll-to-block.js';
 import './details-accordion.js';
 import './video.js';
 import './carousel.js';
@@ -201,3 +202,5 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     }
   });
 }
+
+scrollToBlock();
