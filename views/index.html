@@ -30,7 +30,7 @@
           </a>
         </li>
         <li class="section-content__list-item">
-          <a class="section-content__list-text">
+          <a class="section-content__list-text" href="#reviews">
             Отзывы
           </a>
         </li>
@@ -89,7 +89,7 @@
         </a>
       </li>
       <li class="header__links-item">
-        <a class="header__links-text _greeting-color-anim" href="#review"> Отзывы </a>
+        <a class="header__links-text _greeting-color-anim" href="#reviews"> Отзывы </a>
       </li>
     </ul>
     <div class="header__order _header-wht">
@@ -764,35 +764,46 @@
 
     </div>
 
-    <div>
+    <div id="reviews">
       <div class="swiper-container">
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide swiper-slide--img1">
-              <video id="player" playsinline>
-                <source src="assets/videos/swiper-videos/video1.mp4" type="video/mp4" />
-              </video>
+            <div class="swiper-slide">
+              <div class="swiper-container__video-wrapper">
+                <video id="player" playsinline>
+                  <source src="assets/videos/swiper-videos/video1.mp4" type="video/mp4" />
+                </video>
+              </div>
+
             </div>
             <div class="swiper-slide swiper-slide--img2">
-              <video preload="metadata" id="player2" playsinline>
-                <source src="assets/videos/swiper-videos/video2.MOV" type="video/mp4" />
-              </video>
+              <div class="swiper-container__video-wrapper">
+                <video preload="metadata" id="player2" playsinline>
+                  <source src="assets/videos/swiper-videos/video2.MOV" type="video/mp4" />
+                </video>
+              </div>
             </div>
-            <div class="swiper-slide swiper-slide--img2">
-              <video preload="metadata" id="player3" playsinline>
-                <source src="assets/videos/swiper-videos/video3.MP4" type="video/mp4" />
-              </video>
+            <div class="swiper-slide">
+              <div class="swiper-container__video-wrapper">
+                <video preload="metadata" id="player3" playsinline>
+                  <source src="assets/videos/swiper-videos/video3.MP4" type="video/mp4" />
+                </video>
+              </div>
             </div>
-            <div class="swiper-slide swiper-slide--img2">
-              <video preload="metadata" id="player4" playsinline>
-                <source src="assets/videos/swiper-videos/video4.MP4" type="video/mp4" />
-              </video>
+            <div class="swiper-slide">
+              <div class="swiper-container__video-wrapper">
+                <video preload="metadata" id="player4" playsinline>
+                  <source src="assets/videos/swiper-videos/video4.MP4" type="video/mp4" />
+                </video>
+              </div>
             </div>
-            <div class="swiper-slide swiper-slide--img2">
-              <video preload="metadata" id="player5" playsinline>
-                <source src="assets/videos/swiper-videos/video5.mp4" type="video/mp4" />
-              </video>
-            </div>
+            <!-- <div class="swiper-slide">
+              <div class="swiper-container__video-wrapper">
+                <video preload="metadata" id="player5" playsinline>
+                  <source src="assets/videos/swiper-videos/video5.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div> -->
           </div>
         </div>
         <div class="buttons-swiper">

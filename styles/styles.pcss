@@ -555,7 +555,6 @@ body {
 
 .swiper-slide {
   position: relative;
-  @mixin scale 394.07, 713.37;
   & video {
     height: 100%;
   }
@@ -564,7 +563,8 @@ body {
 .buttons-swiper {
   display: flex;
   background: #fff;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 calc(100vw / 1600 * 90);
   margin-top: 40px;
   width: 100%;
 }
@@ -591,21 +591,6 @@ body {
   }
 }
 
-.swiper-slide-play {
-  position: absolute;
-  z-index: 9999 !important;
-  @mixin scale 165.8, 165.8;
-  border: 0;
-  outline: 0;
-  cursor: pointer !important;
-  background: url("../assets/images/slider-play.png") no-repeat center center;
-  transition: all 0.3s;
-
-  &:hover {
-    transform: scale(1.2);
-  }
-}
-
 .swiper-container {
   position: relative;
   display: flex;
@@ -615,6 +600,12 @@ body {
   max-width: 100%;
   padding: calc(100vh / 1600 * 234) calc(100vw / 1600 * 90);
   overflow: hidden;
+
+  &__video-wrapper {
+    background: #fff;
+    /* width: 350px;
+    height: 700px; */
+  }
 }
 
 .swiper-slide {
@@ -1035,29 +1026,11 @@ nav section {
     height: auto;
   }
 
-  .swiper-slide {
-    @mixin scale 276, 950;
-  }
-
   .videocard-first__video,
   .videocard-second__video {
     height: auto;
   }
 
-  .swiper-slide-play {
-    width: 105.56px;
-    height: 105.56px;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    background: url("../assets/images/mobile/slider-play.png") no-repeat center
-      center;
-    transition: all 0.3s;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
 
   #hamburger-image {
     background: url("../assets/icons/hamburger.svg") center no-repeat;
@@ -1171,6 +1144,13 @@ nav section {
 
   .details--questions {
     height: auto !important;
+  }
+
+  .swiper-container {
+    &__video-wrapper {
+        width: auto;
+        height: auto;
+    }
   }
 
   .equipments {
