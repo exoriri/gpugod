@@ -5,7 +5,7 @@ import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
 import scrollToBlock from './scroll-to-block.js';
-import { scrollBarInit } from './scrollbar.js';
+import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './video.js';
 import './carousel.js';
@@ -124,7 +124,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
 
   hamburgerMenu.addEventListener('click', () => {
     if (hamburgerMenu.classList.contains('hamburger--active')) {
-      closeMenu()
+      closeMenu();
     } else {
       hamburgerMenu.classList.add('hamburger--active');
       sectionContent.style.display = 'flex';
@@ -143,7 +143,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       e.preventDefault();
       const foundSection = document.getElementById(destination.slice(1));
       closeMenu();
-      foundSection.scrollIntoView({block: "start", inline: "nearest", behavior: 'smooth'});
+      bodyScrollBar.scrollIntoView(foundSection)
       return false;
     })
   });

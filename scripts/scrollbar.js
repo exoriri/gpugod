@@ -1,6 +1,5 @@
 import Scrollbar from 'smooth-scrollbar';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 const scroller = document.querySelector('.scroller');
 export const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.05, delegateTo: document, thumbMinSize: 0, alwaysShowTracks: false });
 

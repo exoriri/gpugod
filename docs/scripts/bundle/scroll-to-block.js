@@ -14284,22 +14284,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   }); // scripts/scroll-to-block.js
 
   var scrollToBlock = function scrollToBlock() {
-    var headerLinks = document.querySelectorAll(".header__links-text");
+    var headerLinks = document.querySelectorAll(".header__links-item");
     var allTriggers = ScrollTrigger2.getAll();
-    allTriggers.pop();
-
-    var disableTriggers = function disableTriggers() {
-      allTriggers.forEach(function (trigger) {
-        trigger.disable();
-      });
-    };
-
-    var enableTriggers = function enableTriggers() {
-      allTriggers.forEach(function (trigger) {
-        trigger.enable();
-      });
-    };
-
     var sections = gsapWithCSS.utils.toArray(".section");
     var sectionIDs = document.querySelectorAll(".main-container, #videocard-first, .details--description, #videocard-second, .equipments, .swiper-container");
     var maxScroll = 0;
@@ -14331,20 +14317,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       link.addEventListener("click", function (e) {
         var destination = e.target.dataset.href;
         destinationSection = destination.slice(1);
-        disableSections(destinationSection);
         e.stopPropagation();
         e.preventDefault();
         var foundSection = document.getElementById(destination.slice(1));
-        foundSection.scrollIntoView({
-          block: "start",
-          behavior: "smooth"
-        });
-        document.querySelector(".scroller").scrollTo({
-          top: foundSection.getBoundingClientRect().top
-        });
-        setTimeout(function () {
-          enableTriggers();
-        }, 3e3);
+        bodyScrollBar.scrollIntoView(foundSection);
         lastDestination = destinationSection;
         return false;
       });
