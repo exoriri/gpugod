@@ -2,34 +2,13 @@ import { gsap } from 'gsap';
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import Scrollbar from 'smooth-scrollbar';
-
+gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+gsap.registerPlugin(Draggable);
 import scrollToBlock from './scroll-to-block.js';
+import { scrollBarInit } from './scrollbar.js';
 import './details-accordion.js';
 import './video.js';
 import './carousel.js';
-
-gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
-gsap.registerPlugin(Draggable);
-
-const scrollBarInit = () => {
-  const scroller = document.querySelector('.scroller');
-
-  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.05, delegateTo: document, thumbMinSize: 0, alwaysShowTracks: false });
-
-  ScrollTrigger.scrollerProxy(".scroller", {
-    scrollTop(value) {
-      if (arguments.length) {
-        bodyScrollBar.scrollTop = value;
-      }
-      return bodyScrollBar.scrollTop;
-    }
-  });
-  bodyScrollBar.addListener(ScrollTrigger.update);
-
-  ScrollTrigger.defaults({ scroller: scroller });
-};
-
 
 const smoothScrollTrigger = (containerId, videoClass) => {
   const video = document.querySelector(videoClass);
@@ -135,13 +114,17 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   let menuAnimation = gsap.timeline({ paused: true });
   let menuAnimationBack = gsap.timeline({ paused: true, reversed: true });
 
+  const closeMenu = () => {
+    hamburgerMenu.classList.remove('hamburger--active');
+    sectionContent.style.display = 'none';
+    menuAnimationBack
+      .to(navMain, 0.55, { width: 0, className: "+=skewback", ease: "power4.easeIn", transform: "translate3d(0,0,0)" }, 0);
+    menuAnimationBack.play(0);
+  };
+
   hamburgerMenu.addEventListener('click', () => {
     if (hamburgerMenu.classList.contains('hamburger--active')) {
-      hamburgerMenu.classList.remove('hamburger--active');
-      sectionContent.style.display = 'none';
-      menuAnimationBack
-        .to(navMain, 0.55, { width: 0, className: "+=skewback", ease: "power4.easeIn", transform: "translate3d(0,0,0)" }, 0);
-      menuAnimationBack.play(0);
+      closeMenu()
     } else {
       hamburgerMenu.classList.add('hamburger--active');
       sectionContent.style.display = 'flex';
@@ -150,6 +133,21 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       menuAnimation.play(0);
     }
   });
+
+  const headerLinksMobile = document.querySelectorAll(".section-content__list-text");
+
+  headerLinksMobile.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const destination = e.target.dataset.href;
+      e.stopPropagation();
+      e.preventDefault();
+      const foundSection = document.getElementById(destination.slice(1));
+      closeMenu();
+      foundSection.scrollIntoView({block: "start", inline: "nearest", behavior: 'smooth'});
+      return false;
+    })
+  });
+
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
 } else { // DESKTOP
   scrollBarInit();

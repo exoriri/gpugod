@@ -4,16 +4,22 @@ const swiper = new Swiper(".mySwiper", {
     centeredSlides: true,
     spaceBetween: 0,
     breakpoints: {
-      // when window width is >= 320px
       320: {
         slidesPerView: 2,
         spaceBetween: 0
       },
-      // when window width is >= 480px
-      // when window width is >= 640px
+
       640: {
         slidesPerView: 2.5,
         spaceBetween: 0
+      },
+      
+      1800: {
+        slidesPerView: 3,
+      },
+
+      2500: {
+        slidesPerView: 'auto'
       }
     },
     coverflowEffect: {

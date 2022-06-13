@@ -20,17 +20,17 @@
     <section class="section-content">
       <ul class="section-content__list">
         <li class="section-content__list-item">
-          <a class="section-content__list-text" data-href="#benefits">
+          <a class="section-content__list-text" data-href="#benefits" href="#benefits">
             Преимущества
           </a>
         </li>
         <li class="section-content__list-item">
-          <a class="section-content__list-text" data-href="#representatives">
+          <a class="section-content__list-text" data-href="#representatives" href="#representatives">
             Представители
           </a>
         </li>
         <li class="section-content__list-item">
-          <a class="section-content__list-text" data-href="#reviews">
+          <a class="section-content__list-text" data-href="#reviews" href="#reviews">
             Отзывы
           </a>
         </li>
@@ -106,10 +106,10 @@
     </div>
   </header>
 
-  <div class="scroller">
+  <div id="scroller" class="scroller">
 
   <div class="page-wrapper">
-    <div class="main-container main-container--desktop">
+    <div class="main-container main-container--desktop" id="#main-container">
       <main class="main">
         <div class="_scroll-fade-out">
           <h1 class="main__key-title">Майнинг</h1>
@@ -291,282 +291,285 @@
         muted="muted" class="videocard-second__video"></video>
     </div>
 
-    <div class="orders _orders--1">
-      <h2 class="orders__title _scroll-fade-out">
-        Мы уже отобрали для вас самые выгодные<br />
-        предложения на сегодня:
-      </h2>
-      <div class="orders__row _scroll-fade-out">
-        <img class="orders__row-img" src="./assets/images/disks.png" alt="disks" />
-        <h3 class="orders__image-text">
-          Ферма на 8 карт Sapphire RX 580 8 GB Nitro+
-        </h3>
-        <button class="orders__btn">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-      <div class="description-orders-desktop _scroll-fade-out">
-        <div class="description description--orders">
+    <div class="section" id="benefits">
+      <div class="orders _orders--1">
+        <h2 class="orders__title _scroll-fade-out">
+          Мы уже отобрали для вас самые выгодные<br />
+          предложения на сегодня:
+        </h2>
+        <div class="orders__row _scroll-fade-out">
+          <img class="orders__row-img" src="./assets/images/disks.png" alt="disks" />
+          <h3 class="orders__image-text">
+            Ферма на 8 карт Sapphire RX 580 8 GB Nitro+
+          </h3>
+          <button class="orders__btn">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+        <div class="description-orders-desktop _scroll-fade-out">
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Мощность</p>
+              <p class="orders__table-text orders__table-text--white">
+                250 Mh/s
+              </p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
+              <p class="orders__table-text orders__table-text--white">
+                139 000 р
+              </p>
+            </div>
+          </div>
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Потребление</p>
+              <p class="orders__table-text orders__table-text--white">
+                1300 ватт
+              </p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
+              <p class="orders__table-text orders__table-text--white">
+                179 000 р
+              </p>
+            </div>
+          </div>
+  
+          <div class="orders__table">
+            <p class="orders__table-text">Гарантия</p>
+            <p class="orders__table-text orders__table-text--white">3 месяца</p>
+            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--white">
+              ~ 11 месяцев
+            </p>
+          </div>
+        </div>
+  
+        <div class="description-orders-mobile">
+          <div class="orders__table orders__table--odd">
+            <p class="orders__table-text">Гарантия</p>
+            <p class="orders__table-text orders__table-text--white">3 месяца</p>
+          </div>
           <div class="orders__table">
             <p class="orders__table-text">Мощность</p>
+            <p class="orders__table-text orders__table-text--white">250 Mh/s</p>
+          </div>
+          <div class="orders__table orders__table--odd">
+            <p class="orders__table-text">Потребление</p>
             <p class="orders__table-text orders__table-text--white">
-              250 Mh/s
+              1300 ватт
             </p>
+          </div>
+          <div class="orders__table">
             <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
             <p class="orders__table-text orders__table-text--white">
               139 000 р
             </p>
           </div>
-        </div>
-        <div class="description description--orders">
-          <div class="orders__table">
-            <p class="orders__table-text">Потребление</p>
-            <p class="orders__table-text orders__table-text--white">
-              1300 ватт
-            </p>
+          <div class="orders__table orders__table--odd">
             <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
             <p class="orders__table-text orders__table-text--white">
               179 000 р
             </p>
           </div>
-        </div>
-
-        <div class="orders__table">
-          <p class="orders__table-text">Гарантия</p>
-          <p class="orders__table-text orders__table-text--white">3 месяца</p>
-          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 11 месяцев
-          </p>
-        </div>
-      </div>
-
-      <div class="description-orders-mobile">
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Гарантия</p>
-          <p class="orders__table-text orders__table-text--white">3 месяца</p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text">Мощность</p>
-          <p class="orders__table-text orders__table-text--white">250 Mh/s</p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Потребление</p>
-          <p class="orders__table-text orders__table-text--white">
-            1300 ватт
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
-          <p class="orders__table-text orders__table-text--white">
-            139 000 р
-          </p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
-          <p class="orders__table-text orders__table-text--white">
-            179 000 р
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 11 месяцев
-          </p>
-        </div>
-        <button class="orders__btn orders__btn--mobile">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-    </div>
-
-    <div class="orders _orders--2">
-      <div class="orders__row _scroll-fade-out">
-        <img class="orders__row-img" src="./assets/images/videocards.png" alt="videocards" />
-        <h3 class="orders__image-text">
-          Ферма 8 карт Asus/Gigabyte RX 570/580 8 GB
-        </h3>
-        <button class="orders__btn">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-      <div class="description-orders-desktop _scroll-fade-out">
-        <div class="description description--orders">
           <div class="orders__table">
+            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--white">
+              ~ 11 месяцев
+            </p>
+          </div>
+          <button class="orders__btn orders__btn--mobile">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+      </div>
+  
+      <div class="orders _orders--2">
+        <div class="orders__row _scroll-fade-out">
+          <img class="orders__row-img" src="./assets/images/videocards.png" alt="videocards" />
+          <h3 class="orders__image-text">
+            Ферма 8 карт Asus/Gigabyte RX 570/580 8 GB
+          </h3>
+          <button class="orders__btn">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+        <div class="description-orders-desktop _scroll-fade-out">
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Мощность</p>
+              <p class="orders__table-text orders__table-text--white">
+                > 250 MH/s
+              </p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
+              <p class="orders__table-text orders__table-text--white">
+                389 000 р
+              </p>
+            </div>
+          </div>
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Потребление</p>
+              <p class="orders__table-text orders__table-text--white">
+                1300 ватт
+              </p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
+              <p class="orders__table-text orders__table-text--white">
+                429 000 р
+              </p>
+            </div>
+          </div>
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Гарантия</p>
+              <p class="orders__table-text orders__table-text--white">3 месяца</p>
+              <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+              <p class="orders__table-text orders__table-text--white">
+                ~ 11 месяцев
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="description-orders-mobile">
+          <div class="orders__table orders__table--odd">
             <p class="orders__table-text">Мощность</p>
             <p class="orders__table-text orders__table-text--white">
               > 250 MH/s
             </p>
-            <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
-            <p class="orders__table-text orders__table-text--white">
-              389 000 р
-            </p>
           </div>
-        </div>
-        <div class="description description--orders">
           <div class="orders__table">
             <p class="orders__table-text">Потребление</p>
             <p class="orders__table-text orders__table-text--white">
               1300 ватт
             </p>
-            <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
-            <p class="orders__table-text orders__table-text--white">
-              429 000 р
-            </p>
           </div>
-        </div>
-        <div class="description description--orders">
-          <div class="orders__table">
+          <div class="orders__table orders__table--odd">
             <p class="orders__table-text">Гарантия</p>
-            <p class="orders__table-text orders__table-text--white">3 месяца</p>
-            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
             <p class="orders__table-text orders__table-text--white">
               ~ 11 месяцев
             </p>
           </div>
-        </div>
-      </div>
-      <div class="description-orders-mobile">
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Мощность</p>
-          <p class="orders__table-text orders__table-text--white">
-            > 250 MH/s
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text">Потребление</p>
-          <p class="orders__table-text orders__table-text--white">
-            1300 ватт
-          </p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Гарантия</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 11 месяцев
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
-          <p class="orders__table-text orders__table-text--white">
-            429 000 р
-          </p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
-          <p class="orders__table-text orders__table-text--white">
-            429 000 р
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 12 месяцев
-          </p>
-        </div>
-        <button class="orders__btn orders__btn--mobile">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-    </div>
-
-    <div class="orders _orders--3">
-      <div class="orders__row _scroll-fade-out">
-        <img class="orders__row-img" src="./assets/images/videcard2.png" alt="videocards" />
-        <h3 class="orders__image-text">
-          Ферма на 8 карт CMP 90 HX (RTX 3080) 10 GB
-        </h3>
-        <button class="orders__btn">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-      <div class="description-orders-desktop _scroll-fade-out">
-        <div class="description description--orders">
           <div class="orders__table">
-            <p class="orders__table-text">Мощность</p>
-            <p class="orders__table-text orders__table-text--white">
-              > 730 Mh/s
-            </p>
             <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
             <p class="orders__table-text orders__table-text--white">
-              389 000 р
+              429 000 р
             </p>
           </div>
-        </div>
-        <div class="description description--orders">
-          <div class="orders__table">
-            <p class="orders__table-text">Потребление</p>
-            <p class="orders__table-text orders__table-text--white">250 ватт</p>
+          <div class="orders__table orders__table--odd">
             <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
             <p class="orders__table-text orders__table-text--white">
               429 000 р
             </p>
           </div>
-        </div>
-        <div class="description description--orders">
           <div class="orders__table">
-            <p class="orders__table-text">Гарантия</p>
-            <p class="orders__table-text orders__table-text--white">3 месяца</p>
             <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--white">
+              ~ 12 месяцев
+            </p>
+          </div>
+          <button class="orders__btn orders__btn--mobile">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+      </div>
+  
+      <div class="orders _orders--3">
+        <div class="orders__row _scroll-fade-out">
+          <img class="orders__row-img" src="./assets/images/videcard2.png" alt="videocards" />
+          <h3 class="orders__image-text">
+            Ферма на 8 карт CMP 90 HX (RTX 3080) 10 GB
+          </h3>
+          <button class="orders__btn">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+        <div class="description-orders-desktop _scroll-fade-out">
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Мощность</p>
+              <p class="orders__table-text orders__table-text--white">
+                > 730 Mh/s
+              </p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
+              <p class="orders__table-text orders__table-text--white">
+                389 000 р
+              </p>
+            </div>
+          </div>
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Потребление</p>
+              <p class="orders__table-text orders__table-text--white">250 ватт</p>
+              <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
+              <p class="orders__table-text orders__table-text--white">
+                429 000 р
+              </p>
+            </div>
+          </div>
+          <div class="description description--orders">
+            <div class="orders__table">
+              <p class="orders__table-text">Гарантия</p>
+              <p class="orders__table-text orders__table-text--white">3 месяца</p>
+              <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+              <p class="orders__table-text orders__table-text--white">
+                ~ 11 месяцев
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="description-orders-mobile">
+          <div class="orders__table orders__table--odd">
+            <p class="orders__table-text">Мощность</p>
+            <p class="orders__table-text orders__table-text--white">
+              > 250 MH/s
+            </p>
+          </div>
+          <div class="orders__table">
+            <p class="orders__table-text">Потребление</p>
+            <p class="orders__table-text orders__table-text--white">
+              1300 ватт
+            </p>
+          </div>
+          <div class="orders__table orders__table--odd">
+            <p class="orders__table-text">Гарантия</p>
             <p class="orders__table-text orders__table-text--white">
               ~ 11 месяцев
             </p>
           </div>
+          <div class="orders__table">
+            <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
+            <p class="orders__table-text orders__table-text--white">
+              429 000 р
+            </p>
+          </div>
+          <div class="orders__table orders__table--odd">
+            <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
+            <p class="orders__table-text orders__table-text--white">
+              429 000 р
+            </p>
+          </div>
+          <div class="orders__table">
+            <p class="orders__table-text orders__table-text--price">Окупаемость</p>
+            <p class="orders__table-text orders__table-text--white">
+              ~ 12 месяцев
+            </p>
+          </div>
+          <button class="orders__btn orders__btn--mobile">
+            <span class="orders__btn-text">заказать</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
+        </div>
+  
+        <div class="orders-single-btn-wrapper">
+          <button class="orders__btn orders__btn--single _scroll-fade-out">
+            <span class="orders__btn-text">Заказать нестандартную сборку</span>
+            <img src="./assets/icons/plus.svg" alt="plus" />
+          </button>
         </div>
       </div>
-      <div class="description-orders-mobile">
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Мощность</p>
-          <p class="orders__table-text orders__table-text--white">
-            > 250 MH/s
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text">Потребление</p>
-          <p class="orders__table-text orders__table-text--white">
-            1300 ватт
-          </p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text">Гарантия</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 11 месяцев
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Стоимость (предзаказ)</p>
-          <p class="orders__table-text orders__table-text--white">
-            429 000 р
-          </p>
-        </div>
-        <div class="orders__table orders__table--odd">
-          <p class="orders__table-text orders__table-text--price">Стоимость (наличие)</p>
-          <p class="orders__table-text orders__table-text--white">
-            429 000 р
-          </p>
-        </div>
-        <div class="orders__table">
-          <p class="orders__table-text orders__table-text--price">Окупаемость</p>
-          <p class="orders__table-text orders__table-text--white">
-            ~ 12 месяцев
-          </p>
-        </div>
-        <button class="orders__btn orders__btn--mobile">
-          <span class="orders__btn-text">заказать</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
-
-      <div class="orders-single-btn-wrapper">
-        <button class="orders__btn orders__btn--single _scroll-fade-out">
-          <span class="orders__btn-text">Заказать нестандартную сборку</span>
-          <img src="./assets/icons/plus.svg" alt="plus" />
-        </button>
-      </div>
+  
     </div>
 
 
@@ -603,7 +606,7 @@
       </div>
     </div>
 
-    <div class="greeting">
+    <div class="greeting section" id="representatives">
       <h2 class="greeting__title _greeting-color-anim">
         Привет, меня зовут Даша!
       </h2>
@@ -764,7 +767,7 @@
 
     </div>
 
-    <div id="reviews">
+    <div class="section" id="reviews">
       <div class="swiper-container">
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">

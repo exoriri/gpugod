@@ -2,11 +2,8 @@
 @import "variables.pcss";
 @import "mixins.pcss";
 
-html,
-body {
-  height: 100%;
-  overflow-x: hidden !important;
-}
+html { height: 100%; }
+body { height: 100%; overflow-x: hidden !important;}
 
 body {
   background: #000000;
@@ -691,7 +688,7 @@ body {
   display: none;
 }
 .scroller {
-  height: 100vh;
+  height: 100%;
 }
 
 .main-container--desktop {
@@ -1262,6 +1259,7 @@ nav section {
     &__list-text {
       color: rgba(255, 255, 255, 0.8);
       font-size: 36px;
+      text-decoration: none !important;
       text-align: center;
       width: 100%;
       &:hover {
@@ -1372,4 +1370,14 @@ nav section {
   .description--main {
     justify-content: center;
   }
+}
+
+@media screen and (min-width: 2500px) {
+  .swiper-container {
+    &__video-wrapper {
+      background: #fff;
+      max-width: calc(100vw / 2000 * 420) !important;
+      max-height: calc(100vw / 2000 * 700) !important;
+    }
+}
 }
