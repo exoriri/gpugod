@@ -4423,4 +4423,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     });
   });
+  var swiperPlayerBtn = document.querySelectorAll(".plyr__control--overlaid");
+  console.log("swiper", swiperPlayerBtn);
 })();

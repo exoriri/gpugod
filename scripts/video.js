@@ -11,3 +11,7 @@ players.forEach(player => {
     }
   })
 })
+
+
+const swiperPlayerBtn = document.querySelectorAll('.plyr__control--overlaid');
+console.log('swiper', swiperPlayerBtn)

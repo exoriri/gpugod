@@ -16,9 +16,6 @@
         slidesPerView: 2.5,
         spaceBetween: 0
       },
-      1800: {
-        slidesPerView: 3
-      },
       2500: {
         slidesPerView: "auto"
       }
