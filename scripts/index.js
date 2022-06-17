@@ -7,7 +7,6 @@ gsap.registerPlugin(Draggable);
 import scrollToBlock from './scroll-to-block.js';
 import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
-import './video.js';
 import './carousel.js';
 
 const smoothScrollTrigger = (containerId, videoClass) => {

@@ -4423,6 +4423,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       }
     });
   });
-  var swiperPlayerBtn = document.querySelectorAll(".plyr__control--overlaid");
-  console.log("swiper", swiperPlayerBtn);
+  var playerNodes = document.querySelectorAll("#player,#player2,#player3,#player4");
+  var swiperPlayerBtns = document.querySelectorAll(".plyr__control--overlaid");
+  swiperPlayerBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      playerNodes.forEach(function (player) {
+        var video = btn.previousElementSibling.previousElementSibling.firstChild;
+        console.log(video.id !== player.id);
+
+        if (video.id !== player.id && !video.paused) {
+          player.pause();
+        } else if (video.id === player.id && video.pause) {
+          player.pause();
+        }
+      });
+    });
+  });
 })();
