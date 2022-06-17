@@ -4412,7 +4412,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   var import_plyr = __toESM(require_plyr_min());
 
-  var playerIndexes = ["", "2", "3", "4", "5"];
+  var playerIndexes = ["", "2", "3", "4"];
   var players = playerIndexes.map(function (playerIndex) {
     return new import_plyr["default"]("#player".concat(playerIndex));
   });
@@ -4421,6 +4421,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     loop: true,
     centeredSlides: true,
     spaceBetween: 0,
+    noSwipingClass: "swiper-no-swiping",
+    initialSlide: 2,
     breakpoints: {
       320: {
         slidesPerView: 2,
@@ -4456,16 +4458,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     btn.addEventListener("click", function () {
       var video = btn.previousElementSibling.previousElementSibling.firstChild;
       playerNodes.forEach(function (player, i) {
-        console.log(video);
-        console.log(video.id !== player.id);
-
         if (video.id !== player.id && !video.paused) {
           player.pause();
         }
       });
     });
   });
-  players.forEach(function (player) {
+  players.forEach(function (player, i) {
     player.on("click", function (e) {
       if (e.target.previousElementSibling.paused === false) {
         player.pause();
