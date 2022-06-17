@@ -24,7 +24,8 @@ const swiper = new Swiper(".mySwiper", {
     },
 
     1024: {
-      loop: false,
+      loop: true,
+      slidesPerView: 2.5,
     },
 
     2500: {

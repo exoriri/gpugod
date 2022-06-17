@@ -4432,7 +4432,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         spaceBetween: 0
       },
       1024: {
-        loop: false
+        loop: true,
+        slidesPerView: 2.5
       },
       2500: {
         slidesPerView: "auto"
