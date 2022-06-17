@@ -4412,7 +4412,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 
   var import_plyr = __toESM(require_plyr_min());
 
-  var playerIndexes = ["", "2", "3", "4"];
+  var playerIndexes = ["", "2", "3", "4", "5"];
   var players = playerIndexes.map(function (playerIndex) {
     return new import_plyr["default"]("#player".concat(playerIndex));
   });
@@ -4420,19 +4420,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     effect: "coverflow",
     centeredSlides: true,
     spaceBetween: 0,
-    noSwipingClass: "swiper-no-swiping",
+    initialSlide: 2,
     breakpoints: {
       320: {
         slidesPerView: 2,
-        spaceBetween: 0,
-        loop: true
+        spaceBetween: 0
       },
       640: {
         slidesPerView: 2.5,
         spaceBetween: 0
       },
       1024: {
-        loop: true,
         slidesPerView: 2.5
       },
       2500: {
@@ -4457,25 +4455,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   });
   var playerNodes = document.querySelectorAll("#player,#player2,#player3,#player4");
   var swiperPlayerBtns = document.querySelectorAll(".plyr__control--overlaid");
-  swiperPlayerBtns.forEach(function (btn) {
+  swiperPlayerBtns.forEach(function (btn, i) {
     btn.addEventListener("click", function () {
       var video = btn.previousElementSibling.previousElementSibling.firstChild;
-      playerNodes.forEach(function (player, i) {
+      swiper.slideTo(i, 500);
+      playerNodes.forEach(function (player, i2) {
         if (video.id !== player.id && !video.paused) {
           player.pause();
-        } else if (video.id === player.id && video.paused) {
-          swiper.sliderTo();
-        }
-
-        if (video.id === "player4") {
-          console.log("asdfsadfsadf", players[players.length - 1]);
-          console.log(players[players.length - 1].play());
-          btn.classList.add("plyr__control--pressed");
-          btn.ariaLabel = "Pause";
-          var mainWrapper = btn.parentElement;
-          mainWrapper.classList.remove("plyr--paused");
-          mainWrapper.classList.add("plyr--playing");
-          mainWrapper.classList.add("plyr--hide-controls");
         }
       });
     });
