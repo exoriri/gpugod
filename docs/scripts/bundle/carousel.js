@@ -4418,19 +4418,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   });
   var swiper = new Swiper(".mySwiper", {
     effect: "coverflow",
-    loop: true,
     centeredSlides: true,
     spaceBetween: 0,
     noSwipingClass: "swiper-no-swiping",
-    initialSlide: 2,
     breakpoints: {
       320: {
         slidesPerView: 2,
-        spaceBetween: 0
+        spaceBetween: 0,
+        loop: true
       },
       640: {
         slidesPerView: 2.5,
         spaceBetween: 0
+      },
+      1024: {
+        loop: false
       },
       2500: {
         slidesPerView: "auto"
@@ -4460,6 +4462,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       playerNodes.forEach(function (player, i) {
         if (video.id !== player.id && !video.paused) {
           player.pause();
+        } else if (video.id === player.id && video.paused) {
+          swiper.sliderTo();
+        }
+
+        if (video.id === "player4") {
+          console.log("asdfsadfsadf", players[players.length - 1]);
+          console.log(players[players.length - 1].play());
+          btn.classList.add("plyr__control--pressed");
+          btn.ariaLabel = "Pause";
+          var mainWrapper = btn.parentElement;
+          mainWrapper.classList.remove("plyr--paused");
+          mainWrapper.classList.add("plyr--playing");
+          mainWrapper.classList.add("plyr--hide-controls");
         }
       });
     });

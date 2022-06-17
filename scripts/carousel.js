@@ -8,7 +8,6 @@ const players = playerIndexes.map(
 
 const swiper = new Swiper(".mySwiper", {
   effect: "coverflow",
-  loop: false,
   centeredSlides: true,
   spaceBetween: 0,
   noSwipingClass: 'swiper-no-swiping',
@@ -16,11 +15,16 @@ const swiper = new Swiper(".mySwiper", {
     320: {
       slidesPerView: 2,
       spaceBetween: 0,
+      loop: true,
     },
 
     640: {
       slidesPerView: 2.5,
       spaceBetween: 0,
+    },
+
+    1024: {
+      loop: false,
     },
 
     2500: {
@@ -58,7 +62,7 @@ swiperPlayerBtns.forEach((btn) => {
     playerNodes.forEach((player, i) => {
       if (video.id !== player.id && !video.paused) {
         player.pause();
-      } else (video.id === player.id && video.paused) {
+      } else if (video.id === player.id && video.paused) {
         swiper.sliderTo();
       }
       // Странная вещь четвертый ролик не запускается
