@@ -2,8 +2,12 @@
 @import "variables.pcss";
 @import "mixins.pcss";
 
-html { height: 100%; }
-body { height: 100%;}
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
 
 body {
   background: #000000;
@@ -363,7 +367,8 @@ body {
   }
 
   &__toggle-icon--minus-questions {
-    @mixin scale 21, 4.85;
+    width: 21px;
+    height: 4px;
     background: url("../assets/icons/minus-questions.svg") no-repeat;
   }
 }
@@ -467,16 +472,15 @@ body {
 .details--questions {
   & .description {
     &:firs-child {
-      border-top: 1px solid rgba(44, 44, 44, .1);
+      border-top: 1px solid rgba(44, 44, 44, 0.1);
     }
 
-    border-bottom: 1px solid rgba(44, 44, 44, .1);
+    border-bottom: 1px solid rgba(44, 44, 44, 0.1);
   }
 }
 
 .greeting {
   padding: 0 calc(100vw / 1600 * 90);
-  padding-bottom: calc(100vw / 1600 * 235);
   &__title {
     font-family: "Helvetica-Medium";
     color: #fff;
@@ -508,9 +512,45 @@ body {
     }
   }
 
+  &__img-cont {
+    display: flex;
+    height: 30vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &-img__wrapper {
+    position: relative;
+  }
+
+  &__play {
+    background: url("../assets/icons/greeting-play.svg") no-repeat;
+    width: 93px;
+    height: 93px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  &__video {
+    width: 100%;
+    min-height: 700px;
+    height: 70% !important;
+    background-image: url(../assets/images/greeting-darya.png) !important;
+  }
+
   &__img {
     display: block;
     width: 100%;
+    min-height: 500px;
   }
 
   &__row {
@@ -582,26 +622,25 @@ body {
   }
 
   margin-right: 20%;
-
 }
 
 .button-prev {
-    cursor: pointer;
-    width: 79.5px;
-    height: 12px;
-    background: url("../assets/icons/reviews/arrow-left.svg") !important;
-  
-    &:after {
-      content: "";
-    }
+  cursor: pointer;
+  width: 79.5px;
+  height: 12px;
+  background: url("../assets/icons/reviews/arrow-left.svg") !important;
 
-    margin-left: 20%;
+  &:after {
+    content: "";
   }
 
-.swiper-3d .swiper-slide-shadow-left, .swiper-slide-shadow-right {
-    display: none !important;
+  margin-left: 20%;
 }
 
+.swiper-3d .swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none !important;
+}
 
 .swiper-container {
   position: relative;
@@ -877,10 +916,19 @@ nav section {
 }
 
 .details--description {
-    & p {
-        color: #fff;
+  & p {
+    color: #fff;
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .greeting {
+    &__video {
+      width: 100%;
+      height: 700px;
     }
   }
+}
 
 @media screen and (max-width: 1024px) {
   .plyr button[data-plyr="play"]:last-child {
@@ -891,11 +939,11 @@ nav section {
   }
 
   .button-prev {
-      margin-left: 5%;
+    margin-left: 5%;
   }
 
   .button-next {
-      margin-right: 5%;
+    margin-right: 5%;
   }
 
   .main-container {
@@ -973,8 +1021,8 @@ nav section {
 
   .details--description {
     & p {
-        color: #fff;
-        font-size: 16px !important;
+      color: #fff;
+      font-size: 16px !important;
     }
   }
 
@@ -988,10 +1036,6 @@ nav section {
 
   .main-container--desktop {
     display: none !important;
-  }
-
-  .greeting {
-    padding: calc(100vw / 1600 * 235) calc(100vw / 1600 * 90);
   }
 
   .footer {
@@ -1027,12 +1071,12 @@ nav section {
     }
 
     &__address-text {
-        font-size: 18px;
-  
-        &--copyrights {
-          font-size: 16px;
-        }
+      font-size: 18px;
+
+      &--copyrights {
+        font-size: 16px;
       }
+    }
   }
 
   .orders {
@@ -1050,7 +1094,6 @@ nav section {
   .videocard-second__video {
     height: auto;
   }
-
 
   #hamburger-image {
     background: url("../assets/icons/hamburger.svg") center no-repeat;
@@ -1168,8 +1211,8 @@ nav section {
 
   .swiper-container {
     &__video-wrapper {
-        max-width: 100% !important;
-        max-height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
     }
   }
 
@@ -1201,6 +1244,13 @@ nav section {
   .greeting {
     height: auto;
     background: #fff;
+    padding: calc(100vw / 1600 * 235) calc(100vw / 1600 * 90);
+
+    &__video {
+      width: 100%;
+      min-height: 297px;
+      height: 70% !important;
+    }
 
     & .greeting__title {
       color: #000;
@@ -1317,8 +1367,8 @@ nav section {
     }
 
     &__button {
-        font-size: 24px;
-      }
+      font-size: 24px;
+    }
 
     &__link {
       margin-bottom: 20px;
@@ -1388,5 +1438,5 @@ nav section {
       max-width: calc(100vw / 2000 * 420) !important;
       max-height: calc(100vw / 2000 * 700) !important;
     }
-}
+  }
 }
