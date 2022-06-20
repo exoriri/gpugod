@@ -34,7 +34,7 @@ const togglingQuestionsAccordions = () => {
     //only second element always has a accordion text
     const detailsContent = btn.getElementsByClassName('details__content')[1];
     const detailsIconQuestions = btn.getElementsByClassName('details__toggle-icon--plus-questions')[0];
-    console.log(detailsIconQuestions)
+
     btn.addEventListener('click', (e) => {
       const detailsTextContainer = detailsContent.querySelector('.details__text');
       const detailsTextParagraph = detailsTextContainer.querySelector('p');

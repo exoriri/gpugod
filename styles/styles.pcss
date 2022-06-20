@@ -14,6 +14,51 @@ body {
   height: 100%;
 }
 
+.preload {
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  transition: all 2s;
+
+  &__logo {
+    width: 100%;
+    background: url('../assets/icons/preload-logo.svg') no-repeat center center;
+    height: 200px;
+    background-size: contain;
+    animation: flicker 4s infinite; 
+  }
+
+  &__title {
+    font-size: 45px;
+    font-weight: Helvetica-Regular;
+    color: #fff;
+    text-transform: uppercase;
+    margin-top: 30px;
+    transition: all 1s;
+    animation: flicker 1.2s infinite; 
+  }
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 1
+  }
+
+  75% {
+    opacity: .55
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
 .header {
   position: fixed;
   top: 0;

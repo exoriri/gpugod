@@ -9,6 +9,16 @@ import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './carousel.js';
 
+window.addEventListener('load', function() {
+  const preload = document.querySelector('.preload');
+  const title = document.querySelector('.preload__title');
+  title.style.display = 'none';
+  preload.style.width = '0px';
+  this.setTimeout(() => {
+    preload.style.display = 'none';
+  }, 1400);
+})
+
 const smoothScrollTrigger = (containerId, videoClass) => {
   const video = document.querySelector(videoClass);
   let src = video.currentSrc || video.src;

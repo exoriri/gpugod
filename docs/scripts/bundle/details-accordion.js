@@ -32,7 +32,6 @@
     detailsQuestionnButtons.forEach(function (btn) {
       var detailsContent = btn.getElementsByClassName("details__content")[1];
       var detailsIconQuestions = btn.getElementsByClassName("details__toggle-icon--plus-questions")[0];
-      console.log(detailsIconQuestions);
       btn.addEventListener("click", function (e) {
         var detailsTextContainer = detailsContent.querySelector(".details__text");
         var detailsTextParagraph = detailsTextContainer.querySelector("p");
