@@ -10,7 +10,7 @@ import './details-accordion.js';
 import './carousel.js';
 import './youtube-video';
 
-window.addEventListener('load', function() {
+document.querySelector('.videocard-first__video').addEventListener('loadeddata', function() {
   const preload = document.querySelector('.preload');
   const title = document.querySelector('.preload__title');
   title.style.display = 'none';
