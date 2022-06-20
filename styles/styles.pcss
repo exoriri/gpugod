@@ -242,6 +242,12 @@ body {
   height: 100%;
 }
 
+
+
+.greeting__video {
+  pointer-events: none;
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -524,6 +530,12 @@ body {
   }
 }
 
+.invisible-clickable {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .greeting {
   padding: 0 calc(100vw / 1600 * 90);
   &__title {
@@ -558,11 +570,7 @@ body {
   }
 
   &__img-cont {
-    display: flex;
-    height: 30vh;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    position: relative;
   }
 
   &-img__wrapper {
@@ -573,15 +581,13 @@ body {
     background: url("../assets/icons/greeting-play.svg") no-repeat;
     width: 93px;
     height: 93px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all 0.3s;
 
     &:hover {
-      transform: translate(-50%, -50%) scale(1.1);
+      transform: scale(1.1);
     }
   }
 

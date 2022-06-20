@@ -8,6 +8,7 @@ import scrollToBlock from './scroll-to-block.js';
 import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './carousel.js';
+import './youtube-video';
 
 window.addEventListener('load', function() {
   const preload = document.querySelector('.preload');
@@ -216,4 +217,5 @@ document.querySelectorAll('.orders__btn,.section-content__btn,.header__order').f
   btn.addEventListener('click', () => {
     jivo_api.open();
   })
-})
+});
+

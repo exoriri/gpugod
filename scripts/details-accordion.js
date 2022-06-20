@@ -13,7 +13,6 @@ const togglingAccordions = () => {
     btn.addEventListener('click', (e) => {
       const detailsTextContainer = detailsContent.querySelector('.details__text');
       const detailsTextParagraph = detailsTextContainer.querySelector('p');
-      // console.log(detailsIconQuestions.toggle)
 
       detailsContent.classList.toggle('details__content--active');
       detailsIcon && detailsIcon.classList.toggle('details__toggle-icon--minus');
