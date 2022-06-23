@@ -21,7 +21,7 @@ const scrollToBlock = () => {
 
     const foundSection = document.getElementById(destination.slice(1));
 
-    // bodyScrollBar.scrollIntoView(foundSection);
+    window.scrollTo({top: foundSection.getBoundingClientRect().bottom});
 
     lastDestination = destinationSection;
     return false;

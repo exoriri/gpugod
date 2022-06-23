@@ -174,6 +174,8 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   orders.forEach((order, i) => pin({container: `._orders--${i+1}`, toHideContaier: '._scroll-fade-out', pinSpacing: i !== orders.length - 1 ? false : true}));
   pin({container: '.equipments', toHideContaier: '', pin: true});
 
+  pin({container: '.greeting', toHideContaier: '', pin: true});
+
   const greetingAnimatedItems = document.querySelectorAll('body, .header');
 
   const tl = gsap.timeline({
@@ -195,6 +197,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       .to(item, item.tagName === 'BODY'
         ? { background: '#fff' }
         : { color: '#000' });
+    tl.to('.header__links-item--hidden', { display: 'flex' })
   });
 
   pin({container: '.details--questions', toHideContaier: '.description'});

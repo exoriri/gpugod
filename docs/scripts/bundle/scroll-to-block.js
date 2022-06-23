@@ -5995,6 +5995,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       e.stopPropagation();
       e.preventDefault();
       var foundSection = document.getElementById(destination.slice(1));
+      window.scrollTo({
+        top: foundSection.getBoundingClientRect().bottom
+      });
       lastDestination = destinationSection;
       return false;
     };
