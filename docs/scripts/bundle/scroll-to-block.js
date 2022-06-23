@@ -5980,17 +5980,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     SmoothScrollbar2.version = "8.7.4";
     SmoothScrollbar2.ScrollbarPlugin = ScrollbarPlugin;
     return SmoothScrollbar2;
-  }(Scrollbar);
+  }(Scrollbar); // scripts/scroll-to-block.js
 
-  var smooth_scrollbar_default = SmoothScrollbar; // scripts/scrollbar.js
-
-  var scroller = document.querySelector(".scroller");
-  var bodyScrollBar = smooth_scrollbar_default.init(scroller, {
-    damping: 0.05,
-    delegateTo: document,
-    thumbMinSize: 0,
-    alwaysShowTracks: false
-  }); // scripts/scroll-to-block.js
 
   var scrollToBlock = function scrollToBlock() {
     var headerLinks = document.querySelectorAll(".header__links-item");
@@ -6004,7 +5995,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       e.stopPropagation();
       e.preventDefault();
       var foundSection = document.getElementById(destination.slice(1));
-      bodyScrollBar.scrollIntoView(foundSection);
       lastDestination = destinationSection;
       return false;
     };

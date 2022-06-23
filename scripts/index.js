@@ -4,8 +4,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
-import scrollToBlock from './scroll-to-block.js';
-import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
+// import scrollToBlock from './scroll-to-block.js';
+// import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './carousel.js';
 import './youtube-video';
@@ -153,14 +153,14 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       e.preventDefault();
       const foundSection = document.getElementById(destination.slice(1));
       closeMenu();
-      bodyScrollBar.scrollIntoView(foundSection)
+      // bodyScrollBar.scrollIntoView(foundSection)
       return false;
     })
   });
 
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
 } else { // DESKTOP
-  scrollBarInit();
+  // scrollBarInit();
   pageWrapper.style.paddingTop = headerHeight + 30 + 'px';
   equipments.style.paddingTop = headerHeight + 'px';
   greeting.style.paddingTop = headerHeight + 'px';
@@ -211,7 +211,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   });
 }
 
-scrollToBlock();
+// scrollToBlock();
 
 document.querySelectorAll('.orders__btn,.section-content__btn,.header__order').forEach(btn => {
   btn.addEventListener('click', () => {

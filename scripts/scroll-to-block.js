@@ -2,7 +2,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Scrollbar from 'smooth-scrollbar';
 
-import { scrollBarInit, bodyScrollBar } from './scrollbar';
+// import { scrollBarInit, bodyScrollBar } from './scrollbar';
 
 const scrollToBlock = () => {
   const headerLinks = document.querySelectorAll(".header__links-item");
@@ -21,7 +21,7 @@ const scrollToBlock = () => {
 
     const foundSection = document.getElementById(destination.slice(1));
 
-    bodyScrollBar.scrollIntoView(foundSection);
+    // bodyScrollBar.scrollIntoView(foundSection);
 
     lastDestination = destinationSection;
     return false;
