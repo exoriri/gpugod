@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
-// import scrollToBlock from './scroll-to-block.js';
+import scrollToBlock from './scroll-to-block.js';
 // import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './carousel.js';
@@ -153,7 +153,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       e.preventDefault();
       const foundSection = document.getElementById(destination.slice(1));
       closeMenu();
-      window.scrollTo({top: foundSection.getBoundingClientRect().top, behavior: 'smooth'});
+      gsap.to(window, { duration:2, scrollTo: {y:destination, offsetY: 124} });
       return false;
     })
   });
@@ -214,7 +214,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   });
 }
 
-// scrollToBlock();
+scrollToBlock();
 
 document.querySelectorAll('.orders__btn,.section-content__btn,.header__order').forEach(btn => {
   btn.addEventListener('click', () => {
