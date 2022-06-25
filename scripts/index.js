@@ -153,7 +153,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
       e.preventDefault();
       const foundSection = document.getElementById(destination.slice(1));
       closeMenu();
-      // bodyScrollBar.scrollIntoView(foundSection)
+      window.scrollTo({top: foundSection.getBoundingClientRect().top, behavior: 'smooth'});
       return false;
     })
   });

@@ -21,7 +21,7 @@ const scrollToBlock = () => {
 
     const foundSection = document.getElementById(destination.slice(1));
 
-    window.scrollTo({top: foundSection.getBoundingClientRect().bottom});
+    window.scrollTo({top: foundSection.getBoundingClientRect().top, behavior: 'smooth'});
 
     lastDestination = destinationSection;
     return false;
