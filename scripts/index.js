@@ -13,10 +13,10 @@ document.querySelector('.videocard-first__video').addEventListener('canplaythrou
   const preload = document.querySelector('.preload');
   // const title = document.querySelector('.preload__title');
   // title.style.display = 'none';
-  preload.style.width = '0px';
-  setTimeout(() => {
-    preload.style.display = 'none';
-  }, 1400);
+  // preload.style.width = '0px';
+  // setTimeout(() => {
+  //   preload.style.display = 'none';
+  // }, 1400);
 });
 
 const smoothScrollTrigger = (containerId, videoClass) => {
