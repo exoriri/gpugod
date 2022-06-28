@@ -15,7 +15,7 @@ document.querySelector('.videocard-first__video').addEventListener('canplaythrou
   // title.style.display = 'none';
   // preload.style.width = '0px';
   // setTimeout(() => {
-  //   preload.style.display = 'none';
+    preload.style.display = 'none';
   // }, 1400);
 });
 
