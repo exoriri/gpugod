@@ -336,7 +336,6 @@ body {
   flex-wrap: wrap;
   padding: 45px 30px 37px 30px;
   cursor: pointer;
-  width: 100%;
 }
 
 .details__content {
@@ -421,7 +420,6 @@ body {
   }
 
   &__toggle-icon--plus-questions {
-    @mixin scale 21, 21;
     min-width: 21px;
     min-height: 21px;
     background: url("../assets/icons/plus-questions.svg") no-repeat;
@@ -532,7 +530,7 @@ body {
 
 .details--questions {
   & .description {
-    &:firs-child {
+    &:first-child {
       border-top: 1px solid rgba(44, 44, 44, 0.1);
     }
 
@@ -902,6 +900,8 @@ nav section {
 .details--questions {
   background: #fff;
   height: 100vh !important;
+  align-items: start !important;
+
 
   & .details__content {
     & .details__title {
