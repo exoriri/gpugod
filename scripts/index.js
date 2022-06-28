@@ -5,15 +5,14 @@ import { Draggable } from "gsap/Draggable";
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 gsap.registerPlugin(Draggable);
 import scrollToBlock from './scroll-to-block.js';
-// import { scrollBarInit, bodyScrollBar } from './scrollbar.js';
 import './details-accordion.js';
 import './carousel.js';
 import './youtube-video';
 
 document.querySelector('.videocard-first__video').addEventListener('canplaythrough', function() {
   const preload = document.querySelector('.preload');
-  const title = document.querySelector('.preload__title');
-  title.style.display = 'none';
+  // const title = document.querySelector('.preload__title');
+  // title.style.display = 'none';
   preload.style.width = '0px';
   setTimeout(() => {
     preload.style.display = 'none';
