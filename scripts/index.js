@@ -15,7 +15,7 @@ document.querySelector('.videocard-first__video').addEventListener('canplaythrou
   // title.style.display = 'none';
   // preload.style.width = '0px';
   // setTimeout(() => {
-    preload.style.display = 'none';
+  preload.style.display = 'none';
   // }, 1400);
 });
 
@@ -82,7 +82,7 @@ const smoothScrollTrigger = (containerId, videoClass) => {
 };
 
 const pin = (options) => {
-  const { container, toHideContaier, fromHiddenContainer, pin, pinSpacing } = options;
+  const { container, toHideContaier, fromHiddenContainer, pin, pinSpacing, start} = options;
   gsap.to(`${container} ${toHideContaier}`, {
     opacity: 0,
     y: -200,
@@ -91,7 +91,7 @@ const pin = (options) => {
       scrub: true,
       pin: pin !== undefined ? pin : true,
       pinSpacing: pinSpacing !== undefined ? pinSpacing : true,
-      start: 'center center',
+      start: start !== undefined ? start : 'center center',
       end: "+=" + (window.innerHeight * 2)
     }
   });
@@ -171,9 +171,9 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
   smoothScrollTrigger('#videocard-second', '.videocard-second__video');
 
   orders.forEach((order, i) => pin({container: `._orders--${i+1}`, toHideContaier: '._scroll-fade-out', pinSpacing: i !== orders.length - 1 ? false : true}));
-  pin({container: '.equipments', toHideContaier: '', pin: true});
+  pin({container: '.equipments', toHideContaier: '', pin: true, start: 'bottom bottom' });
 
-  pin({container: '.greeting', toHideContaier: '', pin: true});
+  pin({container: '.greeting', toHideContaier: '', pin: true, start: 'bottom bottom' });
 
   const greetingAnimatedItems = document.querySelectorAll('body, .header');
 
