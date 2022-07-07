@@ -5,7 +5,7 @@
   var detailsDescription = document.querySelector(".details--description");
   var detailsButtons = Array.from(detailsDescription.querySelectorAll(".description--details"));
   var detailsDescriptionQuestions = document.querySelector(".details--questions");
-  var detailsQuestionnButtons = detailsDescriptionQuestions.querySelectorAll(".description--details");
+  var detailsQuestionnButtons = Array.from(detailsDescriptionQuestions.querySelectorAll(".description--details"));
 
   var togglingAccordions = function togglingAccordions() {
     detailsButtons.forEach(function (btn, i) {
@@ -15,13 +15,22 @@
         var detailsTextContainer = detailsContent.querySelector(".details__text");
         var detailsTextParagraph = detailsTextContainer.querySelector("p");
         detailsContent.classList.toggle("details__content--active");
-        detailsIcon && detailsIcon.classList.toggle("details__toggle-icon--minus");
+        detailsIcon && detailsIcon.classList.add("details__toggle-icon--minus");
+
+        if (detailsIcon) {
+          detailsIcon.classList.remove("details__toggle-icon--plus");
+          detailsIcon.classList.add("details__toggle-icon--minus");
+        } else {
+          var detailsIcon2 = btn.getElementsByClassName("details__toggle-icon--minus")[0];
+          detailsIcon2.classList.remove("details__toggle-icon--minus");
+          detailsIcon2.classList.add("details__toggle-icon--plus");
+        }
 
         if (detailsTextContainer.style.maxHeight) {
-          detailsContent.style.display = "none";
+          detailsContent.style.maxHeight = null;
           detailsTextContainer.style.maxHeight = null;
         } else {
-          detailsContent.style.display = "block";
+          detailsContent.style.maxHeight = "100%";
           detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
         }
 
@@ -33,16 +42,21 @@
           var detailsIcon2 = btn2.getElementsByClassName("details__toggle-icon--minus")[0];
           var detailsTextContainer2 = detailsContent2.querySelector(".details__text");
           var detailsTextParagraph2 = detailsTextContainer2.querySelector("p");
-          detailsIcon2 && detailsIcon2.classList.toggle("details__toggle-icon--plus");
-          detailsContent2.style.maxHeight = null;
-          detailsTextContainer2.style.maxHeight = null;
+          detailsContent2.classList.remove("details__content--active");
+
+          if (detailsIcon2) {
+            detailsIcon2.classList.remove("details__toggle-icon--minus");
+            detailsIcon2.classList.add("details__toggle-icon--plus");
+            detailsContent2.style.maxHeight = null;
+            detailsTextContainer2.style.maxHeight = null;
+          }
         });
       });
     });
   };
 
   var togglingQuestionsAccordions = function togglingQuestionsAccordions() {
-    detailsQuestionnButtons.forEach(function (btn) {
+    detailsQuestionnButtons.forEach(function (btn, i) {
       var detailsContent = btn.getElementsByClassName("details__content")[1];
       var detailsIconQuestions = btn.getElementsByClassName("details__toggle-icon--plus-questions")[0];
       btn.addEventListener("click", function (e) {
@@ -61,6 +75,24 @@
           detailsContent.style.maxHeight = "100%";
           detailsTextContainer.style.maxHeight = detailsTextParagraph.scrollHeight + "px";
         }
+
+        var detailsBtnsToClose = detailsQuestionnButtons.filter(function (_, index) {
+          return i !== index;
+        });
+        detailsBtnsToClose.forEach(function (btn2) {
+          var detailsContent2 = btn2.getElementsByClassName("details__content")[1];
+          var detailsIcon = btn2.getElementsByClassName("details__toggle-icon--minus-questions")[0];
+          var detailsTextContainer2 = detailsContent2.querySelector(".details__text");
+          var detailsTextParagraph2 = detailsTextContainer2.querySelector("p");
+          detailsContent2.classList.remove("details__content--active");
+
+          if (detailsIcon) {
+            detailsIcon.classList.remove("details__toggle-icon--minus-questions");
+            detailsIcon.classList.add("details__toggle-icon--plus-questions");
+            detailsContent2.style.maxHeight = null;
+            detailsTextContainer2.style.maxHeight = null;
+          }
+        });
       });
     });
   };

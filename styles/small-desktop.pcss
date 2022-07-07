@@ -1,12 +1,12 @@
 @media screen and (min-width: 1024px) and (max-width: 1400px) {
     .equipments {
         &__image-desktop {
-            max-height: 200px !important;
+            max-height: 190px !important;
         }
     }
 
     #player-youtube-darya {
-        max-height: 270px !important;
+        max-height: 250px !important;
     }
 
     .orders {
@@ -20,5 +20,23 @@
               margin-right: 90px;
             }
           }
+    }
+    
+    .details--questions {
+      & .details__content {
+        & .details__text {
+          & p {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .swiper-container {
+      &__video-wrapper {
+        background: #fff;
+        max-width: calc(100vw / 1600 * 420) !important;
+        max-height: calc(100vw / 1600 * 600) !important;
+      }
     }
 }

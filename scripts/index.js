@@ -194,7 +194,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
     tl.to('.header__links-item--hidden', { display: 'flex' })
   });
 
-  pin({container: '.details--questions', toHideContaier: '.description'});
+  // pin({container: '.details--questions', toHideContaier: '.description'});
   gsap.to(`.swiper-container`, {
     opacity: 0,
     y: -200,

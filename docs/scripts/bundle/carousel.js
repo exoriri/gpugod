@@ -4421,6 +4421,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
     centeredSlides: true,
     spaceBetween: 0,
     initialSlide: 2,
+    loop: true,
     breakpoints: {
       320: {
         slidesPerView: 2,
@@ -4455,22 +4456,4 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
   });
   var playerNodes = document.querySelectorAll("#player,#player2,#player3,#player4");
   var swiperPlayerBtns = document.querySelectorAll(".plyr__control--overlaid");
-  swiperPlayerBtns.forEach(function (btn, i) {
-    btn.addEventListener("click", function () {
-      var video = btn.previousElementSibling.previousElementSibling.firstChild;
-      swiper.slideTo(i, 500);
-      playerNodes.forEach(function (player, i2) {
-        if (video.id !== player.id && !video.paused) {
-          player.pause();
-        }
-      });
-    });
-  });
-  players.forEach(function (player, i) {
-    player.on("click", function (e) {
-      if (e.target.previousElementSibling.paused === false) {
-        player.pause();
-      }
-    });
-  });
 })();

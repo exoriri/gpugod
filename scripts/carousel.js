@@ -9,6 +9,7 @@ const swiper = new Swiper(".mySwiper", {
   centeredSlides: true,
   spaceBetween: 0,
   initialSlide : 2,
+  loop: true,
   breakpoints: {
     320: {
       slidesPerView: 2,
@@ -53,16 +54,16 @@ const playerNodes = document.querySelectorAll(
 );
 const swiperPlayerBtns = document.querySelectorAll(".plyr__control--overlaid");
 
-swiperPlayerBtns.forEach((btn, i) => {
-  btn.addEventListener("click", () => {
-    const video = btn.previousElementSibling.previousElementSibling.firstChild;
+// swiperPlayerBtns.forEach((btn, i) => {
+//   btn.addEventListener("click", () => {
+//     const video = btn.previousElementSibling.previousElementSibling.firstChild;
     
-    swiper.slideTo(i,500);
+//     swiper.slideTo(i,500);
 
-    playerNodes.forEach((player, i) => {
-      if (video.id !== player.id && !video.paused) {
-        player.pause();
-      }
+//     playerNodes.forEach((player, i) => {
+//       if (video.id !== player.id && !video.paused) {
+//         player.pause();
+//       }
       // Странная вещь четвертый ролик не запускается
       // if (video.id === 'player4') {
       //   console.log('asdfsadfsadf', players[players.length - 1])
@@ -74,14 +75,14 @@ swiperPlayerBtns.forEach((btn, i) => {
       //   mainWrapper.classList.add('plyr--playing');
       //   mainWrapper.classList.add('plyr--hide-controls');
       // }
-    });
-  });
-});
+//     });
+//   });
+// });
 
-players.forEach((player,i) => {
-  player.on("click", function (e) {
-    if (e.target.previousElementSibling.paused === false) {
-      player.pause();
-    }
-  });
-});
+// players.forEach((player,i) => {
+//   player.on("click", function (e) {
+//     if (e.target.previousElementSibling.paused === false) {
+//       player.pause();
+//     }
+//   });
+// });
