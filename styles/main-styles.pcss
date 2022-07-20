@@ -470,6 +470,17 @@ html {
       display: flex;
       align-items: center;
     }
+
+    &__btn-plus-icon {
+      height: 21px;
+      width: 21px;
+      background: url(../assets/icons/plus.svg) no-repeat;
+      fill: #fff;
+
+      & rect {
+        fill: #fff;
+      }
+    }
   }
   
   .orders-container {
@@ -485,6 +496,11 @@ html {
   
   .orders__row-img {
     margin-right: calc(100vw / 1600 * 50);
+
+    &--nvidia {
+      width: 166px;
+      height: 166px;
+    }
   }
   
   .orders__btn {
@@ -500,7 +516,7 @@ html {
     max-width: 369px;
     padding: 20px;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .orders__btn--single {
@@ -521,7 +537,7 @@ html {
     font-family: "Helvetica-Bold";
     text-transform: uppercase;
     font-size: 1.5rem;
-    margin-right: 30px;
+    margin-right: 15px;
   }
   
   .details--questions {
@@ -812,21 +828,22 @@ html {
     padding: 0 calc(100vw / 1600 * 90);
   
     &__text {
-      color: $primaryTextColor;
+      color: #fff;
       font-size: 22px;
       margin-bottom: 50px;
+      text-transform: uppercase;
       font-family: "Helvetica-Regular";
     }
   
     &__row {
       display: grid;
       grid-gap: 15px;
-      grid-template-columns: 0.5fr 1.5fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       margin-bottom: 15px;
   
       &--second {
         margin-bottom: 0;
-        grid-template-columns: 1.5fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
       }
     }
   
@@ -839,6 +856,37 @@ html {
       display: none;
     }
   
+    &__order-price-btn {
+      background: #FF2424;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      height: 100%;
+      position: relative;
+      width: 100%;
+      text-align: left;
+    }
+
+    &__order-price-btn-text {
+      font-size: 26px;
+      text-transform: uppercase;
+      font-family: Helvetica-Regular;
+      font-weight: 700;
+      color: #fff;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    &__order-price-btn-arrow {
+      position: absolute;
+      background: url(../assets/icons/equipment-arrow.svg) no-repeat center center;
+      width: 50px;
+      height: 32px;
+      bottom: 20px;
+      right: 20px;
+    }
+
     &__image-wrapper {
       display: flex;
       cursor: pointer;
@@ -849,6 +897,17 @@ html {
   
       &:hover {
         transform: scale(1.025);
+      }
+
+      &--btn {
+        align-items: flex-start;
+        justify-content: flex-start;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+        min-height: 230px;
       }
     }
   }
@@ -1301,6 +1360,7 @@ html {
       &__image-mobile {
         display: block;
         max-width: 100%;
+        height: 230px;
       }
     }
   

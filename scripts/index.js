@@ -210,7 +210,7 @@ if (window.matchMedia("(max-width: 1024px)").matches) {
 
 scrollToBlock();
 
-document.querySelectorAll('.orders__btn,.section-content__btn,.header__order').forEach(btn => {
+document.querySelectorAll('.orders__btn,.section-content__btn,.header__order,.equipments__image-wrapper--btn').forEach(btn => {
   btn.addEventListener('click', () => {
     jivo_api.open();
   })
